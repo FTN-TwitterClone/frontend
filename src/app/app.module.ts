@@ -13,6 +13,10 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { TweetCreateComponent } from './components/tweet/tweet-create/tweet-create.component';
 import { CommentItemComponent } from './components/comment/comment-item/comment-item.component';
 import { PostInfoHeaderComponent } from './components/post-info-header/post-info-header.component';
+import { AdsStatisticsComponent } from './pages/ads-statistics/ads-statistics.component';
+import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { PostInfoHeaderComponent } from './components/post-info-header/post-info
     ProfileComponent,
     TweetCreateComponent,
     CommentItemComponent,
-    PostInfoHeaderComponent
+    PostInfoHeaderComponent,
+    AdsStatisticsComponent,
+    ProfileSettingsComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
