@@ -7,6 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TweetItemComponent } from './components/tweet/tweet-item/tweet-item.component';
 import { TweetActionsComponent } from './components/tweet/tweet-actions/tweet-actions.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TweetActionsComponent } from './components/tweet/tweet-actions/tweet-ac
     HomeComponent,
     NotFoundComponent,
     TweetItemComponent,
-    TweetActionsComponent
+    TweetActionsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
