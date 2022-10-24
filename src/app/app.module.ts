@@ -9,6 +9,7 @@ import { TweetItemComponent } from './components/tweet/tweet-item/tweet-item.com
 import { TweetActionsComponent } from './components/tweet/tweet-actions/tweet-actions.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchComponent } from './components/search/search.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SearchComponent } from './components/search/search.component';
     TweetItemComponent,
     TweetActionsComponent,
     NavbarComponent,
-    SearchComponent
+    SearchComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
