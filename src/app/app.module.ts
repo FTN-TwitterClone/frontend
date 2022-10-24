@@ -11,6 +11,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TweetCreateComponent } from './components/tweet/tweet-create/tweet-create.component';
+import { CommentItemComponent } from './components/comment/comment-item/comment-item.component';
+import { PostInfoHeaderComponent } from './components/post-info-header/post-info-header.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { TweetCreateComponent } from './components/tweet/tweet-create/tweet-crea
     NavbarComponent,
     SearchComponent,
     ProfileComponent,
-    TweetCreateComponent
+    TweetCreateComponent,
+    CommentItemComponent,
+    PostInfoHeaderComponent
   ],
   imports: [
     BrowserModule,
