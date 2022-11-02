@@ -1,0 +1,5 @@
+<div *ngIf="age?.invalid && (age?.dirty || age?.touched)" class="alert alert-danger p-2 mt-1">
+    <div *ngIf="age?.errors?.['min']">
+        Age must be more than {{ageMin}}.
+    </div>
+</div>
