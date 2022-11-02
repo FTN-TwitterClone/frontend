@@ -28,6 +28,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
     ]],
     firstname: [''],
     lastname: [''],
+    email: [''],
     age: [0, [
       Validators.min(environment.validators.age.min)
     ]],

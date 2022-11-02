@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  api: 'localhost:8000/api',
+  api: 'http://localhost:8001',
   validators: {
     username: {
       minLength: 5

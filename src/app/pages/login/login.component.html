@@ -1,13 +1,35 @@
 <div class="d-flex justify-content-center" id="login-container">
     <div class="d-flex align-items-center">
-        <form class="p-5 bg-primary text-light">
+        <form class="p-5 bg-primary text-light" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-                <label class="form-label" for="email">Email address</label>
-                <input type="text" class="form-control" id="email" placeholder="email@example.com">
+                <label class="form-label" for="email">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="username" name="username"
+                    formControlName="username">
+                <div *ngIf="username?.invalid && (username?.dirty || username?.touched)"
+                    class="alert alert-danger p-2 mt-1">
+
+                    <div *ngIf="username?.errors?.['required']">
+                        Username is required.
+                    </div>
+                    <div *ngIf="username?.errors?.['minlength']">
+                        Username must be at least 5 characters long.
+                    </div>
+                </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="password">
+                <input type="password" class="form-control" id="password" placeholder="password" name="password"
+                    formControlName="password">
+                <div *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+                    class="alert alert-danger p-2 mt-1">
+
+                    <div *ngIf="password?.errors?.['required']">
+                        Password is required.
+                    </div>
+                    <div *ngIf="password?.errors?.['minlength']">
+                        Password must be at least 5 characters long.
+                    </div>
+                </div>
             </div>
             <div class="d-grid gap-2 mb-2">
                 <button type="submit" class="btn btn-light btn-block text-dark">Login</button>
