@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
     <div class="d-flex align-items-center">
         <form class="p-5 bg-primary text-light" [formGroup]="regularUserRegisterForm" (ngSubmit)="onSubmit()">
-        <p class="h3 mb-3">Regular account</p>
+            <p class="h3 mb-3">Regular account</p>
             <div class="mb-3">
                 <label class="form-label" for="email">Username</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="username"
@@ -11,6 +11,11 @@
                 <label class="form-label" for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="password"
                     formControlName="password">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="email@example.com"
+                    formControlName="email">
             </div>
             <div class="mb-3">
                 <label class="form-label" for="firstname">Firstname</label>

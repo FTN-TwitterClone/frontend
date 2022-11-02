@@ -17,6 +17,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
     password: [''],
     firstname: [''],
     lastname: [''],
+    email: [''],
     age: [0],
     town: [''],
     gender: [EGender.OTHER],
