@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/model/User.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-login',
@@ -9,16 +10,14 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  usernameMinLength:number = 5;
-  passwordMinLength:number = 5;
   loginForm = this.fb.group({
     username: ['', [
       Validators.required,
-      Validators.minLength(this.usernameMinLength)
+      Validators.minLength(environment.validators.username.minLength)
     ]],
     password: ['', [
       Validators.required,
-      Validators.minLength(this.passwordMinLength)
+      Validators.minLength(environment.validators.password.minLength)
     ]]
   })
   constructor(private fb: FormBuilder, private authService: AuthService) {
