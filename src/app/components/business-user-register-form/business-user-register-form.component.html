@@ -6,16 +6,19 @@
                 <label class="form-label" for="email">Username</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="username"
                     formControlName="username">
+                <app-username-validator [username]="username"></app-username-validator>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="password"
                     formControlName="password">
+                <app-password-validator [password]="password"></app-password-validator>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="email">Email address</label>
                 <input type="text" class="form-control" id="email" placeholder="email@example.com"
                     formControlName="email">
+                <app-email-validator [email]="email"></app-email-validator>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="companyName">Company name</label>

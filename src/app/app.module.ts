@@ -21,6 +21,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegularUserRegisterFormComponent } from './components/regular-user-register-form/regular-user-register-form.component';
 import { BusinessUserRegisterFormComponent } from './components/business-user-register-form/business-user-register-form.component';
+import { UsernameValidatorComponent } from './components/validators/username-validator/username-validator.component';
+import { PasswordValidatorComponent } from './components/validators/password-validator/password-validator.component';
+import { EmailValidatorComponent } from './components/validators/email-validator/email-validator.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { BusinessUserRegisterFormComponent } from './components/business-user-re
     RegisterComponent,
     LoginComponent,
     RegularUserRegisterFormComponent,
-    BusinessUserRegisterFormComponent
+    BusinessUserRegisterFormComponent,
+    UsernameValidatorComponent,
+    PasswordValidatorComponent,
+    EmailValidatorComponent
   ],
   imports: [
     BrowserModule,
