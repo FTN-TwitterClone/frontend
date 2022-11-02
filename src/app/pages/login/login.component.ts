@@ -9,14 +9,16 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  usernameMinLength:number = 5;
+  passwordMinLength:number = 5;
   loginForm = this.fb.group({
     username: ['', [
       Validators.required,
-      Validators.minLength(5)
+      Validators.minLength(this.usernameMinLength)
     ]],
     password: ['', [
       Validators.required,
-      Validators.minLength(5)
+      Validators.minLength(this.passwordMinLength)
     ]]
   })
   constructor(private fb: FormBuilder, private authService: AuthService) {
