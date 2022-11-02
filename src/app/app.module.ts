@@ -24,6 +24,7 @@ import { BusinessUserRegisterFormComponent } from './components/business-user-re
 import { UsernameValidatorComponent } from './components/validators/username-validator/username-validator.component';
 import { PasswordValidatorComponent } from './components/validators/password-validator/password-validator.component';
 import { EmailValidatorComponent } from './components/validators/email-validator/email-validator.component';
+import { AgeValidatorComponent } from './components/validators/age-validator/age-validator.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EmailValidatorComponent } from './components/validators/email-validator
     BusinessUserRegisterFormComponent,
     UsernameValidatorComponent,
     PasswordValidatorComponent,
-    EmailValidatorComponent
+    EmailValidatorComponent,
+    AgeValidatorComponent
   ],
   imports: [
     BrowserModule,
