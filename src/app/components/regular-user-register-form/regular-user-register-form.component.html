@@ -33,11 +33,7 @@
             <div class="mb-3">
                 <label class="form-label" for="age">Age</label>
                 <input type="number" class="form-control" id="age" name="age" placeholder="age" formControlName="age">
-                <div *ngIf="age?.invalid && (age?.dirty || age?.touched)" class="alert alert-danger p-2 mt-1">
-                    <div *ngIf="age?.errors?.['min']">
-                        Age must be more than {{ageMin}}.
-                    </div>
-                </div>
+                <app-age-validator [age]="age"></app-age-validator>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="town">Town</label>
