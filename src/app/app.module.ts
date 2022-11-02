@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,9 @@ import { AdsStatisticsComponent } from './pages/ads-statistics/ads-statistics.co
 import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegularUserRegisterFormComponent } from './components/regular-user-register-form/regular-user-register-form.component';
+import { BusinessUserRegisterFormComponent } from './components/business-user-register-form/business-user-register-form.component';
 
 @NgModule({
   declarations: [
@@ -34,10 +38,14 @@ import { LoginComponent } from './pages/login/login.component';
     AdsStatisticsComponent,
     ProfileSettingsComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    RegularUserRegisterFormComponent,
+    BusinessUserRegisterFormComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [],

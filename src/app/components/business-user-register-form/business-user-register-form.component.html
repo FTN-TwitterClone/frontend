@@ -1,0 +1,35 @@
+<div class="d-flex justify-content-center">
+    <div class="d-flex align-items-center">
+        <form class="p-5 bg-primary text-light" [formGroup]="businessUserRegisterForm" (ngSubmit)="onSubmit()">
+            <p class="h3 mb-3">Business account</p>
+            <div class="mb-3">
+                <label class="form-label" for="email">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="username"
+                    formControlName="username">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="password"
+                    formControlName="password">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="email">Email address</label>
+                <input type="text" class="form-control" id="email" placeholder="email@example.com"
+                    formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="companyName">Company name</label>
+                <input type="text" class="form-control" id="companyName" name="companyName" placeholder="company name"
+                    formControlName="companyName">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="website">Website</label>
+                <input type="text" class="form-control" id="website" name="website" placeholder="website"
+                    formControlName="website">
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-light btn-block text-dark">Register</button>
+            </div>
+        </form>
+    </div>
+</div>

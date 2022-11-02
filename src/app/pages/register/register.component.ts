@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
-  constructor() { }
+  businessFormShow: boolean = false;
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }
 
+  formToggle() {
+    this.businessFormShow = !this.businessFormShow;
+  }
 }
