@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(loginCredentials: Object) {
+  login(loginCredentials: User) {
     return this.http.post(`${environment.api}/login/`, loginCredentials);
   }
   register(user: User) {

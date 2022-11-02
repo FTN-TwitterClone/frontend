@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { User } from 'src/app/model/User.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,8 +10,14 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm = this.fb.group({
-    username: [''],
-    password: ['']
+    username: ['', [
+      Validators.required,
+      Validators.minLength(5)
+    ]],
+    password: ['', [
+      Validators.required,
+      Validators.minLength(5)
+    ]]
   })
   constructor(private fb: FormBuilder, private authService: AuthService) {
   }
@@ -20,9 +27,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    let loginCredentials = this.loginForm.value
-    this.authService.login(loginCredentials).subscribe(res => {
-      console.log(res)
-    })
+    if (this.loginForm.valid) {
+      let loginCredentials = this.loginForm.value as User
+      this.authService.login(loginCredentials).subscribe(res => {
+        console.log(res)
+      })
+    }
   }
+
+  get username() { return this.loginForm.get('username') }
+
+  get password() { return this.loginForm.get('password') }
 }
