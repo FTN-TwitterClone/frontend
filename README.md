@@ -5,9 +5,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 # Api
 ## Regular user registration request - data sent to server
 {
-  username: "Username", *required
-  password: "Password", *required
-  email: "Email", *required
+  username: "Username", *required*
+  password: "Password", *required*
+  email: "Email", *required*
   firstname: "Firstname" | null ,
   lastname: "Lastname" | null ,
   age: 18, *min(18)
@@ -18,9 +18,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 }
 ## Business user registration request - data sent to server
 {
-  username: "Username", *required
-  password: "Password", *required
-  email: "Email", *required
+  username: "Username", *required*
+  password: "Password", *required*
+  email: "Email", *required*
   website: "Website" | null,
   companyName: "Company name" | null,
   role: "Business user",
@@ -29,5 +29,5 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 ## Login
 {
   username: "Username", *required*,
-  password: "Password", *required
+  password: "Password", *required*
 }
