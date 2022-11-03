@@ -31,7 +31,7 @@ export class BusinessUserRegisterFormComponent implements OnInit {
     website: [''],
     companyName: [''],
     role: [ERole.BUSINESS_USER],
-    enabled: [true]
+    enabled: [false]
   })
   constructor(private authService: AuthService,
     private fb: FormBuilder) { }
