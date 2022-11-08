@@ -9,8 +9,8 @@ export class RegularUser extends User {
     age: number
     town: string
 
-    constructor(username: string, password: string, role: ERole, enabled: boolean, firstname: string, lastname: string, gender: EGender, age: number, town: string) {
-        super(username, password, role, enabled)
+    constructor(username: string, password: string, email: string, role: ERole, enabled: boolean, firstname: string, lastname: string, gender: EGender, age: number, town: string) {
+        super(username, password, email, role, enabled)
         this.firstname = firstname
         this.lastname = lastname
         this.gender = gender

@@ -1,13 +1,17 @@
 <div class="d-flex justify-content-center" id="login-container">
     <div class="d-flex align-items-center">
-        <form class="p-5 bg-primary text-light">
+        <form class="p-5 bg-primary text-light" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-                <label class="form-label" for="email">Email address</label>
-                <input type="text" class="form-control" id="email" placeholder="email@example.com">
+                <label class="form-label" for="email">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="username" name="username"
+                    formControlName="username">
+                <app-username-validator [username]="username"></app-username-validator>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="password">
+                <input type="password" class="form-control" id="password" placeholder="password" name="password"
+                    formControlName="password">
+                <app-password-validator [password]="password"></app-password-validator>
             </div>
             <div class="d-grid gap-2 mb-2">
                 <button type="submit" class="btn btn-light btn-block text-dark">Login</button>
