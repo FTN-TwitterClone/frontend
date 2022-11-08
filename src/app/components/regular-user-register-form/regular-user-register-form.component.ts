@@ -32,9 +32,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
       Validators.min(environment.validators.age.min)
     ]],
     town: [''],
-    gender: [EGender.OTHER],
-    role: [ERole.REGULAR_USER],
-    enabled: [false]
+    gender: [EGender.OTHER]
   })
   constructor(private authService: AuthService,
     private fb: FormBuilder) { }
@@ -44,7 +42,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
 
   onSubmit() {
     let userToRegister = this.regularUserRegisterForm.value as RegularUser;
-    this.authService.register(userToRegister).subscribe(res => {
+    this.authService.registerRegularUser(userToRegister).subscribe(res => {
       console.log(res)
     })
   }
