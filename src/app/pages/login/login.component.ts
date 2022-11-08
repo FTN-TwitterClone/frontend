@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { User } from 'src/app/model/User.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { environment } from 'src/environments/environment.prod';
+import { validators } from 'src/app/components/validators/validator-variables';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -10,17 +10,21 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  loginCredentials = {
+    username: '',
+    password: ''
+  }
   loginForm = this.fb.group({
     username: ['', [
       Validators.required,
-      Validators.minLength(environment.validators.username.minLength)
+      Validators.minLength(validators.username.minLength)
     ]],
     password: ['', [
       Validators.required,
-      Validators.minLength(environment.validators.password.minLength)
+      Validators.minLength(validators.password.minLength)
     ]]
   })
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private tokenService: TokenService) {
   }
 
   ngOnInit(): void {
@@ -29,10 +33,15 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      let loginCredentials = this.loginForm.value as User
-      this.authService.login(loginCredentials).subscribe(res => {
-        console.log(res)
-      })
+      this.loginForm.value.username ? this.loginCredentials.username = this.loginForm.value.username : '';
+      this.loginForm.value.password ? this.loginCredentials.password = this.loginForm.value.password : '';
+      this.authService.login(this.loginCredentials).subscribe(
+        (res) => {
+          this.tokenService.saveToken(res)
+        },
+        (error) => {
+          alert(error.error)
+        })
     }
   }
 

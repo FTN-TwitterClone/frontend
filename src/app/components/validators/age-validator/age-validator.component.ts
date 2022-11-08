@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { environment } from 'src/environments/environment.prod';
+import { validators } from '../validator-variables';
 
 @Component({
   selector: 'app-age-validator',
@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class AgeValidatorComponent implements OnInit {
   @Input() age: AbstractControl<number | null, number | null> | null = null
-  ageMin: number = environment.validators.age.min
+  ageMin: number = validators.age.min
   constructor() { }
 
   ngOnInit(): void {

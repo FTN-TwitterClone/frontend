@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { BusinessUser } from '../model/BusinessUser.model';
 import { RegularUser } from '../model/RegularUser.model';
+import { User } from '../model/User.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,8 @@ export class AuthService {
   }
   registerBusinessUser(user: BusinessUser) {
     return this.http.post(`${environment.api}/auth/register/business/`, user);
+  }
+  login(user: Object) {
+    return this.http.post(`${environment.api}/auth/login/`, user, {responseType: 'text'});
   }
 }

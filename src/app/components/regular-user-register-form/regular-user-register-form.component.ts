@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EGender } from 'src/app/model/EGender.model';
-import { ERole } from 'src/app/model/ERole.model';
 import { RegularUser } from 'src/app/model/RegularUser.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { environment } from 'src/environments/environment.prod';
+import { validators } from 'src/app/components/validators/validator-variables';
 
 @Component({
   selector: 'app-regular-user-register-form',
@@ -16,11 +15,11 @@ export class RegularUserRegisterFormComponent implements OnInit {
   regularUserRegisterForm = this.fb.group({
     username: ['', [
       Validators.required,
-      Validators.minLength(environment.validators.username.minLength)
+      Validators.minLength(validators.username.minLength)
     ]],
     password: ['', [
       Validators.required,
-      Validators.minLength(environment.validators.password.minLength)
+      Validators.minLength(validators.password.minLength)
     ]],
     email: ['', [
       Validators.required,
@@ -29,7 +28,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
     firstname: [''],
     lastname: [''],
     age: [0, [
-      Validators.min(environment.validators.age.min)
+      Validators.min(validators.age.min)
     ]],
     town: [''],
     gender: [EGender.OTHER]

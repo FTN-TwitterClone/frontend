@@ -3,9 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { BusinessUser } from 'src/app/model/BusinessUser.model';
 import { EGender } from 'src/app/model/EGender.model';
 import { ERole } from 'src/app/model/ERole.model';
-import { User } from 'src/app/model/User.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { environment } from 'src/environments/environment.prod';
+import { validators } from 'src/app/components/validators/validator-variables';
 
 @Component({
   selector: 'app-business-user-register-form',
@@ -22,16 +21,14 @@ export class BusinessUserRegisterFormComponent implements OnInit {
     ]],
     username: ['', [
       Validators.required,
-      Validators.minLength(environment.validators.username.minLength)
+      Validators.minLength(validators.username.minLength)
     ]],
     password: ['', [
       Validators.required,
-      Validators.minLength(environment.validators.password.minLength)
+      Validators.minLength(validators.password.minLength)
     ]],
     website: [''],
-    companyName: [''],
-    role: [ERole.BUSINESS_USER],
-    enabled: [false]
+    companyName: ['']
   })
   constructor(private authService: AuthService,
     private fb: FormBuilder) { }
