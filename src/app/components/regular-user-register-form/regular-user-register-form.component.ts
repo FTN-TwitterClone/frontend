@@ -44,7 +44,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
 
   onSubmit() {
     let userToRegister = this.regularUserRegisterForm.value as RegularUser;
-    this.authService.register(userToRegister).subscribe(res => {
+    this.authService.registerRegularUser(userToRegister).subscribe(res => {
       console.log(res)
     })
   }

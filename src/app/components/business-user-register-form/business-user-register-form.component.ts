@@ -41,7 +41,7 @@ export class BusinessUserRegisterFormComponent implements OnInit {
 
   onSubmit() {
     let userToRegister = this.businessUserRegisterForm.value as BusinessUser
-    this.authService.register(userToRegister as User).subscribe(res => {
+    this.authService.registerBusinessUser(userToRegister).subscribe(res => {
       console.log(res)
     })
   }

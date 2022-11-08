@@ -12,7 +12,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  register(user: User) {
-    return this.http.post(`${environment.api}/register`, user);
+  registerRegularUser(user: RegularUser) {
+    return this.http.post(`${environment.api}/auth/register/user/`, user);
+  }
+  registerBusinessUser(user: BusinessUser) {
+    return this.http.post(`${environment.api}/auth/register/business/`, user);
   }
 }
