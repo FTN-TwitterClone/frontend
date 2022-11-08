@@ -10,10 +10,7 @@ import { TokenService } from 'src/app/services/token.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginCredentials = {
-    username: '',
-    password: ''
-  }
+
   loginForm = this.fb.group({
     username: ['', [
       Validators.required,
@@ -33,9 +30,11 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.loginForm.value.username ? this.loginCredentials.username = this.loginForm.value.username : '';
-      this.loginForm.value.password ? this.loginCredentials.password = this.loginForm.value.password : '';
-      this.authService.login(this.loginCredentials).subscribe(
+      let loginCredentials = {
+        username: this.loginForm.value.username,
+        password: this.loginForm.value.password
+      }
+      this.authService.login(loginCredentials).subscribe(
         (res) => {
           this.tokenService.saveToken(res)
         },
