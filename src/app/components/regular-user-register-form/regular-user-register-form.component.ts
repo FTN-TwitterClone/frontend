@@ -32,9 +32,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
       Validators.min(environment.validators.age.min)
     ]],
     town: [''],
-    gender: [EGender.OTHER],
-    role: [ERole.REGULAR_USER],
-    enabled: [false]
+    gender: [EGender.OTHER]
   })
   constructor(private authService: AuthService,
     private fb: FormBuilder) { }
