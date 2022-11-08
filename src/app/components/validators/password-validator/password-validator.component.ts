@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { environment } from 'src/environments/environment.prod';
+import { validators } from 'src/app/components/validators/validator-variables';
 
 @Component({
   selector: 'app-password-validator',
@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./password-validator.component.scss']
 })
 export class PasswordValidatorComponent implements OnInit {
-  passwordMinLength: number = environment.validators.password.minLength
+  passwordMinLength: number = validators.password.minLength
   @Input() password: AbstractControl<string | null, string | null> | null = null
   constructor() { }
 

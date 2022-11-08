@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { environment } from 'src/environments/environment.prod';
+import { validators } from 'src/app/components/validators/validator-variables';
 
 @Component({
   selector: 'app-username-validator',
@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./username-validator.component.scss']
 })
 export class UsernameValidatorComponent implements OnInit {
-  usernameMinLength: number = environment.validators.username.minLength
+  usernameMinLength: number = validators.username.minLength
   @Input() username: AbstractControl<string | null, string | null> | null = null
   constructor() { }
 
