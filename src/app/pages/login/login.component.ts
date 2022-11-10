@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
 import { validators } from 'src/app/components/validators/validator-variables';
-import { TokenService } from 'src/app/services/token.service';
+import { AuthenticationService } from 'src/app/security/authentication.service';
+import { JwtUtilsService } from 'src/app/security/jwt-utils.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
       Validators.minLength(validators.password.minLength)
     ]]
   })
-  constructor(private fb: FormBuilder, private authService: AuthService, private tokenService: TokenService) {
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private jwtUtilsService: JwtUtilsService) {
   }
 
   ngOnInit(): void {
@@ -36,7 +36,10 @@ export class LoginComponent implements OnInit {
       }
       this.authService.login(loginCredentials).subscribe(
         (res) => {
-          this.tokenService.saveToken(res)
+          this.authService.setToken(res) ? alert("Successfully logged in") : alert("Error: Not logged in")
+          console.log(this.jwtUtilsService.getUsername())
+          console.log(this.jwtUtilsService.getRole())
+          console.log(this.jwtUtilsService.getExp())
         },
         (error) => {
           alert(error.error)
