@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EGender } from 'src/app/model/EGender.model';
 import { RegularUser } from 'src/app/model/RegularUser.model';
-import { AuthService } from 'src/app/services/auth.service';
 import { validators } from 'src/app/components/validators/validator-variables';
+import { AuthenticationService } from 'src/app/security/authentication.service';
 
 @Component({
   selector: 'app-regular-user-register-form',
@@ -33,7 +33,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
     town: [''],
     gender: [EGender.OTHER]
   })
-  constructor(private authService: AuthService,
+  constructor(private authService: AuthenticationService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {

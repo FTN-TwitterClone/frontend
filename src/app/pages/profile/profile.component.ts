@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ERole } from 'src/app/model/ERole.model';
+import { User } from 'src/app/model/User.model';
+import { JwtUtilsService } from 'src/app/security/jwt-utils.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor() { }
+  user: User = new User('username', '', 'email@example.com', ERole.REGULAR_USER, false);
+  constructor(private jwtUtilsService: JwtUtilsService) { }
 
   ngOnInit(): void {
+    this.user.username = this.jwtUtilsService.getUsername()
   }
 
 }
