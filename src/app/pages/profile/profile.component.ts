@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ERole } from 'src/app/model/ERole.model';
 import { User } from 'src/app/model/User.model';
-import { JwtUtilsService } from 'src/app/security/jwt-utils.service';
+import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 
 @Component({
   selector: 'app-profile',

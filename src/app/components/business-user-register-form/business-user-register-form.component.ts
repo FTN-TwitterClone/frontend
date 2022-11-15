@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { BusinessUser } from 'src/app/model/BusinessUser.model';
 import { EGender } from 'src/app/model/EGender.model';
 import { validators } from 'src/app/components/validators/validator-variables';
-import { AuthenticationService } from 'src/app/security/authentication.service';
+import { AuthenticationService } from 'src/app/services/security/authentication.service';
 
 @Component({
   selector: 'app-business-user-register-form',

@@ -7,12 +7,12 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { CanActivateAuthGuard } from './security/can-activate-auth.guard';
+import { CanActivateAuthGuard } from './services/security/can-activate-auth.guard';
 
 const routes: Routes = [
   { path: 'ads/statistics', component: AdsStatisticsComponent, canActivate:[CanActivateAuthGuard] },
   { path: 'profile/settings', component: ProfileSettingsComponent, canActivate:[CanActivateAuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate:[CanActivateAuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate:[CanActivateAuthGuard]},
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },

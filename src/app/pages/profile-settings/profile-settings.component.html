@@ -1,1 +1,7 @@
-<p>profile-settings works!</p>
+<h5>Account privacy</h5>
+<form>
+    <div class="form-check form-switch">
+        <label class="form-check-label" for="flexSwitch">Private account</label>
+        <input class="form-check-input" type="checkbox" [checked]="privacy" name="privacy" role="switch" id="flexSwitch" (change)="onSubmit()">
+    </div>
+</form>

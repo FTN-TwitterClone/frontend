@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { EGender } from 'src/app/model/EGender.model';
 import { RegularUser } from 'src/app/model/RegularUser.model';
 import { validators } from 'src/app/components/validators/validator-variables';
-import { AuthenticationService } from 'src/app/security/authentication.service';
+import { AuthenticationService } from 'src/app/services/security/authentication.service';
 
 @Component({
   selector: 'app-regular-user-register-form',
@@ -27,9 +27,9 @@ export class RegularUserRegisterFormComponent implements OnInit {
     ]],
     firstname: [''],
     lastname: [''],
-    age: [0, [
-      Validators.min(validators.age.min)
-    ]],
+    // age: [0, [
+    //   Validators.min(validators.age.min)
+    // ]],
     town: [''],
     gender: [EGender.OTHER]
   })

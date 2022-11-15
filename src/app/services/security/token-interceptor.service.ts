@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from "./authentication.service";
+import { JwtUtilsService } from './jwt-utils.service';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
@@ -9,8 +9,8 @@ export class TokenInterceptorService implements HttpInterceptor {
   constructor(private inj: Injector) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let authenticationService: AuthenticationService = this.inj.get(AuthenticationService);
-    let token = authenticationService.getToken();
+    let jwtUtilsService: JwtUtilsService = this.inj.get(JwtUtilsService);
+    let token = jwtUtilsService.getToken();
     if (token) {
       request = request.clone({
         setHeaders: {
