@@ -27,9 +27,6 @@ export class RegularUserRegisterFormComponent implements OnInit {
     ]],
     firstname: [''],
     lastname: [''],
-    // age: [0, [
-    //   Validators.min(validators.age.min)
-    // ]],
     town: [''],
     gender: [EGender.OTHER]
   })
