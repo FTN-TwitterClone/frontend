@@ -24,11 +24,11 @@ import { UsernameValidatorComponent } from './components/validators/username-val
 import { PasswordValidatorComponent } from './components/validators/password-validator/password-validator.component';
 import { EmailValidatorComponent } from './components/validators/email-validator/email-validator.component';
 import { AgeValidatorComponent } from './components/validators/age-validator/age-validator.component';
-import { TokenInterceptorService } from './security/token-interceptor.service';
+import { TokenInterceptorService } from './services/security/token-interceptor.service';
 import { LoginComponent } from './pages/login/login.component';
-import { JwtUtilsService } from './security/jwt-utils.service';
-import { CanActivateAuthGuard } from './security/can-activate-auth.guard';
-import { AuthenticationService } from './security/authentication.service';
+import { JwtUtilsService } from './services/security/jwt-utils.service';
+import { CanActivateAuthGuard } from './services/security/can-activate-auth.guard';
+import { AuthenticationService } from './services/security/authentication.service';
 
 @NgModule({
   declarations: [

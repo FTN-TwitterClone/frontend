@@ -8,13 +8,15 @@ export class RegularUser extends User {
     gender: EGender
     age: number
     town: string
+    private:boolean
 
-    constructor(username: string, password: string, email: string, role: ERole, enabled: boolean, firstname: string, lastname: string, gender: EGender, age: number, town: string) {
+    constructor(username: string, password: string, email: string, role: ERole, enabled: boolean, firstname: string, lastname: string, gender: EGender, age: number, town: string,privateAcc:boolean) {
         super(username, password, email, role, enabled)
         this.firstname = firstname
         this.lastname = lastname
         this.gender = gender
         this.age = age
         this.town = town
+        this.private = privateAcc
     }
 }

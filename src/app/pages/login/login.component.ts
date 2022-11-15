@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { validators } from 'src/app/components/validators/validator-variables';
-import { AuthenticationService } from 'src/app/security/authentication.service';
-import { JwtUtilsService } from 'src/app/security/jwt-utils.service';
+import { AuthenticationService } from 'src/app/services/security/authentication.service';
+import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       }
       this.authService.login(loginCredentials).subscribe(
         (res) => {
-          this.authService.setToken(res) ? alert("Successfully logged in") : alert("Error: Not logged in")
+          this.jwtUtilsService.setToken(res) ? alert("Successfully logged in") : alert("Error: Not logged in")
           console.log(this.jwtUtilsService.getUsername())
           console.log(this.jwtUtilsService.getRole())
           console.log(this.jwtUtilsService.getExp())
