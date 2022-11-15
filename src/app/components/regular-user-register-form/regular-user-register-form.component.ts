@@ -4,6 +4,8 @@ import { EGender } from 'src/app/model/EGender.model';
 import { RegularUser } from 'src/app/model/RegularUser.model';
 import { validators } from 'src/app/components/validators/validator-variables';
 import { AuthenticationService } from 'src/app/services/security/authentication.service';
+import { APP_BASE_HREF } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-regular-user-register-form',
@@ -31,7 +33,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
     gender: [EGender.MALE]
   })
   constructor(private authService: AuthenticationService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -39,7 +41,10 @@ export class RegularUserRegisterFormComponent implements OnInit {
   onSubmit() {
     let userToRegister = this.regularUserRegisterForm.value as RegularUser;
     this.authService.registerRegularUser(userToRegister).subscribe(res => {
-      console.log(res)
+      if (res == null) {
+        alert("Registered successfully")
+        this.router.navigateByUrl("/login")
+      }
     })
   }
   get username() { return this.regularUserRegisterForm.get('username') }
