@@ -28,7 +28,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
     firstname: [''],
     lastname: [''],
     town: [''],
-    gender: [EGender.OTHER]
+    gender: [EGender.MALE]
   })
   constructor(private authService: AuthenticationService,
     private fb: FormBuilder) { }
