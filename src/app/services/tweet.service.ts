@@ -30,4 +30,7 @@ export class TweetService {
   unlikeTweet(tweetId:string){
     return this.http.put(`${environment.api}/tweet/tweets/${tweetId}/unlike`,{})
   }
+  getWhoLiked(tweetId:string){
+    return this.http.get(`${environment.api}/tweet/tweets/${tweetId}/likes`)
+  }
 }

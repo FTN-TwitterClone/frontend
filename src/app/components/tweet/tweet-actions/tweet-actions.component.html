@@ -1,20 +1,48 @@
 <div class="row">
     <div class="col">
         <div *ngIf="!tweet.liked_by_me; else likedByMe">
-            <button id="like" class="btn btn-light btn-small" title="Like" (click)="onLikeTweet()"><i
-                    class="bi bi-heart"></i>&nbsp;<span class="text-muted">Liked by {{tweet.likes_count}}</span></button>
+            <button id="like" class="btn btn-light" title="Like" (click)="onLikeTweet()">
+                <i class="bi bi-heart"></i>
+            </button>
+            <button class="btn btn-light text-muted" data-bs-toggle="modal" [attr.data-bs-target]="'#'+tweet.id"
+                (click)="getWhoLiked()">
+                Liked by {{tweet.likes_count}}
+            </button>
         </div>
         <ng-template #likedByMe>
-            <button id="unlike" class="btn btn-light btn-small" title="Unlike" (click)="onUnlikeTweet()"><i
-                    class="bi bi-heart-fill"></i>&nbsp;<span class="text-muted">
-                        
-                        <span *ngIf="tweet.likes_count == 1; else likedMoreThanOnce">
-                            Liked by me
-                        </span>
-                        <ng-template #likedMoreThanOnce>
-                            Liked by me and {{tweet.likes_count-1}} others
-                        </ng-template>
-                    </span></button>
+            <button id="unlike" class="btn btn-light" title="Unlike" (click)="onUnlikeTweet()">
+                <i class="bi bi-heart-fill"></i>
+            </button>
+            <button class="btn btn-light text-muted" data-bs-toggle="modal" [attr.data-bs-target]="'#'+tweet.id"
+                (click)="getWhoLiked()">
+                <span *ngIf="tweet.likes_count == 1; else likedMoreThanOnce">
+                    Liked by me
+                </span>
+                <ng-template #likedMoreThanOnce>
+                    Liked by me and {{tweet.likes_count-1}} others
+                </ng-template>
+            </button>
         </ng-template>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="{{tweet.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Liked by</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul *ngFor="let username of whoLiked">
+                    <li><a routerLink="/profile/{{username}}" data-bs-dismiss="modal">{{username}}</a></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>

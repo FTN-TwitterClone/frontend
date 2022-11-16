@@ -13,11 +13,5 @@ export class TweetItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.tweet)
   }
-
-  onLikeTweet(liked: boolean) {
-
-  }
-
 }
