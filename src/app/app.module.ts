@@ -29,6 +29,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { JwtUtilsService } from './services/security/jwt-utils.service';
 import { CanActivateAuthGuard } from './services/security/can-activate-auth.guard';
 import { AuthenticationService } from './services/security/authentication.service';
+import { TweetsComponent } from './components/tweet/tweets/tweets.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AuthenticationService } from './services/security/authentication.servic
     UsernameValidatorComponent,
     PasswordValidatorComponent,
     EmailValidatorComponent,
-    AgeValidatorComponent
+    AgeValidatorComponent,
+    TweetsComponent
   ],
   imports: [
     BrowserModule,

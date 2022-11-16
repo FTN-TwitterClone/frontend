@@ -13,4 +13,12 @@ export class TweetService {
   createTweet(tweet: Tweet) {
     return this.http.post(`${environment.api}/tweet/tweets/`, tweet)
   }
+
+  getTweets(username: string) {
+    return this.http.get(`${environment.api}/tweet/tweets/profile/${username}`)
+  }
+  getAll(){
+    // waiting for backend to implement get all tweets
+    return this.getTweets('RegularUser')
+  }
 }

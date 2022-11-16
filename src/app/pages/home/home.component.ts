@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Tweet } from 'src/app/model/Tweet.model';
+import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  tweets!:Tweet[]
+  constructor(private tweetService:TweetService) { }
 
   ngOnInit(): void {
+    this.tweetService.getAll().subscribe(res => {
+      this.tweets = res as Tweet[]
+    })
   }
 
 }
