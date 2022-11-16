@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Tweet } from 'src/app/model/Tweet.model';
+import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -9,8 +10,8 @@ import { TweetService } from 'src/app/services/tweet.service';
   styleUrls: ['./tweet-create.component.scss']
 })
 export class TweetCreateComponent implements OnInit {
-
-  constructor(private fb: FormBuilder, private tweetService: TweetService) { }
+  @Output() createTweetEvent: EventEmitter<Tweet> = new EventEmitter<Tweet>()
+  constructor(private fb: FormBuilder, private tweetService: TweetService, private jwtUtilsService: JwtUtilsService) { }
 
   createTweetForm = this.fb.group({
     text: ['']
@@ -20,10 +21,13 @@ export class TweetCreateComponent implements OnInit {
   }
   onSubmit() {
     let tweet: Tweet = this.createTweetForm.value as Tweet
-      this.tweetService.createTweet(tweet).subscribe(res => {
-        console.log(res as Tweet)
-      })
+    this.tweetService.createTweet(tweet).subscribe(res => {
+      this.addNewItem(res as Tweet)
+      this.createTweetForm.reset()
+    })
   }
-
+  addNewItem(tweet: Tweet) {
+    this.createTweetEvent.emit(tweet)
+  }
   get text() { return this.createTweetForm.get('text') }
 }
