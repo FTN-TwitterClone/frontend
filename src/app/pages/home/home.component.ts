@@ -16,5 +16,7 @@ export class HomeComponent implements OnInit {
       this.tweets = res as Tweet[]
     })
   }
-
+  addTweet(tweet:Tweet){
+    this.tweets.push(tweet)
+  }
 }
