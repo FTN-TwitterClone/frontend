@@ -2,11 +2,19 @@
     <div class="col">
         <div *ngIf="!tweet.liked_by_me; else likedByMe">
             <button id="like" class="btn btn-light btn-small" title="Like" (click)="onLikeTweet()"><i
-                    class="bi bi-heart"></i>&nbsp;<span class="text-muted">{{tweet.likes_count}}</span></button>
+                    class="bi bi-heart"></i>&nbsp;<span class="text-muted">Liked by {{tweet.likes_count}}</span></button>
         </div>
         <ng-template #likedByMe>
             <button id="unlike" class="btn btn-light btn-small" title="Unlike" (click)="onUnlikeTweet()"><i
-                    class="bi bi-heart-fill"></i>&nbsp;<span class="text-muted">{{tweet.likes_count}}</span></button>
+                    class="bi bi-heart-fill"></i>&nbsp;<span class="text-muted">
+                        
+                        <span *ngIf="tweet.likes_count == 1; else likedMoreThanOnce">
+                            Liked by me
+                        </span>
+                        <ng-template #likedMoreThanOnce>
+                            Liked by me and {{tweet.likes_count-1}} others
+                        </ng-template>
+                    </span></button>
         </ng-template>
     </div>
 </div>
