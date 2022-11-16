@@ -25,9 +25,9 @@ export class TweetService {
     tweets.splice(0,0,tweet)
   }
   likeTweet(tweetId:string){
-    return this.http.post(`${environment.api}/tweet/${tweetId}/like`,{})
+    return this.http.put(`${environment.api}/tweet/tweets/${tweetId}/like`,{})
   }
   unlikeTweet(tweetId:string){
-    return this.http.post(`${environment.api}/tweet/${tweetId}/unlike`,{})
+    return this.http.put(`${environment.api}/tweet/tweets/${tweetId}/unlike`,{})
   }
 }
