@@ -21,4 +21,7 @@ export class TweetService {
     // waiting for backend to implement get all tweets
     return this.getTweets('RegularUser')
   }
+  addTweetToTweets(tweets:Tweet[],tweet:Tweet){
+    tweets.splice(0,0,tweet)
+  }
 }
