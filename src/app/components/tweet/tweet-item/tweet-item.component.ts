@@ -8,10 +8,16 @@ import { User } from 'src/app/model/User.model';
   styleUrls: ['./tweet-item.component.scss']
 })
 export class TweetItemComponent implements OnInit {
+
   @Input() tweet!: Tweet
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.tweet)
+  }
+
+  onLikeTweet(liked: boolean) {
+
   }
 
 }

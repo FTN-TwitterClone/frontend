@@ -12,7 +12,7 @@ import { TweetService } from 'src/app/services/tweet.service';
 })
 export class ProfileComponent implements OnInit {
   user: User = new User('username', '', 'email@example.com', ERole.REGULAR_USER, false);
-  tweets!: Tweet[]
+  tweets: Tweet[] = []
   constructor(private jwtUtilsService: JwtUtilsService, private tweetService: TweetService) { }
 
   ngOnInit(): void {

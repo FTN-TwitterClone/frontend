@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
   selector: 'app-tweet-actions',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tweet-actions.component.scss']
 })
 export class TweetActionsComponent implements OnInit {
-
-  constructor() { }
+  @Input() tweetId!:string
+  constructor(
+    private tweetService:TweetService
+  ) { }
 
   ngOnInit(): void {
+  }
+  onLikeTweet(tweetId:string){
+
   }
 
 }
