@@ -24,4 +24,10 @@ export class TweetService {
   addTweetToTweets(tweets:Tweet[],tweet:Tweet){
     tweets.splice(0,0,tweet)
   }
+  likeTweet(tweetId:string){
+    return this.http.put(`${environment.api}/tweet/tweets/${tweetId}/like`,{})
+  }
+  unlikeTweet(tweetId:string){
+    return this.http.put(`${environment.api}/tweet/tweets/${tweetId}/unlike`,{})
+  }
 }

@@ -9,12 +9,15 @@ import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private jwtUtilsService:JwtUtilsService) { }
+  constructor(private jwtUtilsService:JwtUtilsService, private authService:AuthenticationService) { }
 
   ngOnInit(): void {
   }
 
   isLoggedIn(){
     return this.jwtUtilsService.isLoggedIn()
+  }
+  logout(){
+    this.authService.logout()
   }
 }
