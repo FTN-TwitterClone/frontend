@@ -12,7 +12,7 @@ import { CanActivateAuthGuard } from './services/security/can-activate-auth.guar
 const routes: Routes = [
   { path: 'ads/statistics', component: AdsStatisticsComponent, canActivate:[CanActivateAuthGuard] },
   { path: 'profile/settings', component: ProfileSettingsComponent, canActivate:[CanActivateAuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate:[CanActivateAuthGuard]},
+  { path: 'profile/:username', component: ProfileComponent, canActivate:[CanActivateAuthGuard]},
   { path: 'home', component: HomeComponent, canActivate:[CanActivateAuthGuard]},
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },

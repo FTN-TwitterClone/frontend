@@ -1,1 +1,1 @@
-<b>{{tweet.username}}</b><span class="ms-2 text-muted">{{tweet.timestamp | date:"MM/dd/YYYY HH:mm"}}</span>
+<b><a class="text-decoration-none" [routerLink]="['/profile/',tweet.username]">{{tweet.username}}</a></b><span class="ms-2 text-muted">{{tweet.timestamp | date:"MM/dd/YYYY HH:mm"}}</span>
