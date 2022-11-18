@@ -9,7 +9,7 @@
     <button class="btn btn-light border mt-2 me-2" routerLink="/profile/settings">Edit profile</button>
     <button class="btn btn-light border mt-2 me-2"><i class="bi bi-three-dots"></i></button>
     <button class="btn btn-light border mt-2 me-2"><i class="bi bi-envelope"></i></button>
-    <button class="btn btn-primary border mt-2 me-2">+ Follow</button>
+    <button class="btn btn-primary border mt-2 me-2" (click)="doFollow()">+ Follow</button>
 </div>
 <div class="mt-5">
     <app-tweet-create (createTweetEvent)="addTweet($event)"></app-tweet-create>
@@ -19,7 +19,7 @@
         <b class="me-2">{{user.username}}</b><span class="text-muted">@{{user.username}}</span>
     </div>
     <div class="mt-2">
-        <b class="me-2">0</b> <span class="text-muted me-2">Following</span>&nbsp;<b class="me-2">0</b><span
+        <b class="me-2">{{following.length}}</b> <span class="text-muted me-2">Following</span>&nbsp;<b class="me-2">{{followers.length}}</b><span
             class="text-muted">Followers</span>
     </div>
 </div>
@@ -32,5 +32,5 @@
     <app-tweets [tweets]="tweets"></app-tweets>
 </ng-container>
 <ng-template #noPosts>
-    <p class="mt-2">There are no posts.</p>
+    <p class="mt-2">There are no tweets.</p>
 </ng-template>
