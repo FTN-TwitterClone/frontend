@@ -29,14 +29,14 @@ export class ProfileComponent implements OnInit {
   }
   loadProfile() {
     this.route.params.subscribe(param => {
-      this.getTweets(param['username'], '')
+      this.getTweets(param['username'])
       this.profileService.getUser(param['username']).subscribe(res => {
         this.user = res as User;
       }
       )
     })
   }
-  getTweets(username: string, lastTweetId: string) {
+  getTweets(username: string, lastTweetId?: string) {
     this.tweetService.getTweets(username, lastTweetId).subscribe(res => {
       if (this.tweets.length > 0) {
         const newTweets: Tweet[] = res as Tweet[]

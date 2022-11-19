@@ -15,7 +15,7 @@ export class TweetService {
   }
 
   getTweets(username: string, lastTweetId?: string) {
-    if (lastTweetId != '' && lastTweetId != undefined) {
+    if (lastTweetId != undefined) {
       const params = new HttpParams().append('beforeId', lastTweetId)
       return this.http.get(`${environment.api}/tweet/tweets/profile/${username}`, { params: params })
     }
