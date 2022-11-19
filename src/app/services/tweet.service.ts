@@ -25,7 +25,12 @@ export class TweetService {
     // waiting for backend to implement get all tweets
     return this.getTweets('RegularUser')
   }
-  addTweetToTweets(tweets: Tweet[], tweet: Tweet) {
+  addTweetToTweets(tweets: Tweet[] | null, tweet: Tweet) {
+    if (tweets == null) {
+      tweets = []
+      tweets.push(tweet)
+      return
+    }
     tweets.splice(0, 0, tweet)
   }
   likeTweet(tweetId: string) {
