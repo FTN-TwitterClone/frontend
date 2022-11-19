@@ -1,0 +1,14 @@
+@media (max-width: 450px) {
+    #profile-image{
+        position: static !important;
+    }
+    .position-absolute {
+        position:static;
+        display:block
+    }
+}
+
+#profile-image {
+    max-width: 150px;
+    height: auto;
+}

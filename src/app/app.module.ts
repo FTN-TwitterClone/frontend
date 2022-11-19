@@ -31,6 +31,7 @@ import { CanActivateAuthGuard } from './services/security/can-activate-auth.guar
 import { AuthenticationService } from './services/security/authentication.service';
 import { TweetsComponent } from './components/tweet/tweets/tweets.component';
 import { WhoLikedTweetComponent } from './components/who-liked-tweet/who-liked-tweet.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { WhoLikedTweetComponent } from './components/who-liked-tweet/who-liked-t
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    InfiniteScrollModule
   ],
   providers: [
     {
