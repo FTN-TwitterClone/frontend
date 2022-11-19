@@ -10,7 +10,7 @@ import { TweetService } from 'src/app/services/tweet.service';
 })
 export class TweetActionsComponent implements OnInit {
   @Input() tweet!: Tweet
-  whoLiked: String[] = []
+  whoLiked: String[] | null = []
   constructor(
     private tweetService: TweetService
   ) { }
@@ -32,7 +32,10 @@ export class TweetActionsComponent implements OnInit {
   getWhoLiked() {
     this.tweetService.getWhoLiked(this.tweet.id).subscribe(res => {
       const users: User[] = res as User[]
-      this.whoLiked = users.map(x => x.username)
+      if (users != null) {
+        this.whoLiked = users.map(x => x.username)
+      }
     })
+    this.whoLiked = null
   }
 }
