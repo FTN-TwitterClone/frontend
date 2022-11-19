@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="mt-5">
-    <app-tweet-create (createTweetEvent)="addTweet($event)"></app-tweet-create>
+    <app-tweet-create *ngIf="showTweetCreate()" (createTweetEvent)="addTweet($event)"></app-tweet-create>
 </div>
 <ul class="nav nav-tabs mt-3">
     <li class="nav-item">

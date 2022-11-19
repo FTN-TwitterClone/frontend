@@ -5,6 +5,7 @@ import { ERole } from 'src/app/model/ERole.model';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
 import { ProfileService } from 'src/app/services/profile.service';
+import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -15,13 +16,16 @@ import { TweetService } from 'src/app/services/tweet.service';
 export class ProfileComponent implements OnInit {
   user: User = new User('username', '', 'email@example.com', ERole.REGULAR_USER, false);
   tweets: Tweet[] = []
-  constructor(private profileService: ProfileService, private tweetService: TweetService, private route: ActivatedRoute) { }
+  constructor(private profileService: ProfileService, private tweetService: TweetService, private route: ActivatedRoute, private jwtUtilsService: JwtUtilsService) { }
 
   ngOnInit(): void {
     this.loadProfile()
   }
   addTweet(tweet: Tweet) {
     this.tweetService.addTweetToTweets(this.tweets, tweet)
+  }
+  showTweetCreate():boolean{
+    return this.jwtUtilsService.getUsername() == this.user.username
   }
   loadProfile() {
     this.route.params.subscribe(param => {
