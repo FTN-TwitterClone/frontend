@@ -34,19 +34,21 @@ export class ProfileComponent implements OnInit {
   }
   getTweets(username: string, lastTweetId: string) {
     this.tweetService.getTweets(username, lastTweetId).subscribe(res => {
-      this.tweets = res as Tweet[]
+      if (this.tweets.length > 0) {
+        const newTweets: Tweet[] = res as Tweet[]
+        if (newTweets != null) { this.tweets = this.tweets.concat(newTweets) }
+      } else {
+        this.tweets = res as Tweet[]
+      }
     })
   }
   onScroll() {
     const lastId: string | null = this.tweetService.getLastId(this.tweets)
     if (lastId != null) {
-      this.tweetService.getTweets(this.username, lastId).subscribe(res => {
-        const newTweets: Tweet[] = res as Tweet[]
-        if (newTweets != null) { this.tweets = this.tweets.concat(newTweets) }
-      })
+      this.getTweets(this.username, lastId)
     }
   }
-  get username(){
+  get username() {
     return this.user.username
   }
 }
