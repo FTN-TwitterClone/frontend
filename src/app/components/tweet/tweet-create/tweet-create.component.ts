@@ -20,7 +20,11 @@ export class TweetCreateComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit() {
-    let tweet: Tweet = this.createTweetForm.value as Tweet
+    let tweet: Tweet = this.text as Tweet
+    if (tweet.text == '') {
+      alert('Tweet can\'t be empty!')
+      return
+    }
     this.tweetService.createTweet(tweet).subscribe(res => {
       this.addNewItem(res as Tweet)
       this.createTweetForm.reset()
@@ -29,5 +33,5 @@ export class TweetCreateComponent implements OnInit {
   addNewItem(tweet: Tweet) {
     this.createTweetEvent.emit(tweet)
   }
-  get text() { return this.createTweetForm.get('text') }
+  get text() { return this.createTweetForm.value }
 }
