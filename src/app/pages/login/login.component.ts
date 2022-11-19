@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
       Validators.minLength(validators.password.minLength)
     ]]
   })
-  constructor(private fb: FormBuilder, private reCaptchaV3Service: ReCaptchaV3Service,private authService: AuthenticationService, private jwtUtilsService: JwtUtilsService, private router: Router) {
+  constructor(private fb: FormBuilder, private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthenticationService, private jwtUtilsService: JwtUtilsService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -32,11 +32,11 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'login', (token) => {
+      console.log('Token: ' + token)
       if (this.loginForm.valid) {
         let loginCredentials = {
           username: this.loginForm.value.username,
           password: this.loginForm.value.password,
-          captchaToken: token
         }
         this.authService.login(loginCredentials).subscribe(
           (res) => {
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           })
       }
     }, {
-        useGlobalDomain: false
+      useGlobalDomain: false
     });
   }
 

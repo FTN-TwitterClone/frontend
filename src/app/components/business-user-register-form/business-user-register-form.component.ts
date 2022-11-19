@@ -4,6 +4,8 @@ import { BusinessUser } from 'src/app/model/BusinessUser.model';
 import { EGender } from 'src/app/model/EGender.model';
 import { validators } from 'src/app/components/validators/validator-variables';
 import { AuthenticationService } from 'src/app/services/security/authentication.service';
+import { ReCaptchaV3Service } from 'ngx-captcha';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-business-user-register-form',
@@ -30,15 +32,18 @@ export class BusinessUserRegisterFormComponent implements OnInit {
     companyName: ['']
   })
   constructor(private authService: AuthenticationService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private reCaptchaV3Service: ReCaptchaV3Service) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    let userToRegister = this.businessUserRegisterForm.value as BusinessUser
-    this.authService.registerBusinessUser(userToRegister).subscribe(res => {
-      console.log(res)
+    this.reCaptchaV3Service.execute(`${environment.site_key}`, 'register', (token) => {
+      console.log('Token: ' + token)
+      let userToRegister = this.businessUserRegisterForm.value as BusinessUser
+      this.authService.registerBusinessUser(userToRegister).subscribe(res => {
+        console.log(res)
+      })
     })
   }
   get username() { return this.businessUserRegisterForm.get('username') }
