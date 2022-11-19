@@ -29,7 +29,8 @@
     </li>
 </ul>
 <ng-container *ngIf="tweets != null && tweets != []; else noPosts">
-    <app-tweets [tweets]="tweets"></app-tweets>
+    <app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()" [tweets]="tweets"></app-tweets>
 </ng-container>
 <ng-template #noPosts>
     <p class="mt-2">There are no posts.</p>
