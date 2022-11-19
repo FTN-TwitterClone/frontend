@@ -14,13 +14,16 @@ export class TweetService {
     return this.http.post(`${environment.api}/tweet/tweets/`, tweet)
   }
 
-  getTweets(username: string, lastTweetId: string) {
-    const params = new HttpParams().append('beforeId', lastTweetId)
-    return this.http.get(`${environment.api}/tweet/tweets/profile/${username}`, { params: params })
+  getTweets(username: string, lastTweetId?: string) {
+    if (lastTweetId != '' && lastTweetId != undefined) {
+      const params = new HttpParams().append('beforeId', lastTweetId)
+      return this.http.get(`${environment.api}/tweet/tweets/profile/${username}`, { params: params })
+    }
+    return this.http.get(`${environment.api}/tweet/tweets/profile/${username}`)
   }
   getAll() {
     // waiting for backend to implement get all tweets
-    return this.getTweets('RegularUser', '')
+    return this.getTweets('RegularUser')
   }
   addTweetToTweets(tweets: Tweet[], tweet: Tweet) {
     tweets.splice(0, 0, tweet)
