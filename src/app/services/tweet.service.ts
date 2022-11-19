@@ -34,4 +34,11 @@ export class TweetService {
   getWhoLiked(tweetId: string) {
     return this.http.get(`${environment.api}/tweet/tweets/${tweetId}/likes`)
   }
+  getLastId(tweets: Tweet[]): string | null {
+    const lastTweet: Tweet | undefined = tweets.at(tweets.length - 1)
+    if (lastTweet != undefined && lastTweet != null) {
+      return lastTweet.id.toString()
+    }
+    return null
+  }
 }
