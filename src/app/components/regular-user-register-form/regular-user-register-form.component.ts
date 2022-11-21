@@ -42,11 +42,10 @@ export class RegularUserRegisterFormComponent implements OnInit {
 
   onSubmit() {
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'register', (token) => {
-      console.log('Token: ' + token)
       let userToRegister = this.regularUserRegisterForm.value as RegularUser;
       this.authService.registerRegularUser(userToRegister, token).subscribe(res => {
         if (res == null) {
-          alert("Registered successfully")
+          alert("Please check your email, and confirm registration!")
           this.router.navigateByUrl("/login")
         }
       })

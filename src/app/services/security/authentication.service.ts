@@ -12,7 +12,9 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {
   }
-
+  verify(verificationId:string){
+    return this.http.put(`${environment.api}/auth/verify/${verificationId}/`, {})
+  }
   registerRegularUser(user: RegularUser, captchaToken: String) {
     return this.http.post(`${environment.api}/auth/register/user/`, { ...user, captchaToken });
   }

@@ -33,6 +33,7 @@ import { TweetsComponent } from './components/tweet/tweets/tweets.component';
 import { WhoLikedTweetComponent } from './components/who-liked-tweet/who-liked-tweet.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { VerificationComponent } from './components/verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     EmailValidatorComponent,
     AgeValidatorComponent,
     TweetsComponent,
-    WhoLikedTweetComponent
+    WhoLikedTweetComponent,
+    VerificationComponent
   ],
   imports: [
     BrowserModule,
