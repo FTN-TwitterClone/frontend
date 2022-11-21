@@ -32,11 +32,11 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'login', (token) => {
-      console.log('Token: ' + token)
       if (this.loginForm.valid) {
         let loginCredentials = {
           username: this.loginForm.value.username,
           password: this.loginForm.value.password,
+          captchaToken: token
         }
         this.authService.login(loginCredentials).subscribe(
           (res) => {

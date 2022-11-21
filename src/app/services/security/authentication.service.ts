@@ -12,11 +12,11 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {
   }
 
-  registerRegularUser(user: RegularUser) {
-    return this.http.post(`${environment.api}/auth/register/user/`, user);
+  registerRegularUser(user: RegularUser, captchaToken: String) {
+    return this.http.post(`${environment.api}/auth/register/user/`, {...user, captchaToken});
   }
-  registerBusinessUser(user: BusinessUser) {
-    return this.http.post(`${environment.api}/auth/register/business/`, user);
+  registerBusinessUser(user: BusinessUser, captchaToken: String) {
+    return this.http.post(`${environment.api}/auth/register/business/`, {...user, captchaToken});
   }
   login(user: Object) {
     return this.http.post(`${environment.api}/auth/login/`, user, { responseType: 'text' });

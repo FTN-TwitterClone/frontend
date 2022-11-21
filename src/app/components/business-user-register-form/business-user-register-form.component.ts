@@ -41,7 +41,7 @@ export class BusinessUserRegisterFormComponent implements OnInit {
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'register', (token) => {
       console.log('Token: ' + token)
       let userToRegister = this.businessUserRegisterForm.value as BusinessUser
-      this.authService.registerBusinessUser(userToRegister).subscribe(res => {
+      this.authService.registerBusinessUser(userToRegister, token).subscribe(res => {
         console.log(res)
       })
     })
