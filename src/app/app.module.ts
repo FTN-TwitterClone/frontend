@@ -12,7 +12,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TweetCreateComponent } from './components/tweet/tweet-create/tweet-create.component';
-import { CommentItemComponent } from './components/comment/comment-item/comment-item.component';
 import { PostInfoHeaderComponent } from './components/post-info-header/post-info-header.component';
 import { AdsStatisticsComponent } from './pages/ads-statistics/ads-statistics.component';
 import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
@@ -30,10 +29,12 @@ import { JwtUtilsService } from './services/security/jwt-utils.service';
 import { CanActivateAuthGuard } from './services/security/can-activate-auth.guard';
 import { AuthenticationService } from './services/security/authentication.service';
 import { TweetsComponent } from './components/tweet/tweets/tweets.component';
-import { WhoLikedTweetComponent } from './components/who-liked-tweet/who-liked-tweet.component';
+import { WhoLikedTweetComponent } from './components/modals/who-liked-tweet/who-liked-tweet.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { VerificationComponent } from './components/verification/verification.component';
+import { FollowersComponent } from './components/modals/followers/followers.component';
+import { FollowingComponent } from './components/modals/following/following.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,6 @@ import { VerificationComponent } from './components/verification/verification.co
     SearchComponent,
     ProfileComponent,
     TweetCreateComponent,
-    CommentItemComponent,
     PostInfoHeaderComponent,
     AdsStatisticsComponent,
     ProfileSettingsComponent,
@@ -60,7 +60,9 @@ import { VerificationComponent } from './components/verification/verification.co
     AgeValidatorComponent,
     TweetsComponent,
     WhoLikedTweetComponent,
-    VerificationComponent
+    VerificationComponent,
+    FollowersComponent,
+    FollowingComponent
   ],
   imports: [
     BrowserModule,

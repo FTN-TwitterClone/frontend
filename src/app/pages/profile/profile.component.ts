@@ -39,8 +39,6 @@ export class ProfileComponent implements OnInit {
     this.getPrivacy()
     this.getFollowersCount()
     this.getFollowingCount()
-    this.getFollowers()
-    this.getFollowing()
   }
   getTweets(lastId?: string) {
     this.tweetService.getTweets(this.username, lastId).subscribe(res => {
@@ -57,24 +55,28 @@ export class ProfileComponent implements OnInit {
     return this.user.username
   }
   getFollowers() {
-    this.profileService.getFollowers(this.username).subscribe(res => {
-      this.followers = res as User[]
-    })
+    // this.profileService.getFollowers(this.username).subscribe(res => {
+    // this.followers = res as User[]
+    // })
+    this.followers = this.profileService.getFollowers(this.username)
   }
   getFollowing() {
-    this.profileService.getFollowing(this.username).subscribe(res => {
-      this.following = res as User[]
-    })
+    // this.profileService.getFollowing(this.username).subscribe(res => {
+    //   this.following = res as User[]
+    // })
+    this.following = this.profileService.getFollowing(this.username)
   }
   getFollowersCount() {
-    this.profileService.getFollowersCount(this.username).subscribe(res => {
-      this.followersCount = res as number;
-    })
+    // this.profileService.getFollowersCount(this.username).subscribe(res => {
+    //   this.followersCount = res as number;
+    // })
+    this.followersCount = this.profileService.getFollowersCount(this.username)
   }
   getFollowingCount() {
-    this.profileService.getFollowingCount(this.username).subscribe(res => {
-      this.followingCount = res as number;
-    })
+    // this.profileService.getFollowingCount(this.username).subscribe(res => {
+    //   this.followingCount = res as number;
+    // })
+    this.followingCount = this.profileService.getFollowingCount(this.username)
   }
   doFollow() {
     this.profileService.doFollow(this.username).subscribe(res => {
@@ -92,7 +94,7 @@ export class ProfileComponent implements OnInit {
   getPrivacy() {
     this.profileService.getPrivacy(this.username).subscribe(res => {
       this.private = res as boolean
-      if (this.private == false) {
+      if (this.private == false || this.private == true && this.ownProfile) {
         this.getTweets()
       }
     })
