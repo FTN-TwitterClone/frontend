@@ -56,7 +56,6 @@ export class ProfileService {
         "username": follows.to
       }
     }
-    console.log(JSON.stringify(json))
     return this.http.post(`${environment.api}/social-graph/follows`, json)
   }
   doUnfollow(username: string) {
