@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
   followers: User[] = [];
   following: User[] = [];
   tweets!: Tweet[]
-  constructor(private profileService: ProfileService, private tweetService: TweetService, private route: ActivatedRoute) { }
+  constructor(private profileService: ProfileService, private tweetService: TweetService, private route: ActivatedRoute, private jwtUtilsService: JwtUtilsService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(param => {
@@ -51,17 +51,20 @@ export class ProfileComponent implements OnInit {
       this.following = res as User[]
     })
   }
-  doFollow(){
+  doFollow() {
     this.profileService.doFollow(this.username).subscribe(res => {
       alert('Followed')
     })
   }
-  doUnfollow(){
+  doUnfollow() {
     this.profileService.doUnfollow(this.username).subscribe(res => {
       alert('Unfollowed')
     })
   }
   get username() {
     return this.user.username
+  }
+  ownProfile(): boolean {
+    return this.username == this.jwtUtilsService.getUsername()
   }
 }
