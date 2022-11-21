@@ -15,3 +15,11 @@ export class User {
         this.enabled = enabled
     }
 }
+export class Follow {
+    from: string
+    to: string
+    constructor(from: string, to: string) {
+        this.from = from
+        this.to = to
+    }
+}

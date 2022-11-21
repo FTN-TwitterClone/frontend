@@ -1,35 +1,50 @@
 <div class="position-relative" id="profile-media">
     <img src="./assets/images/bg-image.jpg" class="img-fluid" alt="Cover image" style="max-height: 200px;width: 100%">
-        <img src="./assets/images/profile.jpeg" alt="Profile image" id="profile-image"
-            class="rounded-circle position-absolute top-50 start-0">
+    <img src="./assets/images/profile.jpeg" alt="Profile image" id="profile-image"
+        class="rounded-circle position-absolute top-50 start-0">
 </div>
 <div class="d-flex flex-row-reverse">
     <button class="btn btn-light border mt-2 me-2" routerLink="/profile/settings">Edit profile</button>
     <button class="btn btn-light border mt-2 me-2"><i class="bi bi-three-dots"></i></button>
     <button class="btn btn-light border mt-2 me-2"><i class="bi bi-envelope"></i></button>
-    <button class="btn btn-primary border mt-2 me-2">+ Follow</button>
+    <button class="btn btn-primary border mt-2 me-2" *ngIf="!ownProfile()" (click)="doFollow()">+ Follow</button>
 </div>
 <div class="d-flex flex-column mt-3 p-2">
     <div class="mt-4">
         <b class="me-2">{{username}}</b><span class="text-muted">@{{username}}</span>
     </div>
     <div class="mt-2">
-        <b class="me-2">0</b> <span class="text-muted me-2">Following</span>&nbsp;<b class="me-2">0</b><span
-            class="text-muted">Followers</span>
+        <button class="btn btn-primary btn-sm fw-bold text-wrap me-2" data-bs-toggle="modal" data-bs-target="#following"
+            (click)="getFollowing()">
+            {{followersCount}}
+            Following
+        </button>
+        <button class="btn btn-primary btn-sm fw-bold text-wrap" data-bs-toggle="modal" data-bs-target="#followers"
+            (click)="getFollowers()">
+            {{followingCount}}
+            Followers
+        </button>
     </div>
 </div>
 <div class="mt-5">
-    <app-tweet-create *ngIf="showTweetCreate()" (createTweetEvent)="addTweet($event)"></app-tweet-create>
+    <app-tweet-create *ngIf="ownProfile()" (createTweetEvent)="addTweet($event)"></app-tweet-create>
 </div>
 <ul class="nav nav-tabs mt-3">
     <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Tweets</a>
+        <a class="nav-link active" aria-current="page">Tweets</a>
     </li>
 </ul>
-<ng-container *ngIf="tweets != null && tweets != []; else noPosts">
-    <app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-        (scrolled)="onScroll()" [tweets]="tweets"></app-tweets>
+<ng-container *ngIf="this.private && ownProfile; else privateProfile">
+    <ng-container *ngIf="tweets != null; else noPosts">
+        <app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+            (scrolled)="onScroll()" [tweets]="tweets"></app-tweets>
+    </ng-container>
+    <ng-template #noPosts>
+        <p class="mt-2">There are no tweets.</p>
+    </ng-template>
 </ng-container>
-<ng-template #noPosts>
-    <p class="mt-2">There are no posts.</p>
+<ng-template #privateProfile>
+    <p class="mt-2">This profile is private.</p>
 </ng-template>
+<app-following [following]="following"></app-following>
+<app-followers [followers]="followers"></app-followers>
