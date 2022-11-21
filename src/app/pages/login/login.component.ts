@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { validators } from 'src/app/components/validators/validator-variables';
+import { User } from 'src/app/model/User.model';
 import { AuthenticationService } from 'src/app/services/security/authentication.service';
 import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { environment } from 'src/environments/environment.prod';
@@ -33,12 +34,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'login', (token) => {
       if (this.loginForm.valid) {
-        let loginCredentials = {
-          username: this.loginForm.value.username,
-          password: this.loginForm.value.password,
-          captchaToken: token
-        }
-        this.authService.login(loginCredentials).subscribe(
+        let loginCredentials = this.loginForm.value as User
+        this.authService.login(loginCredentials, token).subscribe(
           (res) => {
             this.jwtUtilsService.setToken(res)
             alert("Successfully logged in")
