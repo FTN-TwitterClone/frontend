@@ -6,6 +6,8 @@ import { validators } from 'src/app/components/validators/validator-variables';
 import { AuthenticationService } from 'src/app/services/security/authentication.service';
 import { APP_BASE_HREF } from '@angular/common';
 import { Router } from '@angular/router';
+import { ReCaptchaV3Service } from 'ngx-captcha';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-regular-user-register-form',
@@ -33,18 +35,20 @@ export class RegularUserRegisterFormComponent implements OnInit {
     gender: [EGender.MALE]
   })
   constructor(private authService: AuthenticationService,
-    private fb: FormBuilder,private router: Router) { }
+    private fb: FormBuilder, private router: Router, private reCaptchaV3Service: ReCaptchaV3Service) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    let userToRegister = this.regularUserRegisterForm.value as RegularUser;
-    this.authService.registerRegularUser(userToRegister).subscribe(res => {
-      if (res == null) {
-        alert("Registered successfully")
-        this.router.navigateByUrl("/login")
-      }
+    this.reCaptchaV3Service.execute(`${environment.site_key}`, 'register', (token) => {
+      let userToRegister = this.regularUserRegisterForm.value as RegularUser;
+      this.authService.registerRegularUser(userToRegister, token).subscribe(res => {
+        if (res == null) {
+          alert("Please check your email, and confirm registration!")
+          this.router.navigateByUrl("/login")
+        }
+      })
     })
   }
   get username() { return this.regularUserRegisterForm.get('username') }
