@@ -17,7 +17,10 @@ export class ProfileComponent implements OnInit {
   user: User = new User('username', '', 'email@example.com', ERole.REGULAR_USER, false);
   followers: User[] = [];
   following: User[] = [];
-  tweets!: Tweet[]
+  followersCount: number = 0;
+  followingCount: number = 0;
+  private: boolean = true;
+  tweets: Tweet[] = []
   constructor(private profileService: ProfileService, private tweetService: TweetService, private route: ActivatedRoute, private jwtUtilsService: JwtUtilsService) { }
 
   ngOnInit(): void {
@@ -33,32 +36,44 @@ export class ProfileComponent implements OnInit {
   }
 
   loadProfile() {
-    this.getTweets(this.username)
-    this.getFollowers(this.username)
-    this.getFollowing(this.username)
+    this.getPrivacy()
+    this.getFollowersCount()
+    this.getFollowingCount()
+    this.getFollowers()
+    this.getFollowing()
   }
-  getTweets(username: string, lastId?:string) {
-    this.tweetService.getTweets(username, lastId).subscribe(res => {
+  getTweets(lastId?: string) {
+    this.tweetService.getTweets(this.username, lastId).subscribe(res => {
       this.tweets = res as Tweet[]
     })
   }
   onScroll() {
     const lastId: string | null = this.tweetService.getLastId(this.tweets)
     if (lastId != null) {
-      this.getTweets(this.username, lastId)
+      this.getTweets(lastId)
     }
   }
   get username() {
     return this.user.username
   }
-  getFollowers(username: string) {
-    this.profileService.getFollowers(username).subscribe(res => {
+  getFollowers() {
+    this.profileService.getFollowers(this.username).subscribe(res => {
       this.followers = res as User[]
     })
   }
-  getFollowing(username: string) {
-    this.profileService.getFollowing(username).subscribe(res => {
+  getFollowing() {
+    this.profileService.getFollowing(this.username).subscribe(res => {
       this.following = res as User[]
+    })
+  }
+  getFollowersCount() {
+    this.profileService.getFollowersCount(this.username).subscribe(res => {
+      this.followersCount = res as number;
+    })
+  }
+  getFollowingCount() {
+    this.profileService.getFollowingCount(this.username).subscribe(res => {
+      this.followingCount = res as number;
     })
   }
   doFollow() {
@@ -73,5 +88,13 @@ export class ProfileComponent implements OnInit {
   }
   ownProfile(): boolean {
     return this.jwtUtilsService.getUsername() == this.user.username
+  }
+  getPrivacy() {
+    this.profileService.getPrivacy(this.username).subscribe(res => {
+      this.private = res as boolean
+      if (this.private == false) {
+        this.getTweets()
+      }
+    })
   }
 }

@@ -24,17 +24,43 @@ export class ProfileService {
     return this.http.get(`${environment.api}/profile/users/${username}/`)
   }
   getFollowing(username: string) {
-    return this.http.get(`${environment.api}/social-graph/following/${username}/`)
+    return this.http.get(`${environment.api}/social-graph/following/${username}`)
   }
   getFollowers(username: string) {
-    return this.http.get(`${environment.api}/social-graph/followers/${username}/`)
+    return this.http.get(`${environment.api}/social-graph/followers/${username}`)
+  }
+  getFollowingCount(username: string) {
+    return this.http.get(`${environment.api}/social-graph/following/${username}/count`)
+  }
+  getFollowersCount(username: string) {
+    return this.http.get(`${environment.api}/social-graph/followers/${username}/count`)
   }
   doFollow(username: string) {
     let follows: Follow = new Follow(this.jwtUtilsService.getUsername(), username)
-    return this.http.post(`${environment.api}/social-graph/follows/`, follows)
+    const json = {
+      "from": {
+        "username": follows.from
+      },
+      "to": {
+        "username": follows.to
+      }
+    }
+    console.log(JSON.stringify(json))
+    return this.http.post(`${environment.api}/social-graph/follows`, json)
   }
   doUnfollow(username: string) {
     let follows: Follow = new Follow(this.jwtUtilsService.getUsername(), username)
-    return this.http.delete(`${environment.api}/social-graph/follows/`, { body: follows })
+    const json = {
+      "from": {
+        "username": follows.from
+      },
+      "to": {
+        "username": follows.to
+      }
+    }
+    return this.http.delete(`${environment.api}/social-graph/follows`, { body: json })
+  }
+  getPrivacy(username: string) {
+    return this.http.get(`${environment.api}/profile/users/${username}/privacy`)
   }
 }

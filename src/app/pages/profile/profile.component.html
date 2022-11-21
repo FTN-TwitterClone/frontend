@@ -1,7 +1,7 @@
 <div class="position-relative" id="profile-media">
     <img src="./assets/images/bg-image.jpg" class="img-fluid" alt="Cover image" style="max-height: 200px;width: 100%">
-        <img src="./assets/images/profile.jpeg" alt="Profile image" id="profile-image"
-            class="rounded-circle position-absolute top-50 start-0">
+    <img src="./assets/images/profile.jpeg" alt="Profile image" id="profile-image"
+        class="rounded-circle position-absolute top-50 start-0">
 </div>
 <div class="d-flex flex-row-reverse">
     <button class="btn btn-light border mt-2 me-2" routerLink="/profile/settings">Edit profile</button>
@@ -14,8 +14,16 @@
         <b class="me-2">{{username}}</b><span class="text-muted">@{{username}}</span>
     </div>
     <div class="mt-2">
-        <b class="me-2">{{following.length}}</b> <span class="text-muted me-2">Following</span>&nbsp;<b
-            class="me-2">{{followers.length}}</b><span class="text-muted">Followers</span>
+        <button class="btn btn-primary btn-sm fw-bold text-wrap me-2" data-bs-toggle="modal" data-bs-target="following"
+            (click)="getFollowing()">
+            {{followersCount}}
+            Following
+        </button>
+        <button class="btn btn-primary btn-sm fw-bold text-wrap" data-bs-toggle="modal" data-bs-target="followers"
+            (click)="getFollowers()">
+            {{followingCount}}
+            Followers
+        </button>
     </div>
 </div>
 <div class="mt-5">
@@ -26,10 +34,62 @@
         <a class="nav-link active" aria-current="page" href="#">Tweets</a>
     </li>
 </ul>
-<ng-container *ngIf="tweets != null && tweets != []; else noPosts">
-    <app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-        (scrolled)="onScroll()" [tweets]="tweets"></app-tweets>
+<ng-container *ngIf="!this.private; else privateProfile">
+    <ng-container *ngIf="tweets != null; else noPosts">
+        <app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+            (scrolled)="onScroll()" [tweets]="tweets"></app-tweets>
+    </ng-container>
+    <ng-template #noPosts>
+        <p class="mt-2">There are no tweets.</p>
+    </ng-template>
 </ng-container>
-<ng-template #noPosts>
-    <p class="mt-2">There are no tweets.</p>
+<ng-template #privateProfile>
+    <p class="mt-2">This profile is private.</p>
 </ng-template>
+
+<div class="modal fade" id="following" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Following</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="following != undefined; else noFollowing">
+                    <ul *ngFor="let username of following">
+                        <li><a routerLink="/profile/{{username}}" data-bs-dismiss="modal">{{username}}</a></li>
+                    </ul>
+                </ng-container>
+                <ng-template #noFollowing>
+                    <p>No followed users.</p>
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="following" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Followers</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="followers != null; else noFollowers">
+                    <ul *ngFor="let username of followers">
+                        <li><a routerLink="/profile/{{username}}" data-bs-dismiss="modal">{{username}}</a></li>
+                    </ul>
+                </ng-container>
+                <ng-template #noFollowers>
+                    <p>No followers.</p>
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
