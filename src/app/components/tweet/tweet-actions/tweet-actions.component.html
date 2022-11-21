@@ -4,7 +4,7 @@
             <button id="like" class="btn btn-light" title="Like" (click)="onLikeTweet()">
                 <i class="bi bi-heart"></i>
             </button>
-            <button class="btn btn-light text-muted" data-bs-toggle="modal" [attr.data-bs-target]="'#'+tweet.id"
+            <button class="btn btn-light text-muted" data-bs-toggle="modal" [attr.data-bs-target]="'#a'+tweet.id"
                 (click)="getWhoLiked()">
                 Liked by {{tweet.likesCount}}
             </button>
@@ -13,7 +13,7 @@
             <button id="unlike" class="btn btn-light" title="Unlike" (click)="onUnlikeTweet()">
                 <i class="bi bi-heart-fill"></i>
             </button>
-            <button class="btn btn-light text-muted" data-bs-toggle="modal" [attr.data-bs-target]="'#'+tweet.id"
+            <button class="btn btn-light text-muted" data-bs-toggle="modal" [attr.data-bs-target]="'#a'+tweet.id"
                 (click)="getWhoLiked()">
                 <span *ngIf="tweet.likesCount == 1; else likedMoreThanOnce">
                     Liked by me
@@ -28,7 +28,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="{{tweet.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="a{{tweet.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -36,9 +36,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <ul *ngFor="let username of whoLiked">
-                    <li><a routerLink="/profile/{{username}}" data-bs-dismiss="modal">{{username}}</a></li>
-                </ul>
+                <ng-container *ngIf="whoLiked != null; else noLikes">
+                    <ul *ngFor="let username of whoLiked">
+                        <li><a routerLink="/profile/{{username}}" data-bs-dismiss="modal">{{username}}</a></li>
+                    </ul>
+                </ng-container>
+                <ng-template #noLikes>
+                    <p>No one likes this tweet!</p>
+                </ng-template>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

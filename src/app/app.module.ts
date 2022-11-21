@@ -31,6 +31,9 @@ import { CanActivateAuthGuard } from './services/security/can-activate-auth.guar
 import { AuthenticationService } from './services/security/authentication.service';
 import { TweetsComponent } from './components/tweet/tweets/tweets.component';
 import { WhoLikedTweetComponent } from './components/who-liked-tweet/who-liked-tweet.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxCaptchaModule } from 'ngx-captcha';
+import { VerificationComponent } from './components/verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -56,13 +59,16 @@ import { WhoLikedTweetComponent } from './components/who-liked-tweet/who-liked-t
     EmailValidatorComponent,
     AgeValidatorComponent,
     TweetsComponent,
-    WhoLikedTweetComponent
+    WhoLikedTweetComponent,
+    VerificationComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    NgxCaptchaModule,
+    AppRoutingModule,
+    InfiniteScrollModule
   ],
   providers: [
     {

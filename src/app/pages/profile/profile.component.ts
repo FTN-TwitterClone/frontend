@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs';
+import { catchError, last, tap } from 'rxjs';
 import { ERole } from 'src/app/model/ERole.model';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { Follow, User } from 'src/app/model/User.model';
@@ -31,15 +31,25 @@ export class ProfileComponent implements OnInit {
   addTweet(tweet: Tweet) {
     this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
+
   loadProfile() {
     this.getTweets(this.username)
     this.getFollowers(this.username)
     this.getFollowing(this.username)
   }
-  getTweets(username: string) {
-    this.tweetService.getTweets(username).subscribe(res => {
+  getTweets(username: string, lastId?:string) {
+    this.tweetService.getTweets(username, lastId).subscribe(res => {
       this.tweets = res as Tweet[]
     })
+  }
+  onScroll() {
+    const lastId: string | null = this.tweetService.getLastId(this.tweets)
+    if (lastId != null) {
+      this.getTweets(this.username, lastId)
+    }
+  }
+  get username() {
+    return this.user.username
   }
   getFollowers(username: string) {
     this.profileService.getFollowers(username).subscribe(res => {
@@ -61,10 +71,7 @@ export class ProfileComponent implements OnInit {
       alert('Unfollowed')
     })
   }
-  get username() {
-    return this.user.username
-  }
   ownProfile(): boolean {
-    return this.username == this.jwtUtilsService.getUsername()
+    return this.jwtUtilsService.getUsername() == this.user.username
   }
 }
