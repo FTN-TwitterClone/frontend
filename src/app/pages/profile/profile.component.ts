@@ -47,22 +47,17 @@ export class ProfileComponent implements OnInit {
     this.getTweets()
   }
   getTweets(lastId?: string) {
-    this.tweetService.getTweets(this.username, lastId).subscribe(res => {
-      this.tweets = res as Tweet[]
+    this.tweetService.loadProfileTweets(this.username, lastId).subscribe({
+      next: (tweets) => {
+        if (tweets) {
+          this.tweets = [...this.tweets, ...tweets]
+        }
+      }
     })
   }
   onScroll() {
-    const lastTweet: Tweet | undefined = this.tweets.at(this.tweets.length - 1)
-    if (lastTweet != undefined && lastTweet != null) {
-      const lastId: string = lastTweet.id.toString()
-      this.tweetService.getAll(lastId).subscribe(res => {
-        const newTweets: Tweet[] = res as Tweet[]
-        if (newTweets != null) {
-          this.tweets = [...this.tweets, ...newTweets]
-        }
-        return []
-      })
-    }
+    const lastId = this.tweetService.getLastId(this.tweets)
+    if (lastId != null) { this.getTweets(lastId) }
   }
   get username() {
     return this.user.username
