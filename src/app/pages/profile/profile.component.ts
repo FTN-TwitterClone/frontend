@@ -34,11 +34,17 @@ export class ProfileComponent implements OnInit {
   addTweet(tweet: Tweet) {
     this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
-
+  ownProfile() {
+    const tUsername = this.jwtUtilsService.getUsername().toLowerCase()
+    const pUsername = this.user.username.toLowerCase()
+    return tUsername == pUsername
+  }
   loadProfile() {
     this.getPrivacy()
     this.getFollowersCount()
     this.getFollowingCount()
+    this.ownProfile()
+    this.getTweets()
   }
   getTweets(lastId?: string) {
     this.tweetService.getTweets(this.username, lastId).subscribe(res => {
@@ -95,15 +101,15 @@ export class ProfileComponent implements OnInit {
       alert('Unfollowed')
     })
   }
-  ownProfile(): boolean {
-    return this.jwtUtilsService.getUsername() == this.user.username
-  }
   getPrivacy() {
     this.profileService.getPrivacy(this.username).subscribe(res => {
       this.private = res as boolean
-      if (this.private == false || this.private == true && this.ownProfile) {
-        this.getTweets()
-      }
     })
+  }
+  viewTweets(): boolean {
+    if (this.private == true && this.ownProfile() != true) {
+      return false
+    }
+    return true
   }
 }
