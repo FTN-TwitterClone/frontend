@@ -1,2 +1,3 @@
 <app-tweet-create (createTweetEvent)="addTweet($event)"></app-tweet-create>
-<app-tweets [tweets]="tweets"></app-tweets>
+<app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()" [tweets]="tweets"></app-tweets>

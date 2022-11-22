@@ -8,16 +8,16 @@ import { TweetService } from 'src/app/services/tweet.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  tweets:Tweet[] = []
-  constructor(private tweetService:TweetService) { }
+  tweets: Tweet[] = []
+  constructor(private tweetService: TweetService) { }
 
   ngOnInit(): void {
     this.getTweets()
   }
-  addTweet(tweet:Tweet){
-    this.tweetService.addTweetToTweets(this.tweets,tweet)
+  addTweet(tweet: Tweet) {
+    this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
-  getTweets(lastId?:string):Tweet [] {
+  getTweets(lastId?: string): Tweet[] {
     this.tweetService.getAll(lastId).subscribe(res => {
       this.tweets = res as Tweet[]
     })
@@ -27,9 +27,12 @@ export class HomeComponent implements OnInit {
     const lastTweet: Tweet | undefined = this.tweets.at(this.tweets.length - 1)
     if (lastTweet != undefined && lastTweet != null) {
       const lastId: string = lastTweet.id.toString()
-      this.tweetService.getTweets(lastId).subscribe(res => {
+      this.tweetService.getAll(lastId).subscribe(res => {
         const newTweets: Tweet[] = res as Tweet[]
-        newTweets != null ? this.tweets = this.tweets.concat(newTweets) : ''
+        if (newTweets != null) {
+          this.tweets = [...this.tweets, ...newTweets]
+        }
+        return []
       })
     }
   }

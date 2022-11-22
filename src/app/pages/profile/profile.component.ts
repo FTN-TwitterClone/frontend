@@ -14,7 +14,7 @@ import { TweetService } from 'src/app/services/tweet.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: User = new User('username', '', 'email@example.com', ERole.REGULAR_USER, false);
+  user: User = new User('', '', '', ERole.REGULAR_USER, true);
   followers: User[] = [];
   following: User[] = [];
   followersCount: number = 0;
@@ -49,9 +49,12 @@ export class ProfileComponent implements OnInit {
     const lastTweet: Tweet | undefined = this.tweets.at(this.tweets.length - 1)
     if (lastTweet != undefined && lastTweet != null) {
       const lastId: string = lastTweet.id.toString()
-      this.tweetService.getTweets(this.user.username, lastId).subscribe(res => {
+      this.tweetService.getAll(lastId).subscribe(res => {
         const newTweets: Tweet[] = res as Tweet[]
-        newTweets != null ? this.tweets = this.tweets.concat(newTweets) : ''
+        if (newTweets != null) {
+          this.tweets = [...this.tweets, ...newTweets]
+        }
+        return []
       })
     }
   }

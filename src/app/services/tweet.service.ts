@@ -21,9 +21,9 @@ export class TweetService {
     }
     return this.http.get(`${environment.api}/tweet/tweets/profile/${username}`)
   }
-  getAll(lastTweetId?:string) {
+  getAll(lastTweetId?: string) {
     // waiting for backend to implement get all tweets
-    return this.getTweets('RegularUser',lastTweetId)
+    return this.getTweets('RegularUser', lastTweetId)
   }
   addTweetToTweets(tweets: Tweet[] | null, tweet: Tweet) {
     if (tweets == null) {
