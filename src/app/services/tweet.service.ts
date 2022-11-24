@@ -23,7 +23,7 @@ export class TweetService {
   }
   getAll(lastTweetId?: string) {
     // waiting for backend to implement get all tweets
-    return this.getTweets('RegularUser', lastTweetId)
+    return this.getTweets('Regular User', lastTweetId)
   }
   addTweetToTweets(tweets: Tweet[] | null, tweet: Tweet) {
     if (tweets == null) {

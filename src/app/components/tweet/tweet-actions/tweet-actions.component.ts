@@ -23,7 +23,7 @@ export class TweetActionsComponent implements OnInit {
       this.tweet.likesCount += 1
     })
   }
-  onUnlikeTweet() {
+  onDislikeTweet() {
     this.tweetService.unlikeTweet(this.tweet.id).subscribe(res => {
       this.tweet.likedByMe = false
       this.tweet.likesCount -= 1
