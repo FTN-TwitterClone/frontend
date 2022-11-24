@@ -38,4 +38,7 @@ export class TweetActionsComponent implements OnInit {
     })
     this.whoLiked = null
   }
+  onRetweet() {
+    console.log(this.tweet.id)
+  }
 }
