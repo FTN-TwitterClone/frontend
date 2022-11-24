@@ -18,22 +18,13 @@ export class HomeComponent implements OnInit {
     this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
   getTweets(lastId?: string): Tweet[] {
-    this.tweetService.getAll(lastId).subscribe(res => {
-      this.tweets = res as Tweet[]
+    this.tweetService.loadFeedTweets(lastId).subscribe(res => {
+      this.tweets = [...this.tweets, ...res as Tweet[]]
     })
     return []
   }
   onScroll() {
-    const lastTweet: Tweet | undefined = this.tweets.at(this.tweets.length - 1)
-    if (lastTweet != undefined && lastTweet != null) {
-      const lastId: string = lastTweet.id.toString()
-      this.tweetService.getAll(lastId).subscribe(res => {
-        const newTweets: Tweet[] = res as Tweet[]
-        if (newTweets != null) {
-          this.tweets = [...this.tweets, ...newTweets]
-        }
-        return []
-      })
-    }
+    const lastId = this.tweetService.getLastId(this.tweets)
+    lastId!=null ? this.getTweets(lastId) : ''
   }
 }
