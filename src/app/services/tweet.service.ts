@@ -13,17 +13,28 @@ export class TweetService {
   createTweet(tweet: Tweet) {
     return this.http.post(`${environment.api}/tweet/tweets/`, tweet)
   }
-
-  getTweets(username: string, lastTweetId?: string) {
-    if (lastTweetId != undefined) {
-      const params = new HttpParams().append('beforeId', lastTweetId)
-      return this.http.get(`${environment.api}/tweet/tweets/profile/${username}`, { params: params })
-    }
-    return this.http.get(`${environment.api}/tweet/tweets/profile/${username}`)
+  loadProfileTweets(username: string, lastTweetId?: string) {
+    return lastTweetId == undefined ? this.getTweetsByUsername(username) : this.getProfileTweetsFromLastId(username, lastTweetId)
+  }
+  loadFeedTweets(lastTweetId?: string) {
+    return lastTweetId == undefined ? this.getAllFeedTweets() : this.getFeedTweetsFromLastId(lastTweetId)
+  }
+  getTweetsByUsername(username: string) {
+    return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/profile/${username}`)
+  }
+  getProfileTweetsFromLastId(username: string, lastTweetId: string) {
+    const params = new HttpParams().append('beforeId', lastTweetId)
+    return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/profile/${username}`, { params: params })
+  }
+  getFeedTweetsFromLastId(lastTweetId: string) {
+    const params = new HttpParams().append('beforeId', lastTweetId)
+    return this.http.get(`${environment.api}/tweet/tweets/feed`, { params: params })
   }
   getAll(lastTweetId?: string) {
     // waiting for backend to implement get all tweets
     return this.getTweets('Regular User', lastTweetId)
+  getAllFeedTweets() {
+    return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/feed`)
   }
   addTweetToTweets(tweets: Tweet[] | null, tweet: Tweet) {
     if (tweets == null) {
@@ -43,9 +54,11 @@ export class TweetService {
     return this.http.get(`${environment.api}/tweet/tweets/${tweetId}/likes`)
   }
   getLastId(tweets: Tweet[]): string | null {
-    const lastTweet: Tweet | undefined = tweets.at(tweets.length - 1)
-    if (lastTweet != undefined && lastTweet != null) {
-      return lastTweet.id.toString()
+    if (tweets != null) {
+      const lastTweet: Tweet | undefined = tweets.at(tweets.length - 1)
+      if (lastTweet != undefined && lastTweet != null) {
+        return lastTweet.id.toString()
+      }
     }
     return null
   }
