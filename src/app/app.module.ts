@@ -35,6 +35,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { VerificationComponent } from './components/verification/verification.component';
 import { FollowersComponent } from './components/modals/followers/followers.component';
 import { FollowingComponent } from './components/modals/following/following.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { FollowingComponent } from './components/modals/following/following.comp
     WhoLikedTweetComponent,
     VerificationComponent,
     FollowersComponent,
-    FollowingComponent
+    FollowingComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
