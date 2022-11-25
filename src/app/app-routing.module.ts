@@ -12,14 +12,14 @@ import { RegisterComponent } from './pages/register/register.component';
 import { CanActivateAuthGuard } from './services/security/can-activate-auth.guard';
 
 const routes: Routes = [
-  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent, title: 'Twitter Clone | Forgot Password' },
   { path: 'ads/statistics', component: AdsStatisticsComponent, canActivate: [CanActivateAuthGuard] },
-  { path: 'profile/settings', component: ProfileSettingsComponent, canActivate: [CanActivateAuthGuard] },
-  { path: 'profile/:username', component: ProfileComponent, canActivate: [CanActivateAuthGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [CanActivateAuthGuard] },
+  { path: 'profile/settings', component: ProfileSettingsComponent, canActivate: [CanActivateAuthGuard], title: 'Twitter Clone | Settings' },
+  { path: 'profile/:username', component: ProfileComponent, canActivate: [CanActivateAuthGuard], title: 'Twitter Clone | Profile' },
+  { path: 'home', component: HomeComponent, canActivate: [CanActivateAuthGuard], title: 'Twitter Clone | Home' },
   { path: 'verification/:verificationId', component: VerificationComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent, title: 'Twitter Clone | Register' },
+  { path: 'login', component: LoginComponent, title: 'Twitter Clone | Login' },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];

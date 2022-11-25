@@ -14,7 +14,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ProfileSettingsComponent implements OnInit {
   privacy: boolean = false
-  constructor(private profileService: ProfileService, private jwtUtilsService: JwtUtilsService, private authService: AuthenticationService) { }
+  constructor(private profileService: ProfileService, private jwtUtilsService: JwtUtilsService) { }
   ngOnInit(): void {
     this.loadPrivacy()
   }
