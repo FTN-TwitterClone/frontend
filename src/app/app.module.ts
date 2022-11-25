@@ -9,10 +9,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TweetItemComponent } from './components/tweet/tweet-item/tweet-item.component';
 import { TweetActionsComponent } from './components/tweet/tweet-actions/tweet-actions.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { SearchComponent } from './components/search/search.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TweetCreateComponent } from './components/tweet/tweet-create/tweet-create.component';
-import { PostInfoHeaderComponent } from './components/post-info-header/post-info-header.component';
 import { AdsStatisticsComponent } from './pages/ads-statistics/ads-statistics.component';
 import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -45,10 +43,8 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     TweetItemComponent,
     TweetActionsComponent,
     NavbarComponent,
-    SearchComponent,
     ProfileComponent,
     TweetCreateComponent,
-    PostInfoHeaderComponent,
     AdsStatisticsComponent,
     ProfileSettingsComponent,
     RegisterComponent,

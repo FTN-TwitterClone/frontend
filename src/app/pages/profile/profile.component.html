@@ -1,5 +1,6 @@
 <div class="position-relative" id="profile-media">
-    <img src="./assets/images/bg-image.jpg" class="img-fluid" alt="Cover image" style="object-fit:cover; max-height:200px; width: 100%;">
+    <img src="./assets/images/bg-image.jpg" class="img-fluid" alt="Cover image"
+        style="object-fit:cover; max-height:200px; width: 100%;">
     <img src="./assets/images/profile.jpeg" alt="Profile image" id="profile-image"
         class="rounded-circle position-absolute top-50 start-0">
 </div>
@@ -30,11 +31,6 @@
 <div class="mt-5">
     <app-tweet-create *ngIf="ownProfile()" (createTweetEvent)="addTweet($event)"></app-tweet-create>
 </div>
-<ul class="nav nav-tabs mt-3">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page">Tweets</a>
-    </li>
-</ul>
 <ng-container *ngIf="viewTweets(); else privateProfile">
     <ng-container *ngIf="tweets != null; else noPosts">
         <app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"

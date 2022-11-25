@@ -1,11 +1,16 @@
-<div class="border p-3">
+<div class="border p-3 mt-1">
   <div class="row">
     <div class="col-1" style="min-width:80px">
       <img src=" ./assets/images/profile.jpeg" style="width:100%;height:auto;" class="rounded-circle me-2">
     </div>
     <div class="col">
-      <app-post-info-header [tweet]="tweet"></app-post-info-header>
-      <p>{{tweet.text}}</p>
+      <span class="text-wrap">
+        <a class="text-decoration-none" [routerLink]="['/profile/',tweet.username]">{{tweet.username}}</a>
+        <span class="ms-2 text-muted fw-lighter fst-italic" style="font-size: 0.8rem;">
+          {{tweet.timestamp | date:"dd/MM/YY HH:mm"}}
+        </span>
+      </span>
+      <p class="pt-2">{{tweet.text}}</p>
     </div>
   </div>
   <app-tweet-actions [tweet]="tweet"></app-tweet-actions>
