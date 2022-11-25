@@ -30,6 +30,9 @@ export class TweetService {
     const params = new HttpParams().append('beforeId', lastTweetId)
     return this.http.get(`${environment.api}/tweet/tweets/feed`, { params: params })
   }
+  getAll(lastTweetId?: string) {
+    // waiting for backend to implement get all tweets
+    return this.getTweets('Regular User', lastTweetId)
   getAllFeedTweets() {
     return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/feed`)
   }

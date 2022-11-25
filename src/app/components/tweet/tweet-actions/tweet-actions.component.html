@@ -1,29 +1,25 @@
-<div class="row">
-    <div class="col">
-        <div *ngIf="!tweet.likedByMe; else likedByMe">
-            <button id="like" class="btn btn-light" title="Like" (click)="onLikeTweet()">
-                <i class="bi bi-heart"></i>
-            </button>
-            <button class="btn btn-light text-muted" data-bs-toggle="modal" [attr.data-bs-target]="'#a'+tweet.id"
-                (click)="getWhoLiked()">
-                Liked by {{tweet.likesCount}}
-            </button>
+<div class="d-flex flex-row">
+    <button class="btn btn-light" title="Like" (click)="onLikeTweet()" *ngIf="!tweet.likedByMe">
+        <i class="bi bi-heart"></i>
+    </button>
+    <button class="btn btn-light" title="Like" (click)="onDislikeTweet()" *ngIf="tweet.likedByMe">
+        <i class="bi bi-heart-fill"></i>
+    </button>
+    <button class="btn btn-light text-muted me-3" data-bs-toggle="modal" [attr.data-bs-target]="'#a'+tweet.id"
+        (click)="getWhoLiked()">
+        <div *ngIf="tweet.likedByMe; else tweetNotLikedByMe">
+            Liked by me <span *ngIf="tweet.likesCount > 1">and {{tweet.likesCount - 1}} other<span *ngIf="tweet.likesCount > 2">s</span></span>
         </div>
-        <ng-template #likedByMe>
-            <button id="unlike" class="btn btn-light" title="Unlike" (click)="onUnlikeTweet()">
-                <i class="bi bi-heart-fill"></i>
-            </button>
-            <button class="btn btn-light text-muted" data-bs-toggle="modal" [attr.data-bs-target]="'#a'+tweet.id"
-                (click)="getWhoLiked()">
-                <span *ngIf="tweet.likesCount == 1; else likedMoreThanOnce">
-                    Liked by me
-                </span>
-                <ng-template #likedMoreThanOnce>
-                    Liked by me and {{tweet.likesCount-1}} others
-                </ng-template>
-            </button>
+        <ng-template #tweetNotLikedByMe>
+            <span *ngIf="tweet.likesCount == 0">
+                No likes
+            </span>
+            <span *ngIf="tweet.likesCount > 0">
+                Liked by {{tweet.likesCount}} other<span *ngIf="tweet.likesCount > 1">s</span>
+            </span>
         </ng-template>
-    </div>
+    </button>
+    <button class="btn btn-light text-muted" title="Retweet" (click)="onRetweet()"><i class="bi bi-arrow-repeat me-1"></i>Retweet</button>
 </div>
 
 
