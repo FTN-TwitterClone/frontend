@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, last, tap } from 'rxjs';
+import { catchError, last, Observable, tap } from 'rxjs';
 import { ERole } from 'src/app/model/ERole.model';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
@@ -19,8 +19,8 @@ export class ProfileComponent implements OnInit {
   following: User[] = [];
   followersCount: number = 0;
   followingCount: number = 0;
-  private: boolean = true;
   tweets: Tweet[] = []
+  viewProfileTweets: boolean = true;
   constructor(private profileService: ProfileService, private tweetService: TweetService, private route: ActivatedRoute, private jwtUtilsService: JwtUtilsService) { }
 
   ngOnInit(): void {
@@ -40,10 +40,8 @@ export class ProfileComponent implements OnInit {
     return tUsername == pUsername
   }
   loadProfile() {
-    this.getPrivacy()
     this.getFollowersCount()
     this.getFollowingCount()
-    this.ownProfile()
     this.getTweets()
   }
   getTweets(lastId?: string) {
@@ -52,7 +50,13 @@ export class ProfileComponent implements OnInit {
         if (tweets) {
           this.tweets = [...this.tweets, ...tweets]
         }
+      },
+      error: (err) => {
+        if(err.status == '403'){
+          this.viewProfileTweets = false
+        }
       }
+
     })
   }
   onScroll() {
@@ -91,16 +95,5 @@ export class ProfileComponent implements OnInit {
     this.profileService.doUnfollow(this.username).subscribe(res => {
       alert('Unfollowed')
     })
-  }
-  getPrivacy() {
-    this.profileService.getPrivacy(this.username).subscribe(res => {
-      this.private = res as boolean
-    })
-  }
-  viewTweets(): boolean {
-    if (this.private == true && this.ownProfile() != true) {
-      return false
-    }
-    return true
   }
 }
