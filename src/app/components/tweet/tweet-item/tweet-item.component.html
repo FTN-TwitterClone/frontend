@@ -10,6 +10,10 @@
         <span class="ms-2 text-muted fw-lighter fst-italic" style="font-size: 0.8rem;">
           {{tweet.timestamp | date:"dd/MM/YY HH:mm"}}
         </span>
+        <span class="ms-2" *ngIf="tweet.retweet">
+          <br />
+          <span class="badge text-bg-primary">retweeted from</span><a class="ms-2 text-decoration-none" routerLink="/profile/{{tweet.originalPostedBy}}">{{tweet.originalPostedBy}}</a>
+        </span>
       </span>
       <p class="pt-2">{{tweet.text}}</p>
     </div>

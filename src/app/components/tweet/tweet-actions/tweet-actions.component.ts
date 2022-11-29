@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
+import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class TweetActionsComponent implements OnInit {
   @Input() tweet!: Tweet
   whoLiked: String[] | null = []
   constructor(
-    private tweetService: TweetService
+    private tweetService: TweetService,
+    private jwtUtilsService: JwtUtilsService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +40,15 @@ export class TweetActionsComponent implements OnInit {
     })
     this.whoLiked = null
   }
-  onRetweet() {
-    console.log(this.tweet.id)
+  onRetweet(id:string) {
+    this.tweetService.retweet(id).subscribe(res => {
+      console.log(res)
+    })
+  }
+  ownTweet():boolean {
+    if(this.jwtUtilsService.getUsername().toLowerCase() == this.tweet.postedBy.toLowerCase()){
+      return true
+    }
+    return false
   }
 }

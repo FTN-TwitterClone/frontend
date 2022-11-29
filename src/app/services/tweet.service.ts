@@ -33,6 +33,9 @@ export class TweetService {
   getAllFeedTweets() {
     return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/feed`)
   }
+  retweet(id: string) {
+    return this.http.post(`${environment.api}/tweet/tweets/${id}/retweet`, {})
+  }
   addTweetToTweets(tweets: Tweet[] | null, tweet: Tweet) {
     if (tweets == null) {
       tweets = []
