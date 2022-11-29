@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { AuthenticationService } from 'src/app/services/security/authentication.service';
@@ -13,8 +13,13 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./profile-settings.component.scss']
 })
 export class ProfileSettingsComponent implements OnInit {
+  changePasswordForm = this.fb.group({
+    'currentPassword': ['', Validators.required],
+    'newPassword': ['', Validators.required],
+    'repeatPassword': ['', Validators.required]
+  })
   privacy: boolean = false
-  constructor(private profileService: ProfileService, private jwtUtilsService: JwtUtilsService) { }
+  constructor(private profileService: ProfileService, private fb: FormBuilder, private jwtUtilsService: JwtUtilsService) { }
   ngOnInit(): void {
     this.loadPrivacy()
   }
@@ -29,5 +34,22 @@ export class ProfileSettingsComponent implements OnInit {
       const user = res as RegularUser
       this.privacy = user.private
     })
+  }
+  onChangePassword() {
+    if (this.repeatPassword === this.newPassword && this.changePasswordForm.valid && this.currentPassword != null && this.newPassword != null && this.repeatPassword != null) {
+      this.profileService.changePassword(this.currentPassword, this.newPassword).subscribe(res => {
+        console.log(res)
+      })
+    }
+  }
+
+  get currentPassword() {
+    return this.changePasswordForm.get('currentPassword')?.value
+  }
+  get newPassword() {
+    return this.changePasswordForm.get('newPassword')?.value
+  }
+  get repeatPassword() {
+    return this.changePasswordForm.get('repeatPassword')?.value
   }
 }
