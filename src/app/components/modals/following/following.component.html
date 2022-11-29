@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <ng-container *ngIf="following != undefined; else noFollowing">
+                <ng-container *ngIf="following.length > 0; else noFollowing">
                     <ul *ngFor="let user of following">
                         <li><a routerLink="/profile/{{user.username}}" data-bs-dismiss="modal">{{user.username}}</a>
                         </li>

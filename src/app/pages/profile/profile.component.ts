@@ -56,7 +56,6 @@ export class ProfileComponent implements OnInit {
           this.viewProfileTweets = false
         }
       }
-
     })
   }
   onScroll() {
