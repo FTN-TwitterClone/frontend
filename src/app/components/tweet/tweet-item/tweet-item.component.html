@@ -5,7 +5,8 @@
     </div>
     <div class="col">
       <span class="text-wrap">
-        <a class="text-decoration-none" [routerLink]="['/profile/',tweet.username]">{{tweet.username}}</a>
+        <a class="text-decoration-none"
+          [routerLink]="['/profile/',tweet.postedBy]">{{tweet.postedBy}}</a>
         <span class="ms-2 text-muted fw-lighter fst-italic" style="font-size: 0.8rem;">
           {{tweet.timestamp | date:"dd/MM/YY HH:mm"}}
         </span>
