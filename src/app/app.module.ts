@@ -34,6 +34,7 @@ import { VerificationComponent } from './components/verification/verification.co
 import { FollowersComponent } from './components/modals/followers/followers.component';
 import { FollowingComponent } from './components/modals/following/following.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { FollowRequestsComponent } from './pages/follow-requests/follow-requests.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     VerificationComponent,
     FollowersComponent,
     FollowingComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    FollowRequestsComponent
   ],
   imports: [
     BrowserModule,

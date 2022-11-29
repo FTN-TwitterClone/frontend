@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { catchError, last, tap } from 'rxjs';
 import { ERole } from 'src/app/model/ERole.model';
 import { Tweet } from 'src/app/model/Tweet.model';
-import { Follow, User } from 'src/app/model/User.model';
+import { User } from 'src/app/model/User.model';
 import { ProfileService } from 'src/app/services/profile.service';
 import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { TweetService } from 'src/app/services/tweet.service';
@@ -63,28 +63,24 @@ export class ProfileComponent implements OnInit {
     return this.user.username
   }
   getFollowers() {
-    // this.profileService.getFollowers(this.username).subscribe(res => {
-    // this.followers = res as User[]
-    // })
-    this.followers = this.profileService.getFollowers(this.username)
+    this.profileService.getFollowers(this.username).subscribe(res => {
+      this.followers = res as User[]
+    })
   }
   getFollowing() {
-    // this.profileService.getFollowing(this.username).subscribe(res => {
-    //   this.following = res as User[]
-    // })
-    this.following = this.profileService.getFollowing(this.username)
+    this.profileService.getFollowing(this.username).subscribe(res => {
+      this.following = res as User[]
+    })
   }
   getFollowersCount() {
-    // this.profileService.getFollowersCount(this.username).subscribe(res => {
-    //   this.followersCount = res as number;
-    // })
-    this.followersCount = this.profileService.getFollowersCount(this.username)
+    this.profileService.getFollowersCount(this.username).subscribe(res => {
+      this.followersCount = res as number;
+    })
   }
   getFollowingCount() {
-    // this.profileService.getFollowingCount(this.username).subscribe(res => {
-    //   this.followingCount = res as number;
-    // })
-    this.followingCount = this.profileService.getFollowingCount(this.username)
+    this.profileService.getFollowingCount(this.username).subscribe(res => {
+      this.followingCount = res as number;
+    })
   }
   doFollow() {
     this.profileService.doFollow(this.username).subscribe(res => {

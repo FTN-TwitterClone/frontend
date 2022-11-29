@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VerificationComponent } from './components/verification/verification.component';
 import { AdsStatisticsComponent } from './pages/ads-statistics/ads-statistics.component';
+import { FollowRequestsComponent } from './pages/follow-requests/follow-requests.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -14,6 +15,7 @@ import { CanActivateAuthGuard } from './services/security/can-activate-auth.guar
 const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent, title: 'Twitter Clone | Forgot Password' },
   { path: 'ads/statistics', component: AdsStatisticsComponent, canActivate: [CanActivateAuthGuard] },
+  { path: 'profile/follow-requests', component: FollowRequestsComponent, title: 'Twitter Clone | Follow Requests' },
   { path: 'profile/settings', component: ProfileSettingsComponent, canActivate: [CanActivateAuthGuard], title: 'Twitter Clone | Settings' },
   { path: 'profile/:username', component: ProfileComponent, canActivate: [CanActivateAuthGuard], title: 'Twitter Clone | Profile' },
   { path: 'home', component: HomeComponent, canActivate: [CanActivateAuthGuard], title: 'Twitter Clone | Home' },
