@@ -56,4 +56,7 @@ export class ProfileService {
   forgotPassword(username: string) {
     return this.http.put(`${environment.api}/auth/account/${username}/recover/`, {})
   }
+  recoverAccount(recoveryId: string, newPassword: string) {
+    return this.http.put(`${environment.api}/recover/${recoveryId}/`, { 'password': newPassword })
+  }
 }

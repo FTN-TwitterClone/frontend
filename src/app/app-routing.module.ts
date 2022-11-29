@@ -9,10 +9,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { RecoverAccountComponent } from './pages/recover-account/recover-account.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { CanActivateAuthGuard } from './services/security/can-activate-auth.guard';
 
 const routes: Routes = [
+  { path: 'recover/:recoveryId', component: RecoverAccountComponent, title: 'Twitter Clone | Recover Account' },
   { path: 'forgot-password', component: ForgotPasswordComponent, title: 'Twitter Clone | Forgot Password' },
   { path: 'ads/statistics', component: AdsStatisticsComponent, canActivate: [CanActivateAuthGuard] },
   { path: 'profile/follow-requests', component: FollowRequestsComponent, title: 'Twitter Clone | Follow Requests' },

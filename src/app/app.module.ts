@@ -35,6 +35,8 @@ import { FollowersComponent } from './components/modals/followers/followers.comp
 import { FollowingComponent } from './components/modals/following/following.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { FollowRequestsComponent } from './pages/follow-requests/follow-requests.component';
+import { RecoverAccountComponent } from './pages/recover-account/recover-account.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { FollowRequestsComponent } from './pages/follow-requests/follow-requests
     FollowersComponent,
     FollowingComponent,
     ForgotPasswordComponent,
-    FollowRequestsComponent
+    FollowRequestsComponent,
+    RecoverAccountComponent,
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,
