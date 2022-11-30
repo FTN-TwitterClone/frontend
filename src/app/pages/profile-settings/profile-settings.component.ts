@@ -25,7 +25,7 @@ export class ProfileSettingsComponent implements OnInit {
   }
   onSubmit() {
     this.privacy = !this.privacy
-    this.profileService.updateProfile(this.jwtUtilsService.getUsername(), this.privacy).subscribe((res) => {
+    this.profileService.updateProfile(this.privacy).subscribe(() => {
       alert('Account privacy set to: ' + this.privacy)
     })
   }
@@ -37,8 +37,8 @@ export class ProfileSettingsComponent implements OnInit {
   }
   onChangePassword() {
     if (this.repeatPassword === this.newPassword && this.changePasswordForm.valid && this.currentPassword != null && this.newPassword != null && this.repeatPassword != null) {
-      this.profileService.changePassword(this.currentPassword, this.newPassword).subscribe(res => {
-        console.log(res)
+      this.profileService.changePassword(this.currentPassword, this.newPassword).subscribe(() => {
+        alert('Password changed successfully.')
       })
     }
   }

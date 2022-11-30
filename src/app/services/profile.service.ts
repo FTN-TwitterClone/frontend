@@ -10,12 +10,8 @@ import { JwtUtilsService } from './security/jwt-utils.service';
 export class ProfileService {
   constructor(private http: HttpClient, private jwtUtilsService: JwtUtilsService) { }
 
-  updateProfile(username: string, privacy: boolean) {
-    const form = {
-      'username': username,
-      'private': privacy
-    }
-    return this.http.patch(`${environment.api}/profile/users/me/`, form)
+  updateProfile(privacy: boolean) {
+    return this.http.patch(`${environment.api}/profile/users/me/`, { 'private': privacy })
   }
   getCurrentUser() {
     return this.http.get(`${environment.api}/profile/users/${this.jwtUtilsService.getUsername()}/`)
@@ -59,7 +55,7 @@ export class ProfileService {
   recoverAccount(recoveryId: string, newPassword: string) {
     return this.http.put(`${environment.api}/auth/recover/${recoveryId}/`, { 'password': newPassword })
   }
-  changePassword(oldPassword:string, newPassword:string){
-    return this.http.put(`${environment.api}/auth/password/change/`,{'oldPassword':oldPassword,'newPassword':newPassword})
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.http.put(`${environment.api}/auth/password/change/`, { 'oldPassword': oldPassword, 'newPassword': newPassword })
   }
 }
