@@ -22,8 +22,6 @@ export class HomeComponent implements OnInit {
       const resTweets = res as Tweet[]
       if (resTweets != null && resTweets.length > 0) {
         this.tweets = [...this.tweets, ...resTweets]
-      }else{
-        this.tweets = []
       }
     })
   }
