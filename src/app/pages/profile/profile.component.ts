@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, last, Observable, tap } from 'rxjs';
 import { ERole } from 'src/app/model/ERole.model';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
@@ -44,15 +43,15 @@ export class ProfileComponent implements OnInit {
     this.getFollowingCount()
     this.getTweets()
   }
-  getTweets(lastId?: string) {
-    this.tweetService.loadProfileTweets(this.username, lastId).subscribe({
+  getTweets() {
+    this.tweetService.getTweetsByUsername(this.username).subscribe({
       next: (tweets) => {
         if (tweets) {
           this.tweets = [...this.tweets, ...tweets]
         }
       },
       error: (err) => {
-        if(err.status == '403'){
+        if (err.status == '403') {
           this.viewProfileTweets = false
         }
       }
@@ -60,7 +59,16 @@ export class ProfileComponent implements OnInit {
   }
   onScroll() {
     const lastId = this.tweetService.getLastId(this.tweets)
-    if (lastId != null) { this.getTweets(lastId) }
+    if (lastId) {
+      this.tweetService.getProfileTweetsFromLastId(this.username, lastId).subscribe({
+        next: (tweets) => {
+          if (tweets) this.tweets = [...this.tweets, ...tweets]
+        },
+        error: (err) => {
+          alert(`Error: ${err.message}`)
+        }
+      })
+    }
   }
   get username() {
     return this.user.username

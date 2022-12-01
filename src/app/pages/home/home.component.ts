@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { TweetService } from 'src/app/services/tweet.service';
 
@@ -9,6 +10,7 @@ import { TweetService } from 'src/app/services/tweet.service';
 })
 export class HomeComponent implements OnInit {
   tweets: Tweet[] = []
+  tweets$: Observable<Tweet[]> = new Observable<Tweet[]>()
   constructor(private tweetService: TweetService) { }
 
   ngOnInit(): void {
@@ -17,16 +19,23 @@ export class HomeComponent implements OnInit {
   addTweet(tweet: Tweet) {
     this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
-  getTweets(lastId?: string) {
-    this.tweetService.loadFeedTweets(lastId).subscribe(res => {
-      const resTweets = res as Tweet[]
-      if (resTweets != null && resTweets.length > 0) {
-        this.tweets = [...this.tweets, ...resTweets]
-      }
+  getTweets() {
+    this.tweetService.getAllFeedTweets().subscribe(tweets => {
+      this.tweets = tweets
     })
   }
   onScroll() {
     const lastId = this.tweetService.getLastId(this.tweets)
-    lastId != null ? this.getTweets(lastId) : ''
+    if (lastId) {
+      this.tweetService.getFeedTweetsFromLastId(lastId).subscribe({
+        next: (tweets) => {
+          if (tweets) this.tweets = [...this.tweets, ...tweets]
+        },
+        error: (err) => {
+          alert(`Error: ${err.message}`)
+        }
+      }
+      )
+    }
   }
 }

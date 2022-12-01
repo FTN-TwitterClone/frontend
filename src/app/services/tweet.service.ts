@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Tweet } from '../model/Tweet.model';
 
@@ -13,12 +14,6 @@ export class TweetService {
   createTweet(tweet: Tweet) {
     return this.http.post(`${environment.api}/tweet/tweets/`, tweet)
   }
-  loadProfileTweets(username: string, lastTweetId?: string) {
-    return lastTweetId == undefined ? this.getTweetsByUsername(username) : this.getProfileTweetsFromLastId(username, lastTweetId)
-  }
-  loadFeedTweets(lastTweetId?: string) {
-    return lastTweetId == undefined ? this.getAllFeedTweets() : this.getFeedTweetsFromLastId(lastTweetId)
-  }
   getTweetsByUsername(username: string) {
     return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/profile/${username}`)
   }
@@ -26,9 +21,9 @@ export class TweetService {
     const params = new HttpParams().append('beforeId', lastTweetId)
     return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/profile/${username}`, { params: params })
   }
-  getFeedTweetsFromLastId(lastTweetId: string) {
+  getFeedTweetsFromLastId(lastTweetId: string): Observable<Tweet[]> {
     const params = new HttpParams().append('beforeId', lastTweetId)
-    return this.http.get(`${environment.api}/tweet/tweets/feed`, { params: params })
+    return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/feed`, { params: params })
   }
   getAllFeedTweets() {
     return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/feed`)
@@ -54,9 +49,9 @@ export class TweetService {
     return this.http.get(`${environment.api}/tweet/tweets/${tweetId}/likes`)
   }
   getLastId(tweets: Tweet[]): string | null {
-    if (tweets != null) {
+    if (tweets) {
       const lastTweet: Tweet | undefined = tweets.at(tweets.length - 1)
-      if (lastTweet != undefined && lastTweet != null) {
+      if (lastTweet) {
         return lastTweet.id.toString()
       }
     }
