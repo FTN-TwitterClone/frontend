@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { BusinessUser } from 'src/app/model/BusinessUser.model';
+import { User } from 'src/app/model/User.model';
 import { EGender } from 'src/app/model/EGender.model';
 import { validators } from 'src/app/components/validators/validator-variables';
 import { AuthenticationService } from 'src/app/services/security/authentication.service';
@@ -40,7 +40,7 @@ export class BusinessUserRegisterFormComponent implements OnInit {
 
   onSubmit() {
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'register', (token) => {
-      let userToRegister = this.businessUserRegisterForm.value as BusinessUser
+      let userToRegister = this.businessUserRegisterForm.value as User
       this.authService.registerBusinessUser(userToRegister, token).subscribe(res => {
         alert("Please check your email, and confirm registration!")
         this.router.navigateByUrl("/login")

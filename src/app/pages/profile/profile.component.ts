@@ -13,7 +13,7 @@ import { TweetService } from 'src/app/services/tweet.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: User = new User('', '', '', ERole.REGULAR_USER, true);
+  user!: User
   followers: User[] = [];
   following: User[] = [];
   followersCount: number = 0;

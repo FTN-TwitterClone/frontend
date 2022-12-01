@@ -21,7 +21,7 @@ export class NewPasswordComponent implements OnInit {
     if (this.newPassword === this.repeatPassword && this.newPassword != null) {
       this.newPasswordEventEmitter.emit(this.newPassword)
     } else {
-      alert('Passwords dont match')
+      alert('Passwords don\'t match')
     }
   }
 

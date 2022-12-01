@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { ProfileService } from 'src/app/services/profile.service';
-import { AuthenticationService } from 'src/app/services/security/authentication.service';
 import { User } from 'src/app/model/User.model';
-import { RegularUser } from 'src/app/model/RegularUser.model';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-profile-settings',
@@ -18,21 +14,21 @@ export class ProfileSettingsComponent implements OnInit {
     'newPassword': ['', Validators.required],
     'repeatPassword': ['', Validators.required]
   })
-  privacy: boolean = false
-  constructor(private profileService: ProfileService, private fb: FormBuilder, private jwtUtilsService: JwtUtilsService) { }
+  private: boolean = false
+  constructor(private profileService: ProfileService, private fb: FormBuilder) { }
   ngOnInit(): void {
     this.loadPrivacy()
   }
   onSubmit() {
-    this.privacy = !this.privacy
-    this.profileService.updateProfile(this.privacy).subscribe(() => {
-      alert('Account privacy set to: ' + this.privacy)
+    this.private = !this.private
+    this.profileService.updateProfile(this.private).subscribe(() => {
+      alert('Account privacy set to: ' + this.private)
     })
   }
   loadPrivacy() {
     this.profileService.getCurrentUser().subscribe(res => {
-      const user = res as RegularUser
-      this.privacy = user.private
+      const user = res as User
+      this.private = user.private
     })
   }
   onChangePassword() {

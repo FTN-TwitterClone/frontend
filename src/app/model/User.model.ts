@@ -1,17 +1,18 @@
+import { EGender } from "./EGender.model";
 import { ERole } from "./ERole.model";
 
-export class User {
+export interface User {
     username: string
     password: string
     email: string
     role: ERole
     enabled: boolean
-
-    constructor(username: string, password: string, email: string, role: ERole, enabled: boolean) {
-        this.username = username
-        this.password = password
-        this.email = email
-        this.role = role
-        this.enabled = enabled
-    }
+    companyName: string
+    site: string
+    firstname: string
+    lastname: string
+    gender: EGender
+    age: number
+    town: string
+    private: boolean
 }

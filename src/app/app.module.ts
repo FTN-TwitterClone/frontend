@@ -15,8 +15,6 @@ import { AdsStatisticsComponent } from './pages/ads-statistics/ads-statistics.co
 import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RegularUserRegisterFormComponent } from './components/regular-user-register-form/regular-user-register-form.component';
-import { BusinessUserRegisterFormComponent } from './components/business-user-register-form/business-user-register-form.component';
 import { UsernameValidatorComponent } from './components/validators/username-validator/username-validator.component';
 import { PasswordValidatorComponent } from './components/validators/password-validator/password-validator.component';
 import { EmailValidatorComponent } from './components/validators/email-validator/email-validator.component';
@@ -37,6 +35,8 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { FollowRequestsComponent } from './pages/follow-requests/follow-requests.component';
 import { RecoverAccountComponent } from './pages/recover-account/recover-account.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { RegularUserRegisterFormComponent } from './components/register-form/regular-user-register-form/regular-user-register-form.component';
+import { BusinessUserRegisterFormComponent } from './components/register-form/business-user-register-form/business-user-register-form.component';
 
 @NgModule({
   declarations: [
