@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/services/security/authentication.
 import { Router } from '@angular/router';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { environment } from 'src/environments/environment.prod';
-import { User } from 'src/app/model/User.model';
+import { RegularUser, User } from 'src/app/model/User.model';
 
 @Component({
   selector: 'app-regular-user-register-form',
@@ -41,7 +41,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
 
   onSubmit() {
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'register', (token) => {
-      let userToRegister = this.regularUserRegisterForm.value as User;
+      let userToRegister = this.regularUserRegisterForm.value as RegularUser;
       this.authService.registerRegularUser(userToRegister, token).subscribe(res => {
         if (res == null) {
           alert("Please check your email, and confirm registration!")

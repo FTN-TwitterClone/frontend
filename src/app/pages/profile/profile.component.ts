@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ERole } from 'src/app/model/ERole.model';
 import { Tweet } from 'src/app/model/Tweet.model';
@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   followingCount: number = 0;
   tweets: Tweet[] = []
   viewProfileTweets: boolean = true;
+  ownProfile: boolean = false
   constructor(private profileService: ProfileService, private tweetService: TweetService, private route: ActivatedRoute, private jwtUtilsService: JwtUtilsService) { }
 
   ngOnInit(): void {
@@ -33,15 +34,18 @@ export class ProfileComponent implements OnInit {
   addTweet(tweet: Tweet) {
     this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
-  ownProfile() {
-    const tUsername = this.jwtUtilsService.getUsername().toLowerCase()
-    const pUsername = this.user.username.toLowerCase()
-    return tUsername == pUsername
+  checkIfOwnProfile() {
+    const tUsername: string | null = this.jwtUtilsService.getUsername()
+    const pUsername: string = this.user.username
+    if (tUsername) {
+      this.ownProfile = tUsername.toLowerCase() === pUsername.toLowerCase()
+    }
   }
   loadProfile() {
     this.getFollowersCount()
     this.getFollowingCount()
     this.getTweets()
+    this.checkIfOwnProfile()
   }
   getTweets() {
     this.tweetService.getTweetsByUsername(this.username).subscribe({

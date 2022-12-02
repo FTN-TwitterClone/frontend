@@ -6,10 +6,10 @@
             class="rounded-circle position-absolute top-50 start-0">
     </div>
     <div class="d-flex flex-row-reverse">
-        <button class="btn btn-primary border mt-2 me-2" routerLink="/profile/settings" *ngIf="ownProfile()">Edit
+        <button class="btn btn-primary border mt-2 me-2" routerLink="/profile/settings" *ngIf="ownProfile">Edit
             profile</button>
-        <button class="btn btn-primary border mt-2 me-2" *ngIf="!ownProfile()" (click)="doFollow()">+ Follow</button>
-        <button class="btn btn-danger border mt-2 me-2" *ngIf="!ownProfile()" (click)="doUnfollow()">- Unfollow</button>
+        <button class="btn btn-primary border mt-2 me-2" *ngIf="!ownProfile" (click)="doFollow()">+ Follow</button>
+        <button class="btn btn-danger border mt-2 me-2" *ngIf="!ownProfile" (click)="doUnfollow()">- Unfollow</button>
     </div>
     <div class="d-flex flex-column mt-3 p-2">
         <div class="mt-4">
@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="mt-5">
-        <app-tweet-create *ngIf="ownProfile()" (createTweetEvent)="addTweet($event)"></app-tweet-create>
+        <app-tweet-create *ngIf="ownProfile" (createTweetEvent)="addTweet($event)"></app-tweet-create>
     </div>
     <ng-container *ngIf="viewProfileTweets; else restrictProfileTweets">
         <ng-container *ngIf="tweets != null; else noPosts">

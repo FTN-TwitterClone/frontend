@@ -40,13 +40,14 @@ export class TweetActionsComponent implements OnInit {
     })
     this.whoLiked = null
   }
-  onRetweet(id:string) {
+  onRetweet(id: string) {
     this.tweetService.retweet(id).subscribe(res => {
       console.log(res)
     })
   }
-  ownTweet():boolean {
-    if(this.jwtUtilsService.getUsername().toLowerCase() == this.tweet.postedBy.toLowerCase()){
+  ownTweet(): boolean {
+    const username: string | null = this.jwtUtilsService.getUsername()
+    if (username && username.toLowerCase() == this.tweet.postedBy.toLowerCase()) {
       return true
     }
     return false
