@@ -18,14 +18,14 @@ export class FollowRequestsComponent implements OnInit {
   }
 
   getRequests() {
-    this.profileService.getFollowRequests().subscribe(res => {
-      this.requests = res as User[]
+    this.profileService.getFollowRequests().subscribe({
+      next: users => this.requests = users as User[]
     })
   }
   onAccept(username: string) {
     const approved = new FollowRequestResponse(true)
     this.profileService.acceptRejectRequest(username, approved).subscribe({
-      next: response => console.log(response),
+      next: () => alert('Follow request has been accepted successfully.'),
       error: err => this.errorHandlerService.alert(err)
     })
   }

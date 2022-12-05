@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { environment } from 'src/environments/environment.prod';
 import { RegularUser, User } from 'src/app/model/User.model';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-regular-user-register-form',
@@ -34,7 +35,7 @@ export class RegularUserRegisterFormComponent implements OnInit {
     gender: [EGender.MALE]
   })
   constructor(private authService: AuthenticationService,
-    private fb: FormBuilder, private router: Router, private reCaptchaV3Service: ReCaptchaV3Service) { }
+    private fb: FormBuilder, private router: Router, private reCaptchaV3Service: ReCaptchaV3Service, private errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit(): void {
   }
@@ -43,8 +44,12 @@ export class RegularUserRegisterFormComponent implements OnInit {
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'register', (token) => {
       let userToRegister = this.regularUserRegisterForm.value as RegularUser;
       this.authService.registerRegularUser(userToRegister, token).subscribe({
-        next: response => { console.log(response); alert("Please check your email, and confirm registration!"); this.router.navigateByUrl("/login") },
-        error: err => alert('Error: ' + err.status + '\n' + err.message)
+        next: response => {
+          console.log(response);
+          alert("Please check your email, and confirm registration!");
+          this.router.navigateByUrl("/login")
+        },
+        error: err => this.errorHandlerService.alert(err)
       })
     })
   }

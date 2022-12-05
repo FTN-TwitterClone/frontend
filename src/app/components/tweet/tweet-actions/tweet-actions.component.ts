@@ -22,15 +22,17 @@ export class TweetActionsComponent implements OnInit {
     this.getWhoLiked()
   }
   onLikeTweet() {
-    this.tweetService.likeTweet(this.tweet.id).subscribe(res => {
-      this.tweet.likedByMe = true
-      this.tweet.likesCount += 1
+    this.tweetService.likeTweet(this.tweet.id).subscribe({
+      next: () => {
+        this.tweet.likedByMe = true
+        this.tweet.likesCount += 1
+      },
+      error: err => this.errorHandlerService.alert(err)
     })
   }
   onDislikeTweet() {
     this.tweetService.unlikeTweet(this.tweet.id).subscribe({
-      next: (res) => {
-        console.log(res)
+      next: () => {
         this.tweet.likedByMe = false
         this.tweet.likesCount -= 1
       }

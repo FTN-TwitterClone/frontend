@@ -16,10 +16,12 @@ export class VerificationComponent implements OnInit {
     this.verify()
   }
   verify() {
-    this.activatedRoute.params.subscribe(params => {
-      this.authService.verify(params['verificationId']).subscribe(res => {
-        alert('Verification successfull')
-        this.router.navigateByUrl('/login')
+    this.activatedRoute.params.subscribe({
+      next: params => this.authService.verify(params['verificationId']).subscribe({
+        next: () => {
+          alert('Verification successfull')
+          this.router.navigateByUrl('/login')
+        }
       })
     })
   }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -9,15 +10,16 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class RecoverAccountComponent implements OnInit {
   recoverId: string = ''
-  constructor(private route: ActivatedRoute, private profileService: ProfileService) { }
+  constructor(private route: ActivatedRoute, private profileService: ProfileService, private errorHandlerService: ErrorHandlerService) { }
   ngOnInit(): void {
-    this.route.params.subscribe(param => {
-      this.recoverId = param['recoveryId']
+    this.route.params.subscribe({
+      next: param => this.recoverId = param['recoveryId']
     })
   }
   newPassword(password: string) {
-    this.profileService.recoverAccount(this.recoverId, password).subscribe(res => {
-      console.log(res)
+    this.profileService.recoverAccount(this.recoverId, password).subscribe({
+      next: () => alert('Password has been updated.'),
+      error: err => this.errorHandlerService.alert(err)
     })
   }
 }

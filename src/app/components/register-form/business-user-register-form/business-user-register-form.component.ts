@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/services/security/authentication.
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { environment } from 'src/environments/environment.prod';
 import { Router } from '@angular/router';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-business-user-register-form',
@@ -33,7 +34,7 @@ export class BusinessUserRegisterFormComponent implements OnInit {
     companyName: ['']
   })
   constructor(private authService: AuthenticationService,
-    private fb: FormBuilder, private reCaptchaV3Service: ReCaptchaV3Service, private router: Router) { }
+    private fb: FormBuilder, private reCaptchaV3Service: ReCaptchaV3Service, private router: Router, private errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit(): void {
   }
@@ -41,9 +42,12 @@ export class BusinessUserRegisterFormComponent implements OnInit {
   onSubmit() {
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'register', (token) => {
       let userToRegister = this.businessUserRegisterForm.value as BusinessUser
-      this.authService.registerBusinessUser(userToRegister, token).subscribe(res => {
-        alert("Please check your email, and confirm registration!")
-        this.router.navigateByUrl("/login")
+      this.authService.registerBusinessUser(userToRegister, token).subscribe({
+        next: () => {
+          alert("Please check your email, and confirm registration!")
+          this.router.navigateByUrl("/login")
+        },
+        error: err => this.errorHandlerService.alert(err)
       })
     })
   }

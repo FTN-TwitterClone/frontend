@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tweet } from 'src/app/model/Tweet.model';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { TweetService } from 'src/app/services/tweet.service';
 })
 export class HomeComponent implements OnInit {
   tweets: Tweet[] = []
-  constructor(private tweetService: TweetService) { }
+  constructor(private tweetService: TweetService, private errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit(): void {
     this.getTweets()
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
   getTweets() {
     this.tweetService.getAllFeedTweets().subscribe({
       next: tweets => this.tweets = tweets,
-      error: err => alert('Error: ' + err.status + '\n' + err.message)
+      error: err => this.errorHandlerService.alert(err)
     })
   }
   onScroll() {
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
           if (tweets) this.tweets = [...this.tweets, ...tweets]
         },
         error: (err) => {
-          alert(`Error: ${err.message}`)
+          this.errorHandlerService.alert(err)
         }
       }
       )
