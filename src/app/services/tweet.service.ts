@@ -57,4 +57,11 @@ export class TweetService {
     }
     return null
   }
+    // ownTweet(): boolean {
+  //   const username: string | null = this.jwtUtilsService.getUsername()
+  //   if (username && username.toLowerCase() == this.tweet.postedBy.toLowerCase()) {
+  //     return true
+  //   }
+  //   return false
+  // }
 }

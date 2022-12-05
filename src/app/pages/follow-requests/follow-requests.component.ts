@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { FollowRequestResponse } from 'src/app/model/FollowRequestResponse.model';
 import { User } from 'src/app/model/User.model';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class FollowRequestsComponent implements OnInit {
   requests: User[] = []
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService, private errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit(): void {
     this.getRequests()
@@ -21,16 +22,18 @@ export class FollowRequestsComponent implements OnInit {
       this.requests = res as User[]
     })
   }
-  onAccept(username:string){
+  onAccept(username: string) {
     const approved = new FollowRequestResponse(true)
-    this.profileService.acceptRejectRequest(username,approved).subscribe(res => {
-      console.log(res)
+    this.profileService.acceptRejectRequest(username, approved).subscribe({
+      next: response => console.log(response),
+      error: err => this.errorHandlerService.alert(err)
     })
   }
-  onRemove(username:string){
+  onRemove(username: string) {
     const rejected = new FollowRequestResponse(false)
-    this.profileService.acceptRejectRequest(username,rejected).subscribe(res => {
-      console.log(res)
+    this.profileService.acceptRejectRequest(username, rejected).subscribe({
+      next: response => console.log(response),
+      error: err => alert('Error: ' + err.status + '\n' + err.message)
     })
   }
 }

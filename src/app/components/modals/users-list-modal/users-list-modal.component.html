@@ -1,19 +1,19 @@
-<div class="modal fade" id="following" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="{{uniqueId}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Following</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{title}}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <ng-container *ngIf="following.length > 0; else noFollowing">
-                    <ul *ngFor="let user of following">
+                <ng-container *ngIf="users.length > 0; else noFollowing">
+                    <ul *ngFor="let user of users">
                         <li><a routerLink="/profile/{{user.username}}" data-bs-dismiss="modal">{{user.username}}</a>
                         </li>
                     </ul>
                 </ng-container>
                 <ng-template #noFollowing>
-                    <p>No followed users.</p>
+                    <p>{{noUsersMessage}}</p>
                 </ng-template>
             </div>
             <div class="modal-footer">

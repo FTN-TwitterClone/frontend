@@ -21,17 +21,10 @@ export class TweetCreateComponent implements OnInit {
   }
   onSubmit() {
     let tweet: Tweet = this.text as Tweet
-    if (tweet.text == '') {
-      alert('Tweet can\'t be empty!')
-      return
-    }
-    this.tweetService.createTweet(tweet).subscribe(res => {
-      this.addNewItem(res as Tweet)
-      this.createTweetForm.reset()
+    this.tweetService.createTweet(tweet).subscribe({
+      next: response => { this.createTweetEvent.emit(response as Tweet); this.createTweetForm.reset() },
+      error: err => alert('Error: ' + err.status + '\n' + err.message)
     })
-  }
-  addNewItem(tweet: Tweet) {
-    this.createTweetEvent.emit(tweet)
   }
   get text() { return this.createTweetForm.value }
 }

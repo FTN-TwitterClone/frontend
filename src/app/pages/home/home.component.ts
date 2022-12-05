@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tweet } from 'src/app/model/Tweet.model';
-import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -11,7 +10,6 @@ import { TweetService } from 'src/app/services/tweet.service';
 })
 export class HomeComponent implements OnInit {
   tweets: Tweet[] = []
-  tweets$: Observable<Tweet[]> = new Observable<Tweet[]>()
   constructor(private tweetService: TweetService) { }
 
   ngOnInit(): void {
@@ -21,8 +19,9 @@ export class HomeComponent implements OnInit {
     this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
   getTweets() {
-    this.tweetService.getAllFeedTweets().subscribe(tweets => {
-      this.tweets = tweets
+    this.tweetService.getAllFeedTweets().subscribe({
+      next: tweets => this.tweets = tweets,
+      error: err => alert('Error: ' + err.status + '\n' + err.message)
     })
   }
   onScroll() {

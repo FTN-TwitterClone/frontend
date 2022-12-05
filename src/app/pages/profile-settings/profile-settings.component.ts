@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { RegularUser } from 'src/app/model/User.model';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-profile-settings',
@@ -15,26 +16,40 @@ export class ProfileSettingsComponent implements OnInit {
     'repeatPassword': ['', Validators.required]
   })
   private: boolean = false
-  constructor(private profileService: ProfileService, private fb: FormBuilder) { }
+  constructor(
+    private profileService: ProfileService,
+    private fb: FormBuilder,
+    private errorHandlerService: ErrorHandlerService) { }
   ngOnInit(): void {
     this.loadPrivacy()
   }
   onSubmit() {
     this.private = !this.private
-    this.profileService.updateProfile(this.private).subscribe(() => {
-      alert('Account privacy set to: ' + this.private)
+    this.profileService.updateProfile(this.private).subscribe({
+      complete: () => alert('Account privacy has been changed successfully'),
+      error: err => this.errorHandlerService.alert(err)
     })
   }
   loadPrivacy() {
-    this.profileService.getCurrentUser().subscribe(res => {
-      const user = res as RegularUser
-      this.private = user.private
+    this.profileService.getCurrentUser().subscribe({
+      next: user => {
+        let regUser = user as RegularUser
+        this.private = regUser.private
+      },
+      error: error => this.errorHandlerService.alert(error)
     })
   }
   onChangePassword() {
-    if (this.repeatPassword === this.newPassword && this.changePasswordForm.valid && this.currentPassword != null && this.newPassword != null && this.repeatPassword != null) {
-      this.profileService.changePassword(this.currentPassword, this.newPassword).subscribe(() => {
-        alert('Password changed successfully.')
+    let formValid: boolean = this.repeatPassword === this.newPassword && this.changePasswordForm.valid
+    if (formValid) {
+      this.profileService.changePassword(this.currentPassword!, this.newPassword!).subscribe({
+        complete: () => {
+          alert('Password has been changed successfully.')
+          this.changePasswordForm.reset()
+        },
+        error: err => {
+          this.errorHandlerService.alert(err)
+        }
       })
     }
   }

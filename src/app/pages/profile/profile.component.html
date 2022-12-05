@@ -34,7 +34,7 @@
     <ng-container *ngIf="viewProfileTweets; else restrictProfileTweets">
         <ng-container *ngIf="tweets != null; else noPosts">
             <app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-                (scrolled)="onScroll()" [tweets]="tweets"></app-tweets>
+                (scrolled)="onScroll()" [tweets]="tweets" (retweetEventEmitter)="onRetweet($event)"></app-tweets>
         </ng-container>
         <ng-template #noPosts>
             <p class="mt-2">There are no tweets.</p>
@@ -43,7 +43,7 @@
     <ng-template #restrictProfileTweets>
         <p class="mt-2">This profile is private.</p>
     </ng-template>
-    <app-following [following]="following"></app-following>
-    <app-followers [followers]="followers"></app-followers>
+    <app-users-list-modal [users]="following" title="Users you are following" uniqueId="following"></app-users-list-modal>
+    <app-users-list-modal [users]="followers" title="Users following you" uniqueId="followers"></app-users-list-modal>
 </div>
 <ng-template #loading>Loading...</ng-template>

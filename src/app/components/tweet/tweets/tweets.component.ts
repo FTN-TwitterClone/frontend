@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from 'src/app/model/Tweet.model';
 
 @Component({
@@ -7,10 +7,13 @@ import { Tweet } from 'src/app/model/Tweet.model';
   styleUrls: ['./tweets.component.scss']
 })
 export class TweetsComponent implements OnInit {
+  @Output() retweetEventEmitter: EventEmitter<Tweet> = new EventEmitter<Tweet>()
   @Input() tweets!: Tweet[]
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  onRetweet(retweet: Tweet) {
+    this.retweetEventEmitter.emit(retweet)
+  }
 }

@@ -25,18 +25,16 @@ import { JwtUtilsService } from './services/security/jwt-utils.service';
 import { CanActivateAuthGuard } from './services/security/can-activate-auth.guard';
 import { AuthenticationService } from './services/security/authentication.service';
 import { TweetsComponent } from './components/tweet/tweets/tweets.component';
-import { WhoLikedTweetComponent } from './components/modals/who-liked-tweet/who-liked-tweet.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { VerificationComponent } from './components/verification/verification.component';
-import { FollowersComponent } from './components/modals/followers/followers.component';
-import { FollowingComponent } from './components/modals/following/following.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { FollowRequestsComponent } from './pages/follow-requests/follow-requests.component';
 import { RecoverAccountComponent } from './pages/recover-account/recover-account.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { RegularUserRegisterFormComponent } from './components/register-form/regular-user-register-form/regular-user-register-form.component';
 import { BusinessUserRegisterFormComponent } from './components/register-form/business-user-register-form/business-user-register-form.component';
+import { UsersListModalComponent } from './components/modals/users-list-modal/users-list-modal.component';
 
 @NgModule({
   declarations: [
@@ -59,14 +57,12 @@ import { BusinessUserRegisterFormComponent } from './components/register-form/bu
     EmailValidatorComponent,
     AgeValidatorComponent,
     TweetsComponent,
-    WhoLikedTweetComponent,
     VerificationComponent,
-    FollowersComponent,
-    FollowingComponent,
     ForgotPasswordComponent,
     FollowRequestsComponent,
     RecoverAccountComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    UsersListModalComponent
   ],
   imports: [
     BrowserModule,

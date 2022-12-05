@@ -1,1 +1,1 @@
-<app-tweet-item *ngFor="let tweet of tweets" [tweet]="tweet"></app-tweet-item>
+<app-tweet-item *ngFor="let tweet of tweets" [tweet]="tweet" (retweetEventEmitter)="onRetweet($event)"></app-tweet-item>

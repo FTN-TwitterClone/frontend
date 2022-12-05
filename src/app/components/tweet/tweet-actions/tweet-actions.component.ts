@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
-import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -11,13 +11,15 @@ import { TweetService } from 'src/app/services/tweet.service';
 })
 export class TweetActionsComponent implements OnInit {
   @Input() tweet!: Tweet
-  whoLiked: String[] | null = []
+  @Output() retweetEventEmitter: EventEmitter<Tweet> = new EventEmitter<Tweet>()
+  whoLiked: User[] = []
   constructor(
     private tweetService: TweetService,
-    private jwtUtilsService: JwtUtilsService
+    private errorHandlerService: ErrorHandlerService
   ) { }
 
   ngOnInit(): void {
+    this.getWhoLiked()
   }
   onLikeTweet() {
     this.tweetService.likeTweet(this.tweet.id).subscribe(res => {
@@ -26,30 +28,25 @@ export class TweetActionsComponent implements OnInit {
     })
   }
   onDislikeTweet() {
-    this.tweetService.unlikeTweet(this.tweet.id).subscribe(res => {
-      this.tweet.likedByMe = false
-      this.tweet.likesCount -= 1
+    this.tweetService.unlikeTweet(this.tweet.id).subscribe({
+      next: (res) => {
+        console.log(res)
+        this.tweet.likedByMe = false
+        this.tweet.likesCount -= 1
+      }
     })
   }
   getWhoLiked() {
-    this.tweetService.getWhoLiked(this.tweet.id).subscribe(res => {
-      const users: User[] = res as User[]
-      if (users != null) {
-        this.whoLiked = users.map(x => x.username)
-      }
+    this.tweetService.getWhoLiked(this.tweet.id).subscribe({
+      next: users => users != null ? this.whoLiked = users as User[] : this.whoLiked = [],
+      error: err => this.errorHandlerService.alert(err)
     })
-    this.whoLiked = null
+    this.whoLiked = []
   }
   onRetweet(id: string) {
-    this.tweetService.retweet(id).subscribe(res => {
-      console.log(res)
+    this.tweetService.retweet(id).subscribe({
+      next: tweet => this.retweetEventEmitter.emit(tweet as Tweet),
+      error: err => this.errorHandlerService.alert(err)
     })
-  }
-  ownTweet(): boolean {
-    const username: string | null = this.jwtUtilsService.getUsername()
-    if (username && username.toLowerCase() == this.tweet.postedBy.toLowerCase()) {
-      return true
-    }
-    return false
   }
 }
