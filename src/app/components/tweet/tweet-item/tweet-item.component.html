@@ -16,6 +16,7 @@
         </span>
       </span>
       <p class="pt-2">{{tweet.text}}</p>
+      <img src="{{'data:image/jpg;base64,' + tweet.image}}" style="width:100%" *ngIf="tweet.image" />
     </div>
   </div>
   <app-tweet-actions [tweet]="tweet" (retweetEventEmitter)="onRetweet($event)"></app-tweet-actions>

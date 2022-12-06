@@ -1,4 +1,4 @@
-<form [formGroup]="createTweetForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="createTweetForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
 
     <div class="border p-2">
         <div class="d-flex align-items-center">
@@ -7,11 +7,10 @@
                 placeholder="What's happening?"></textarea>
         </div>
         <div class="d-flex mt-2">
-            <button class="btn btn-light me-auto" title="Media">
-                <i class="bi bi-card-image"></i>
-            </button>
+            <input type="file" class="form-control w-50 me-auto" formControlName="image" title="Media"
+                (change)="selectImage($event)">
             <div class="flex-shrink-1">
-                <button class="btn btn-primary">Tweet</button>
+                <button type="submit" class="btn btn-primary">Tweet</button>
             </div>
         </div>
     </div>

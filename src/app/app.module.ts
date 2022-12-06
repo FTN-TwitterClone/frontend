@@ -37,6 +37,7 @@ import { BusinessUserRegisterFormComponent } from './components/register-form/bu
 import { UsersListModalComponent } from './components/modals/users-list-modal/users-list-modal.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FollowRecommendationsComponent } from './components/follow-recommendations/follow-recommendations.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { FollowRecommendationsComponent } from './components/follow-recommendati
     NewPasswordComponent,
     UsersListModalComponent,
     SidebarComponent,
-    FollowRecommendationsComponent
+    FollowRecommendationsComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

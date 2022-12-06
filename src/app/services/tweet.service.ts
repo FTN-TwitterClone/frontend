@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { Tweet } from '../model/Tweet.model';
+import { Tweet, UploadTweet } from '../model/Tweet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,8 @@ export class TweetService {
 
   constructor(private http: HttpClient) { }
 
-  createTweet(tweet: Tweet) {
+  createTweet(tweet: UploadTweet) {
+    console.log('Uploading tweet => ' + JSON.stringify(tweet))
     return this.http.post<Tweet>(`${environment.api}/tweet/tweets/`, tweet)
   }
   getTweetsByUsername(username: string) {
@@ -57,11 +58,13 @@ export class TweetService {
     }
     return null
   }
-  // ownTweet(): boolean {
-  //   const username: string | null = this.jwtUtilsService.getUsername()
-  //   if (username && username.toLowerCase() == this.tweet.postedBy.toLowerCase()) {
-  //     return true
-  //   }
-  //   return false
-  // }
+  uploadImage(file: File) {
+    console.log('Uploading file => ' + file)
+
+    let formData = new FormData();
+    formData.append("image", file);
+    console.log('Form data => ' + formData)
+    return this.http.post<string>(`${environment.api}/tweet/tweets/image`, formData);
+
+  }
 }

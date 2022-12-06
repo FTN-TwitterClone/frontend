@@ -1,4 +1,5 @@
-<div class="card mt-2" *ngIf="recommendations && recommendations.length>0">
+<span *ngIf="recommendations; else loading">
+<div class="card mt-2" *ngIf="recommendations.length>0">
     <div class="card-header">People you may know</div>
     <div class="card-body">
         <ul class="list-group" *ngFor="let user of recommendations">
@@ -9,3 +10,7 @@
         </ul>
     </div>
 </div>
+</span>
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

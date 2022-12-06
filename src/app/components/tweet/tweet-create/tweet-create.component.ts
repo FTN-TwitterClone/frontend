@@ -1,8 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Tweet } from 'src/app/model/Tweet.model';
+import { Tweet, UploadTweet } from 'src/app/model/Tweet.model';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
-import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -12,16 +11,33 @@ import { TweetService } from 'src/app/services/tweet.service';
 })
 export class TweetCreateComponent implements OnInit {
   @Output() createTweetEvent: EventEmitter<Tweet> = new EventEmitter<Tweet>()
+  selectedImage!: File | null
   constructor(private fb: FormBuilder, private tweetService: TweetService, private errorHandlerService: ErrorHandlerService) { }
 
   createTweetForm = this.fb.group({
-    text: ['']
+    text: [''],
+    image: ['']
   })
 
   ngOnInit(): void {
   }
   onSubmit() {
-    let tweet: Tweet = this.text as Tweet
+    let tweet: UploadTweet = new UploadTweet('', this.text as string)
+    if (this.selectedImage) {
+      this.tweetService.uploadImage(this.selectedImage).subscribe({
+        next: imageId => {
+          console.log(imageId)
+          tweet.imageId = imageId
+          this.saveTweet(tweet)
+        },
+        error: err => this.errorHandlerService.alert(err)
+      })
+    } else {
+      this.saveTweet(tweet)
+    }
+
+  }
+  saveTweet(tweet: UploadTweet) {
     this.tweetService.createTweet(tweet).subscribe({
       next: tweet => {
         tweet.likesCount = 0
@@ -30,5 +46,11 @@ export class TweetCreateComponent implements OnInit {
       error: err => this.errorHandlerService.alert(err)
     })
   }
-  get text() { return this.createTweetForm.value }
+  selectImage(event: Event) {
+    //@ts-ignore
+    this.selectedImage = (event.target as HTMLInputElement).files[0];
+    console.log(this.selectedImage)
+  }
+  get text() { return this.createTweetForm.value?.text }
+  get image() { return this.createTweetForm.value?.image }
 }
