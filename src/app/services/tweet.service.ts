@@ -12,7 +12,7 @@ export class TweetService {
   constructor(private http: HttpClient) { }
 
   createTweet(tweet: Tweet) {
-    return this.http.post(`${environment.api}/tweet/tweets/`, tweet)
+    return this.http.post<Tweet>(`${environment.api}/tweet/tweets/`, tweet)
   }
   getTweetsByUsername(username: string) {
     return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/profile/${username}`)
@@ -29,10 +29,10 @@ export class TweetService {
     return this.http.get<Tweet[]>(`${environment.api}/tweet/tweets/feed`)
   }
   retweet(id: string) {
-    return this.http.post(`${environment.api}/tweet/tweets/${id}/retweet`, {})
+    return this.http.post<Tweet>(`${environment.api}/tweet/tweets/${id}/retweet`, {})
   }
   addTweetToTweets(tweets: Tweet[] | null, tweet: Tweet) {
-    if (tweets == null) {
+    if (tweets == null || tweets.length == 0) {
       tweets = []
       tweets.push(tweet)
       return
@@ -57,7 +57,7 @@ export class TweetService {
     }
     return null
   }
-    // ownTweet(): boolean {
+  // ownTweet(): boolean {
   //   const username: string | null = this.jwtUtilsService.getUsername()
   //   if (username && username.toLowerCase() == this.tweet.postedBy.toLowerCase()) {
   //     return true

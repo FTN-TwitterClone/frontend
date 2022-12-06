@@ -47,7 +47,10 @@ export class TweetActionsComponent implements OnInit {
   }
   onRetweet(id: string) {
     this.tweetService.retweet(id).subscribe({
-      next: tweet => this.retweetEventEmitter.emit(tweet as Tweet),
+      next: tweet => {
+        tweet.likesCount = 0
+        this.retweetEventEmitter.emit(tweet as Tweet);
+      },
       error: err => this.errorHandlerService.alert(err)
     })
   }

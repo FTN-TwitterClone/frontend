@@ -35,6 +35,8 @@ import { NewPasswordComponent } from './components/new-password/new-password.com
 import { RegularUserRegisterFormComponent } from './components/register-form/regular-user-register-form/regular-user-register-form.component';
 import { BusinessUserRegisterFormComponent } from './components/register-form/business-user-register-form/business-user-register-form.component';
 import { UsersListModalComponent } from './components/modals/users-list-modal/users-list-modal.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { FollowRecommendationsComponent } from './components/follow-recommendations/follow-recommendations.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { UsersListModalComponent } from './components/modals/users-list-modal/us
     FollowRequestsComponent,
     RecoverAccountComponent,
     NewPasswordComponent,
-    UsersListModalComponent
+    UsersListModalComponent,
+    SidebarComponent,
+    FollowRecommendationsComponent
   ],
   imports: [
     BrowserModule,

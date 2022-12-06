@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { FollowRequestResponse } from '../model/FollowRequestResponse.model';
+import { User } from '../model/User.model';
 import { JwtUtilsService } from './security/jwt-utils.service';
 
 @Injectable({
@@ -57,5 +58,8 @@ export class ProfileService {
   }
   changePassword(oldPassword: string, newPassword: string) {
     return this.http.put(`${environment.api}/auth/password/change/`, { 'oldPassword': oldPassword, 'newPassword': newPassword })
+  }
+  getRecomendations() {
+    return this.http.get<User[]>(`${environment.api}/social-graph/recommendations`)
   }
 }
