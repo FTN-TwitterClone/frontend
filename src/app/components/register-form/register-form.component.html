@@ -8,16 +8,11 @@
                     formControlName="username">
                 <app-username-validator [username]="usernameBusiness"></app-username-validator>
             </div>
-            <div class="mb-1">
+            <div class="mb-3">
                 <label class="form-label" for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="password"
                     formControlName="password">
                 <app-password-validator [password]="passwordBusiness"></app-password-validator>
-            </div>
-            <div class="mb-3">
-                <input type="password" class="form-control" id="repeatPassword" name="repeatPassword"
-                    placeholder="repeat password" formControlName="repeatPassword">
-                <app-password-validator [password]="repeatPasswordBusiness"></app-password-validator>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="email">Email Address</label>
@@ -63,16 +58,11 @@
                     formControlName="username">
                 <app-username-validator [username]="usernameRegular"></app-username-validator>
             </div>
-            <div class="mb-1">
+            <div class="mb-3">
                 <label class="form-label" for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="password"
                     formControlName="password">
                 <app-password-validator [password]="passwordRegular"></app-password-validator>
-            </div>
-            <div class="mb-3">
-                <input type="password" class="form-control" id="repeatPassword" name="repeatPassword"
-                    placeholder="repeat password" formControlName="repeatPassword">
-                <app-password-validator [password]="repeatPasswordRegular"></app-password-validator>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="email">Email Address</label>

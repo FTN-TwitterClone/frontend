@@ -21,14 +21,12 @@ export class RegisterFormComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     username: ['', Validators.required],
     password: ['', Validators.required],
-    repeatPassword: ['', Validators.required],
     website: ['', Validators.required],
     companyName: ['', Validators.required]
   })
   regularUserRegisterForm = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
-    repeatPassword: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     firstname: ['', Validators.required],
     lastname: ['', Validators.required],
@@ -78,7 +76,6 @@ export class RegisterFormComponent implements OnInit {
   }
   get usernameBusiness() { return this.businessUserRegisterForm.get('username') }
   get passwordBusiness() { return this.businessUserRegisterForm.get('password') }
-  get repeatPasswordBusiness() { return this.businessUserRegisterForm.get('repeatPassword') }
   get emailBusiness() { return this.businessUserRegisterForm.get('email') }
   get websiteBusiness() { return this.businessUserRegisterForm.get('website') }
   get companyNameBusiness() { return this.businessUserRegisterForm.get('companyName') }
@@ -89,5 +86,4 @@ export class RegisterFormComponent implements OnInit {
   get lastnameRegular() { return this.regularUserRegisterForm.get('lastname') }
   get townRegular() { return this.regularUserRegisterForm.get('town') }
   get passwordRegular() { return this.regularUserRegisterForm.get('password') }
-  get repeatPasswordRegular() { return this.regularUserRegisterForm.get('repeatPassword') }
 }
