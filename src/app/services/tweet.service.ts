@@ -32,13 +32,14 @@ export class TweetService {
   retweet(id: string) {
     return this.http.post<Tweet>(`${environment.api}/tweet/tweets/${id}/retweet`, {})
   }
-  addTweetToTweets(tweets: Tweet[] | null, tweet: Tweet) {
-    if (tweets == null || tweets.length == 0) {
+  addTweetToTweets(tweets: Tweet[] | null, tweet: Tweet): Tweet[] {
+    if (tweets == null || tweets.length < 1) {
       tweets = []
       tweets.push(tweet)
-      return
+    } else {
+      tweets.splice(0, 0, tweet)
     }
-    tweets.splice(0, 0, tweet)
+    return tweets
   }
   likeTweet(tweetId: string) {
     return this.http.put(`${environment.api}/tweet/tweets/${tweetId}/like`, {})

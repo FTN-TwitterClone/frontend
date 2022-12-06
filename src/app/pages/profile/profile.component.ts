@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
     })
   }
   addTweet(tweet: Tweet) {
-    this.tweetService.addTweetToTweets(this.tweets, tweet)
+    this.tweets = this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
   checkIfOwnProfile() {
     const tUsername: string | null = this.jwtUtilsService.getUsername()

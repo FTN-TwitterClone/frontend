@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.getTweets()
   }
   addTweet(tweet: Tweet) {
-    this.tweetService.addTweetToTweets(this.tweets, tweet)
+    this.tweets = this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
   getTweets() {
     this.tweetService.getAllFeedTweets().subscribe({
