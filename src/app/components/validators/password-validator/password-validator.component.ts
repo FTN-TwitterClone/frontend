@@ -14,5 +14,4 @@ export class PasswordValidatorComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

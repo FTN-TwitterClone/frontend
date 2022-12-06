@@ -6,16 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  businessFormShow: boolean = false;
+  regularRegistration: boolean = true;
   registrationInProgress: boolean = false;
-  constructor(
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   formToggle() {
-    this.businessFormShow = !this.businessFormShow;
+    this.regularRegistration = !this.regularRegistration;
   }
   onRegistrationInProgress(registrationInProgress: boolean) {
     this.registrationInProgress = registrationInProgress

@@ -32,12 +32,12 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { FollowRequestsComponent } from './pages/follow-requests/follow-requests.component';
 import { RecoverAccountComponent } from './pages/recover-account/recover-account.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
-import { RegularUserRegisterFormComponent } from './components/register-form/regular-user-register-form/regular-user-register-form.component';
-import { BusinessUserRegisterFormComponent } from './components/register-form/business-user-register-form/business-user-register-form.component';
 import { UsersListModalComponent } from './components/modals/users-list-modal/users-list-modal.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FollowRecommendationsComponent } from './components/follow-recommendations/follow-recommendations.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { FirstnameValidatorComponent } from './components/validators/firstname-validator/firstname-validator.component';
 
 @NgModule({
   declarations: [
@@ -53,8 +53,6 @@ import { LoadingComponent } from './components/loading/loading.component';
     ProfileSettingsComponent,
     RegisterComponent,
     LoginComponent,
-    RegularUserRegisterFormComponent,
-    BusinessUserRegisterFormComponent,
     UsernameValidatorComponent,
     PasswordValidatorComponent,
     EmailValidatorComponent,
@@ -68,7 +66,9 @@ import { LoadingComponent } from './components/loading/loading.component';
     UsersListModalComponent,
     SidebarComponent,
     FollowRecommendationsComponent,
-    LoadingComponent
+    LoadingComponent,
+    RegisterFormComponent,
+    FirstnameValidatorComponent
   ],
   imports: [
     BrowserModule,
