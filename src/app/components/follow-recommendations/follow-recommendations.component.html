@@ -1,9 +1,10 @@
-<div class="card" *ngIf="recommendations && recommendations.length>0">
+<div class="card mt-2" *ngIf="recommendations && recommendations.length>0">
     <div class="card-header">People you may know</div>
     <div class="card-body">
         <ul class="list-group" *ngFor="let user of recommendations">
-            <li class="list-group-item"> {{user.username}}
-                <button class="btn btn-sm btn-primary" (click)="onFollow(user)">Follow</button>
+            <li class="list-group-item p-3">
+                <a class="text-decoration-none" routerLink="/profile/{{user.username}}">{{user.username}}</a>
+                <button class="btn btn-sm btn-primary ms-5" (click)="onFollow(user)">Follow</button>
             </li>
         </ul>
     </div>
