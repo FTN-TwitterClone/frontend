@@ -11,7 +11,8 @@ import { TweetService } from 'src/app/services/tweet.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  tweets: Tweet[] = []
+  tweets!: Tweet[]
+  loading: boolean = true
   constructor(
     private tweetService: TweetService,
     private errorHandlerService: ErrorHandlerService) { }
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
   getTweets() {
     this.tweetService.getAllFeedTweets().subscribe({
       next: tweets => this.tweets = tweets,
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.errorHandlerService.alert(err),
+      complete: () => this.loading = false
     })
   }
   onScroll() {

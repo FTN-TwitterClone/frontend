@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
   businessFormShow: boolean = false;
+  registrationInProgress: boolean = false;
   constructor(
   ) { }
 
@@ -15,5 +16,8 @@ export class RegisterComponent implements OnInit {
 
   formToggle() {
     this.businessFormShow = !this.businessFormShow;
+  }
+  onRegistrationInProgress(registrationInProgress: boolean) {
+    this.registrationInProgress = registrationInProgress
   }
 }

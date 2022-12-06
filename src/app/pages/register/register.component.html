@@ -1,10 +1,12 @@
-<div class="register-container mt-5">
+<div class="register-container mt-5" *ngIf="!registrationInProgress;else loading">
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" role="switch" (click)="formToggle()">
         <label class="form-check-label">{{businessFormShow ? 'Switch to Regular account registartion' :
             'Switch to Business account registration'}}</label>
     </div>
-
-    <app-regular-user-register-form *ngIf="!businessFormShow"></app-regular-user-register-form>
+    <app-regular-user-register-form *ngIf="!businessFormShow" (registerationInProgressEventEmitter)="onRegistrationInProgress($event)"></app-regular-user-register-form>
     <app-business-user-register-form *ngIf="businessFormShow"></app-business-user-register-form>
 </div>
+<ng-template #loading>
+    <app-loading message="Registering... Please wait..."></app-loading>
+</ng-template>

@@ -12,6 +12,7 @@ import { TweetService } from 'src/app/services/tweet.service';
 export class TweetCreateComponent implements OnInit {
   @Output() createTweetEvent: EventEmitter<Tweet> = new EventEmitter<Tweet>()
   selectedImage!: File | null
+  saveInProgress: boolean = false
   constructor(private fb: FormBuilder, private tweetService: TweetService, private errorHandlerService: ErrorHandlerService) { }
 
   createTweetForm = this.fb.group({
@@ -22,6 +23,7 @@ export class TweetCreateComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit() {
+    this.saveInProgress = true
     let tweet: UploadTweet = new UploadTweet('', this.text as string)
     if (this.selectedImage) {
       this.tweetService.uploadImage(this.selectedImage).subscribe({
@@ -30,7 +32,8 @@ export class TweetCreateComponent implements OnInit {
           tweet.imageId = imageId
           this.saveTweet(tweet)
         },
-        error: err => this.errorHandlerService.alert(err)
+        error: err => this.errorHandlerService.alert(err),
+        complete: () => this.saveInProgress = false
       })
     } else {
       this.saveTweet(tweet)
@@ -43,7 +46,8 @@ export class TweetCreateComponent implements OnInit {
         tweet.likesCount = 0
         this.createTweetEvent.emit(tweet as Tweet); this.createTweetForm.reset()
       },
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.errorHandlerService.alert(err),
+      complete: () => this.saveInProgress = false
     })
   }
   selectImage(event: Event) {

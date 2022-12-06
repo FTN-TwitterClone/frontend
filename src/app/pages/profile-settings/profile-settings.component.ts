@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
-import { RegularUser } from 'src/app/model/User.model';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
+import { User } from 'src/app/model/User.model';
 
 @Component({
   selector: 'app-profile-settings',
@@ -33,7 +33,7 @@ export class ProfileSettingsComponent implements OnInit {
   loadPrivacy() {
     this.profileService.getCurrentUser().subscribe({
       next: user => {
-        let regUser = user as RegularUser
+        let regUser = user as User
         this.private = regUser.private
       },
       error: error => this.errorHandlerService.alert(error)

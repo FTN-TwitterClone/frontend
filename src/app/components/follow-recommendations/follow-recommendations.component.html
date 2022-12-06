@@ -1,16 +1,21 @@
-<span *ngIf="recommendations; else loading">
-<div class="card mt-2" *ngIf="recommendations.length>0">
-    <div class="card-header">People you may know</div>
-    <div class="card-body">
-        <ul class="list-group" *ngFor="let user of recommendations">
-            <li class="list-group-item p-3">
-                <a class="text-decoration-none" routerLink="/profile/{{user.username}}">{{user.username}}</a>
-                <button class="btn btn-sm btn-primary ms-5" (click)="onFollow(user)">Follow</button>
-            </li>
-        </ul>
+<span>
+    <div class="card mt-2">
+        <div class="card-header">People you may know</div>
+        <div class="card-body">
+            <span *ngIf="recommendations; else loading">
+                <ul class="list-group" *ngFor="let user of recommendations">
+                    <li class="list-group-item p-3 mt-1">
+                        <a class="text-decoration-none" routerLink="/profile/{{user.username}}">{{user.username}}</a>
+                        <button class="btn btn-sm btn-primary ms-5" (click)="onFollow(user)">Follow</button>
+                    </li>
+                </ul>
+                <span *ngIf="recommendations.length < 1">
+                    Nothing to recommend.
+                </span>
+            </span>
+            <ng-template #loading>
+                <app-loading></app-loading>
+            </ng-template>
+        </div>
     </div>
-</div>
 </span>
-<ng-template #loading>
-    <app-loading></app-loading>
-</ng-template>

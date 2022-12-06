@@ -6,14 +6,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <ng-container *ngIf="users.length > 0; else noFollowing">
-                    <ul *ngFor="let user of users">
-                        <li><a routerLink="/profile/{{user.username}}" data-bs-dismiss="modal">{{user.username}}</a>
-                        </li>
-                    </ul>
-                </ng-container>
-                <ng-template #noFollowing>
-                    <p>{{noUsersMessage}}</p>
+                <span *ngIf="users; else loading">
+                    <ng-container *ngIf="users.length > 0; else noFollowing">
+                        <ul class="list-group" *ngFor="let user of users">
+                            <li class="list-group-item">
+                                <a class="text-decoration-none" routerLink="/profile/{{user.username}}" data-bs-dismiss="modal">{{user.username}}</a>
+                            </li>
+                        </ul>
+                    </ng-container>
+                    <ng-template #noFollowing>
+                        <p>{{noUsersMessage}}</p>
+                    </ng-template>
+                </span>
+                <ng-template #loading>
+                    <app-loading></app-loading>
                 </ng-template>
             </div>
             <div class="modal-footer">

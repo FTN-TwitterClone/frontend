@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  loginInProgress: boolean = false
   loginForm = this.fb.group({
     username: ['', [
       Validators.required,
@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
 
   }
   onSubmit() {
+    this.loginInProgress = true
     this.reCaptchaV3Service.execute(`${environment.site_key}`, 'login', (token) => {
       if (this.loginForm.valid) {
         let loginCredentials = this.loginForm.value as User
@@ -49,7 +50,9 @@ export class LoginComponent implements OnInit {
           },
           error: err => {
             this.errorHandlerService.alert(err)
-          }
+            this.loginInProgress = false
+          },
+          complete: () => this.loginInProgress = false
         })
       }
     }, {

@@ -15,6 +15,12 @@
                 <app-password-validator [password]="password"></app-password-validator>
             </div>
             <div class="mb-3">
+                <label class="form-label" for="repeatPassword">Repeat password</label>
+                <input type="password" class="form-control" id="repeatPassword" name="repeatPassword"
+                    placeholder="repeat password" formControlName="repeatPassword">
+                <app-password-validator [password]="password"></app-password-validator>
+            </div>
+            <div class="mb-3">
                 <label class="form-label" for="email">Email Address</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="email@example.com"
                     formControlName="email">

@@ -10,7 +10,7 @@ import { ProfileService } from 'src/app/services/profile.service';
   styleUrls: ['./follow-requests.component.scss']
 })
 export class FollowRequestsComponent implements OnInit {
-  requests: User[] = []
+  requests!: User[]
   constructor(private profileService: ProfileService, private errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit(): void {

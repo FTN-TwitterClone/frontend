@@ -1,10 +1,17 @@
-<ul class="list-group mt-3" *ngIf="requests.length > 0;else noRequests">
-    <li class="list-group-item" *ngFor="let user of requests">
-        {{user.username}}
-        <button class="btn btn-sm btn-primary" (click)="onAccept(user.username)">Accept</button>
-        <button class="btn btn-sm btn-danger" (click)="onRemove(user.username)">Remove</button>
-    </li>
-</ul>
-<ng-template #noRequests>
-    No requests.
+<span *ngIf="requests">
+    <ul class="list-group mt-3" *ngIf="requests.length > 0;else noRequests">
+        <li class="list-group-item mt-3" *ngFor="let user of requests">
+            <span>{{user.username}}</span>
+            <button class="btn btn-sm btn-primary ms-5" (click)="onAccept(user.username)">Accept</button>
+            <button class="btn btn-sm btn-danger ms-2" (click)="onRemove(user.username)">Remove</button>
+        </li>
+    </ul>
+    <ng-template #noRequests>
+        <div class="card mt-3">
+            <div class="card-body">No follow requests.</div>
+        </div>
+    </ng-template>
+</span>
+<ng-template #loading>
+    <app-loading></app-loading>
 </ng-template>

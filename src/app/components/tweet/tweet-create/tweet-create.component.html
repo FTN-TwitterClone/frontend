@@ -1,5 +1,4 @@
 <form [formGroup]="createTweetForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
-
     <div class="border p-2">
         <div class="d-flex align-items-center">
             <img src=" ./assets/images/profile.jpeg" style="width:84px;height:84px;" class="rounded-circle me-2">
@@ -15,3 +14,6 @@
         </div>
     </div>
 </form>
+<span *ngIf="saveInProgress">
+    <app-loading message="Saving tweet..."></app-loading>
+</span>

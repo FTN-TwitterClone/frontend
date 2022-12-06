@@ -1,1 +1,7 @@
-<app-tweet-item *ngFor="let tweet of tweets" [tweet]="tweet" (retweetEventEmitter)="onRetweet($event)"></app-tweet-item>
+<span *ngIf="tweets;else noTweets">
+    <app-tweet-item *ngFor="let tweet of tweets" [tweet]="tweet" (retweetEventEmitter)="onRetweet($event)">
+    </app-tweet-item>
+</span>
+<ng-template #noTweets>
+    <app-loading></app-loading>
+</ng-template>

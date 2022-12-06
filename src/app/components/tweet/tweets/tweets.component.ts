@@ -8,7 +8,7 @@ import { Tweet } from 'src/app/model/Tweet.model';
 })
 export class TweetsComponent implements OnInit {
   @Output() retweetEventEmitter: EventEmitter<Tweet> = new EventEmitter<Tweet>()
-  @Input() tweets!: Tweet[]
+  @Input() tweets!: Tweet[] | null
   constructor() { }
 
   ngOnInit(): void {

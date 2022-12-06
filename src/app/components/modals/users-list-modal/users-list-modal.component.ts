@@ -7,7 +7,7 @@ import { User } from 'src/app/model/User.model';
   styleUrls: ['./users-list-modal.component.scss']
 })
 export class UsersListModalComponent implements OnInit {
-  @Input() users: User[] = []
+  @Input() users!: User[]
   @Input() title: string = 'Modal'
   @Input() noUsersMessage: string = 'No users'
   @Input() uniqueId: string = ''

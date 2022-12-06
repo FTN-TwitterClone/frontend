@@ -1,7 +1,7 @@
 import { EGender } from "./EGender.model";
 import { ERole } from "./ERole.model";
 
-export class User {
+export class UserRoot {
     username: string
     password: string
     email: string
@@ -16,7 +16,7 @@ export class User {
         this.enabled = enabled
     }
 }
-export class BusinessUser extends User {
+export class BusinessUserRegister extends UserRoot {
     companyName: string
     site: string
 
@@ -27,7 +27,7 @@ export class BusinessUser extends User {
         this.site = site
     }
 }
-export class RegularUser extends User {
+export class RegularUserRegister extends UserRoot {
     firstname: string
     lastname: string
     gender: EGender
@@ -54,5 +54,26 @@ export class UserDetails {
         this.username = username
         this.role = role
         this.exp = exp
+    }
+}
+export class User extends UserRoot {
+    firstname: string
+    lastname: string
+    gender: EGender
+    age: number
+    town: string
+    private: boolean
+    companyName: string
+    site: string
+    constructor(username: string, password: string, email: string, role: ERole, enabled: boolean, firstname: string, lastname: string, gender: EGender, age: number, town: string, privateAcc: boolean, companyName: string, site: string) {
+        super(username, password, email, role, enabled)
+        this.firstname = firstname
+        this.lastname = lastname
+        this.gender = gender
+        this.age = age
+        this.town = town
+        this.private = privateAcc
+        this.companyName = companyName
+        this.site = site
     }
 }
