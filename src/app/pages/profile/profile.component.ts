@@ -59,12 +59,8 @@ export class ProfileComponent implements OnInit {
   }
   getTweets() {
     this.tweetService.getTweetsByUsername(this.username).subscribe({
-      next: (tweets) => {
-        if (tweets) {
-          this.tweets = [...this.tweets, ...tweets]
-        }
-      },
-      error: (err) => {
+      next: tweets => this.tweets = tweets,
+      error: err => {
         if (err.status == '403') {
           this.viewProfileTweets = false
         } else {
@@ -111,7 +107,7 @@ export class ProfileComponent implements OnInit {
   }
   doFollow() {
     this.profileService.doFollow(this.username).subscribe({
-      next: () => alert('Follow request has been sent.'),
+      next: () => alert('Follow sent.'),
       error: err => this.errorHandlerService.alert(err)
     })
   }

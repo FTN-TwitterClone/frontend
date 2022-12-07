@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, title: 'Twitter Clone | Register' },
   { path: 'login', component: LoginComponent, title: 'Twitter Clone | Login' },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', component: NotFoundComponent, title: 'Twitter Clone | Page not found'}
 ];
 
 @NgModule({

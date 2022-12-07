@@ -12,7 +12,6 @@ export class TweetService {
   constructor(private http: HttpClient) { }
 
   createTweet(tweet: UploadTweet) {
-    console.log('Uploading tweet => ' + JSON.stringify(tweet))
     return this.http.post<Tweet>(`${environment.api}/tweet/tweets/`, tweet)
   }
   getTweetsByUsername(username: string) {
