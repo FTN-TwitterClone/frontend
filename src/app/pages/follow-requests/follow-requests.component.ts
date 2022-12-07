@@ -26,14 +26,16 @@ export class FollowRequestsComponent implements OnInit {
     const approved = new FollowRequestResponse(true)
     this.profileService.acceptRejectRequest(username, approved).subscribe({
       next: () => alert('Follow request has been accepted successfully.'),
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.errorHandlerService.alert(err),
+      complete: () => this.requests = this.requests.filter(req => req.username != username)
     })
   }
   onRemove(username: string) {
     const rejected = new FollowRequestResponse(false)
     this.profileService.acceptRejectRequest(username, rejected).subscribe({
       next: response => console.log(response),
-      error: err => alert('Error: ' + err.status + '\n' + err.message)
+      error: err => alert('Error: ' + err.status + '\n' + err.message),
+      complete: () => this.requests = this.requests.filter(req => req.username != username)
     })
   }
 }
