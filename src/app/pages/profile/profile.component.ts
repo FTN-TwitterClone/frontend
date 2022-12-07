@@ -18,6 +18,8 @@ export class ProfileComponent implements OnInit {
   following: User[] = [];
   followersCount: number = 0;
   followingCount: number = 0;
+  followExists: boolean = false;
+  followRequestExists: boolean = false;
   tweets: Tweet[] = []
   viewProfileTweets: boolean = true;
   ownProfile: boolean = false
@@ -56,6 +58,8 @@ export class ProfileComponent implements OnInit {
     this.getFollowingCount()
     this.getTweets()
     this.checkIfOwnProfile()
+    this.checkFollowExists()
+    this.checkFollowRequestExists()
   }
   getTweets() {
     this.tweetService.getTweetsByUsername(this.username).subscribe({
@@ -111,6 +115,9 @@ export class ProfileComponent implements OnInit {
         alert('Follow sent.')
         if (!this.user.private) {
           this.followersCount += 1
+          this.followExists = true
+        } else {
+          this.followRequestExists = true
         }
       },
       error: err => this.errorHandlerService.alert(err)
@@ -123,11 +130,24 @@ export class ProfileComponent implements OnInit {
         if (!this.user.private) {
           this.followersCount -= 1
         }
+        this.followExists = false
       },
       error: err => this.errorHandlerService.alert(err)
     })
   }
   onRetweet(retweet: Tweet) {
     this.tweetService.addTweetToTweets(this.tweets, retweet)
+  }
+  checkFollowRequestExists() {
+    this.profileService.checkIfFollowRequestExists(this.username).subscribe({
+      next: followRequest => this.followRequestExists = followRequest as boolean,
+      error: err => this.errorHandlerService.alert(err)
+    })
+  }
+  checkFollowExists() {
+    this.profileService.checkIfFollowExists(this.username).subscribe({
+      next: following => this.followExists = following as boolean,
+      error: err => this.errorHandlerService.alert(err)
+    })
   }
 }

@@ -47,8 +47,11 @@ export class ProfileService {
   acceptRejectRequest(username: string, approved: FollowRequestResponse) {
     return this.http.patch(`${environment.api}/social-graph/follows/${username}`, approved)
   }
-  checkIffollowExists(username: string) {
+  checkIfFollowExists(username: string) {
     return this.http.get(`${environment.api}/social-graph/follows/${username}`)
+  }
+  checkIfFollowRequestExists(username: string) {
+    return this.http.get(`${environment.api}/social-graph/follows-request/${username}`)
   }
   forgotPassword(username: string) {
     return this.http.put(`${environment.api}/auth/account/${username}/recover/`, {})
