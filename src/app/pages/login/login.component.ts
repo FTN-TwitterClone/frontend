@@ -17,14 +17,8 @@ import { environment } from 'src/environments/environment.prod';
 export class LoginComponent implements OnInit {
   loginInProgress: boolean = false
   loginForm = this.fb.group({
-    username: ['', [
-      Validators.required,
-      Validators.minLength(validators.username.minLength)
-    ]],
-    password: ['', [
-      Validators.required,
-      Validators.minLength(validators.password.minLength)
-    ]]
+    username: ['', Validators.required],
+    password: ['', Validators.required]
   })
   constructor(private fb: FormBuilder,
     private reCaptchaV3Service: ReCaptchaV3Service,

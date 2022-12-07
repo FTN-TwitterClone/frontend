@@ -28,7 +28,6 @@ export class TweetCreateComponent implements OnInit {
     if (this.selectedImage) {
       this.tweetService.uploadImage(this.selectedImage).subscribe({
         next: imageId => {
-          console.log(imageId)
           tweet.imageId = imageId
           this.saveTweet(tweet)
         },
@@ -47,13 +46,16 @@ export class TweetCreateComponent implements OnInit {
         this.createTweetEvent.emit(tweet as Tweet); this.createTweetForm.reset()
       },
       error: err => this.errorHandlerService.alert(err),
-      complete: () => this.saveInProgress = false
+      complete: () => {
+        this.saveInProgress = false
+        this.selectedImage = null
+        this.createTweetForm.reset()
+      }
     })
   }
   selectImage(event: Event) {
     //@ts-ignore
     this.selectedImage = (event.target as HTMLInputElement).files[0];
-    console.log(this.selectedImage)
   }
   get text() { return this.createTweetForm.value?.text }
   get image() { return this.createTweetForm.value?.image }
