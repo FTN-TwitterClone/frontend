@@ -107,13 +107,23 @@ export class ProfileComponent implements OnInit {
   }
   doFollow() {
     this.profileService.doFollow(this.username).subscribe({
-      next: () => alert('Follow sent.'),
+      next: () => {
+        alert('Follow sent.')
+        if (!this.user.private) {
+          this.followersCount += 1
+        }
+      },
       error: err => this.errorHandlerService.alert(err)
     })
   }
   doUnfollow() {
     this.profileService.doUnfollow(this.username).subscribe({
-      next: () => alert('User has been unfollowed.'),
+      next: () => {
+        alert('User has been unfollowed.')
+        if (!this.user.private) {
+          this.followersCount -= 1
+        }
+      },
       error: err => this.errorHandlerService.alert(err)
     })
   }
