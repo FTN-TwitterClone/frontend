@@ -13,9 +13,9 @@ export class TweetCreateComponent implements OnInit {
   @Output() createTweetEvent: EventEmitter<Tweet> = new EventEmitter<Tweet>()
   selectedImage!: File | null
   saveInProgress: boolean = false
-  constructor(private fb: FormBuilder, private tweetService: TweetService, private toastrService: ToastrService) { }
+  constructor(private tweetService: TweetService, private toastrService: ToastrService) { }
 
-  createTweetForm = this.fb.group({
+  createTweetForm = new FormBuilder().group({
     text: [''],
     image: ['']
   })

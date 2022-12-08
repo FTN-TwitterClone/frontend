@@ -9,11 +9,10 @@ import { ProfileService } from 'src/app/services/profile.service';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
-  resetPasswordForm = this.fb.group({
+  resetPasswordForm = new FormBuilder().group({
     username: ['', Validators.required]
   })
   constructor(
-    private fb: FormBuilder,
     private profileService: ProfileService,
     private toastrService: ToastrService
   ) { }

@@ -9,12 +9,12 @@ import { ProfileService } from 'src/app/services/profile.service';
   styleUrls: ['./new-password.component.scss']
 })
 export class NewPasswordComponent implements OnInit {
-  changePasswordForm = this.fb.group({
+  changePasswordForm = new FormBuilder().group({
     'newPassword': ['', Validators.required],
     'repeatPassword': ['', Validators.required]
   })
   @Output() newPasswordEventEmitter: EventEmitter<string> = new EventEmitter<string>()
-  constructor(private fb: FormBuilder, private toastrService: ToastrService) { }
+  constructor(private toastrService: ToastrService) { }
 
   ngOnInit(): void {
   }

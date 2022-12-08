@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./profile-settings.component.scss']
 })
 export class ProfileSettingsComponent implements OnInit {
-  changePasswordForm = this.fb.group({
+  changePasswordForm = new FormBuilder().group({
     'currentPassword': ['', Validators.required],
     'newPassword': ['', Validators.required],
     'repeatPassword': ['', Validators.required]
@@ -18,7 +18,6 @@ export class ProfileSettingsComponent implements OnInit {
   private: boolean = false
   constructor(
     private profileService: ProfileService,
-    private fb: FormBuilder,
     private toastrService: ToastrService) { }
   ngOnInit(): void {
     this.loadPrivacy()

@@ -17,14 +17,14 @@ export class RegisterFormComponent implements OnInit {
   @Output() registerationInProgressEventEmitter: EventEmitter<boolean> = new EventEmitter<boolean>()
   @Input() regularRegistration: boolean = false
   enumGender: typeof EGender = EGender;
-  businessUserRegisterForm = this.fb.group({
+  businessUserRegisterForm = new FormBuilder().group({
     email: ['', [Validators.required, Validators.email]],
     username: ['', Validators.required],
     password: ['', Validators.required],
     website: ['', Validators.required],
     companyName: ['', Validators.required]
   })
-  regularUserRegisterForm = this.fb.group({
+  regularUserRegisterForm = new FormBuilder().group({
     username: ['', Validators.required],
     password: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -33,8 +33,7 @@ export class RegisterFormComponent implements OnInit {
     town: ['', Validators.required],
     gender: [EGender.MALE]
   })
-  constructor(private authService: AuthenticationService,
-    private fb: FormBuilder, private reCaptchaV3Service: ReCaptchaV3Service, private router: Router, private toastrService: ToastrService) { }
+  constructor(private authService: AuthenticationService, private reCaptchaV3Service: ReCaptchaV3Service, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
   }

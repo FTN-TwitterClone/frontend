@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class LoginComponent implements OnInit {
   loginInProgress: boolean = false
-  loginForm = this.fb.group({
+  loginForm = new FormBuilder().group({
     username: ['', Validators.required],
     password: ['', Validators.required]
   })
