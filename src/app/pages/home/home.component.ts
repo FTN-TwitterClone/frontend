@@ -1,8 +1,6 @@
-import { Component, ErrorHandler, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Tweet } from 'src/app/model/Tweet.model';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
-import { ProfileService } from 'src/app/services/profile.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -15,7 +13,7 @@ export class HomeComponent implements OnInit {
   loading: boolean = true
   constructor(
     private tweetService: TweetService,
-    private errorHandlerService: ErrorHandlerService) { }
+    private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.getTweets()
@@ -26,7 +24,7 @@ export class HomeComponent implements OnInit {
   getTweets() {
     this.tweetService.getAllFeedTweets().subscribe({
       next: tweets => this.tweets = tweets,
-      error: err => this.errorHandlerService.alert(err),
+      error: err => this.toastrService.error(err.error, 'Error'),
       complete: () => this.loading = false
     })
   }
@@ -38,7 +36,7 @@ export class HomeComponent implements OnInit {
           if (tweets) this.tweets = [...this.tweets, ...tweets]
         },
         error: (err) => {
-          this.errorHandlerService.alert(err)
+          this.toastrService.error(err.error, 'Error')
         }
       }
       )

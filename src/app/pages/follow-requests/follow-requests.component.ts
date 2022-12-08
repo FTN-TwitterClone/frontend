@@ -1,7 +1,7 @@
 import { Component, ErrorHandler, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { FollowRequestResponse } from 'src/app/model/FollowRequestResponse.model';
 import { User } from 'src/app/model/User.model';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class FollowRequestsComponent implements OnInit {
   requests!: User[]
-  constructor(private profileService: ProfileService, private errorHandlerService: ErrorHandlerService) { }
+  constructor(private profileService: ProfileService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.getRequests()
@@ -25,16 +25,16 @@ export class FollowRequestsComponent implements OnInit {
   onAccept(username: string) {
     const approved = new FollowRequestResponse(true)
     this.profileService.acceptRejectRequest(username, approved).subscribe({
-      next: () => alert('Follow request has been accepted successfully.'),
-      error: err => this.errorHandlerService.alert(err),
+      next: () => this.toastrService.success('Request accepted.', 'Success'),
+      error: err => this.toastrService.error(err.error, 'Error'),
       complete: () => this.requests = this.requests.filter(req => req.username != username)
     })
   }
   onRemove(username: string) {
     const rejected = new FollowRequestResponse(false)
     this.profileService.acceptRejectRequest(username, rejected).subscribe({
-      next: response => console.log(response),
-      error: err => alert('Error: ' + err.status + '\n' + err.message),
+      next: response => this.toastrService.success('Request removed.','Success'),
+      error: err => this.toastrService.error(err.error,'Error'),
       complete: () => this.requests = this.requests.filter(req => req.username != username)
     })
   }

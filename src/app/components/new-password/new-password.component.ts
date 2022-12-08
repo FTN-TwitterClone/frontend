@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class NewPasswordComponent implements OnInit {
     'repeatPassword': ['', Validators.required]
   })
   @Output() newPasswordEventEmitter: EventEmitter<string> = new EventEmitter<string>()
-  constructor(private fb: FormBuilder, private profileService: ProfileService) { }
+  constructor(private fb: FormBuilder, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +22,7 @@ export class NewPasswordComponent implements OnInit {
     if (this.newPassword === this.repeatPassword && this.newPassword != null) {
       this.newPasswordEventEmitter.emit(this.newPassword)
     } else {
-      alert('Passwords don\'t match')
+      this.toastrService.error('Passwords don\'t match.', 'Error')
     }
   }
 

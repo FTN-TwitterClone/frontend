@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from 'src/app/model/Tweet.model';
-import { User } from 'src/app/model/User.model';
 
 @Component({
   selector: 'app-tweet-item',

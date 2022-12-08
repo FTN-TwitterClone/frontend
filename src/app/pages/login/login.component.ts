@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReCaptchaV3Service } from 'ngx-captcha';
-import { validators } from 'src/app/components/validators/validator-variables';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/User.model';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { AuthenticationService } from 'src/app/services/security/authentication.service';
 import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { environment } from 'src/environments/environment.prod';
@@ -25,7 +24,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthenticationService,
     private jwtUtilsService: JwtUtilsService,
     private router: Router,
-    private errorHandlerService: ErrorHandlerService) {
+    private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -39,11 +38,11 @@ export class LoginComponent implements OnInit {
         this.authService.login(loginCredentials, token).subscribe({
           next: res => {
             this.jwtUtilsService.setToken(res)
-            alert("Successfully logged in")
+            this.toastr.success('You have been successfully logged in.', 'Success')
             this.router.navigateByUrl("/home")
           },
           error: err => {
-            this.errorHandlerService.alert(err)
+            this.toastr.error(err.error, 'Error')
             this.loginInProgress = false
           },
           complete: () => this.loginInProgress = false

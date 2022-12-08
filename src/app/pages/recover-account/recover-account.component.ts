@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
+import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class RecoverAccountComponent implements OnInit {
   recoverId: string = ''
-  constructor(private route: ActivatedRoute, private profileService: ProfileService, private errorHandlerService: ErrorHandlerService) { }
+  constructor(private route: ActivatedRoute, private profileService: ProfileService, private toastrService: ToastrService) { }
   ngOnInit(): void {
     this.route.params.subscribe({
       next: param => this.recoverId = param['recoveryId']
@@ -18,8 +18,8 @@ export class RecoverAccountComponent implements OnInit {
   }
   newPassword(password: string) {
     this.profileService.recoverAccount(this.recoverId, password).subscribe({
-      next: () => alert('Password has been updated.'),
-      error: err => this.errorHandlerService.alert(err)
+      next: () => this.toastrService.success('Password has been updated.', 'Success'),
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
 }
