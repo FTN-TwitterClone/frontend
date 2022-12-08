@@ -1,9 +1,16 @@
 <span *ngIf="requests">
     <ul class="list-group mt-3" *ngIf="requests.length > 0;else noRequests">
-        <li class="list-group-item mt-3" *ngFor="let user of requests">
-            <span>{{user.username}}</span>
-            <button class="btn btn-sm btn-primary ms-5" (click)="onAccept(user.username)">Accept</button>
-            <button class="btn btn-sm btn-danger ms-2" (click)="onRemove(user.username)">Remove</button>
+        <li class="list-group-item" *ngFor="let user of requests">
+            <span class="d-flex">
+                <span class="me-auto"><i class="bi bi-person-fill">&nbsp;</i><a
+                        class="text-decoration-none" routerLink='/profile/{{user.username}}'>{{user.username}}</a></span>
+                <button class="btn btn-sm btn-success ms-auto" (click)="onAccept(user.username)">
+                    <i class="bi bi-check-circle-fill">&nbsp;</i>Accept
+                </button>
+                <button class="btn btn-sm btn-danger ms-2" (click)="onRemove(user.username)">
+                    <i class="bi bi-trash3-fill">&nbsp;</i>Remove
+                </button>
+            </span>
         </li>
     </ul>
     <ng-template #noRequests>

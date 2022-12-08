@@ -1,27 +1,30 @@
-<div class="d-flex flex-row">
+<div class="d-flex flex-row mt-4">
     <button class="btn btn-light" title="Like" (click)="onLikeTweet()" *ngIf="!tweet.likedByMe">
-        <i class="bi bi-heart"></i>
+        <i class="bi bi-heart "></i>
     </button>
     <button class="btn btn-light" title="Like" (click)="onDislikeTweet()" *ngIf="tweet.likedByMe">
-        <i class="bi bi-heart-fill"></i>
+        <i class="bi bi-heart-fill "></i>
     </button>
     <button class="btn btn-light text-muted me-3" data-bs-toggle="modal" [attr.data-bs-target]="'#a'+tweet.id"
         (click)="getWhoLiked()">
         <div *ngIf="tweet.likedByMe; else tweetNotLikedByMe">
+            <i class="bi bi-person-heart ">&nbsp;</i>
             Liked by me <span *ngIf="tweet.likesCount > 1">and {{tweet.likesCount - 1}} other<span
                     *ngIf="tweet.likesCount > 2">s</span></span>
         </div>
         <ng-template #tweetNotLikedByMe>
             <span *ngIf="tweet.likesCount == 0">
+                <i class="bi bi-person-heart ">&nbsp;</i>
                 No likes
             </span>
             <span *ngIf="tweet.likesCount > 0">
+                <i class="bi bi-person-heart ">&nbsp;</i>
                 Liked by {{tweet.likesCount}} other<span *ngIf="tweet.likesCount > 1">s</span>
             </span>
         </ng-template>
     </button>
-    <button class="btn btn-light text-muted" title="Retweet" (click)="onRetweet(tweet.id)" *ngIf="!tweet.retweet"><i
-            class="bi bi-arrow-repeat me-1"></i>Retweet</button>
+    <button class="btn btn-primary ms-auto" title="Retweet" (click)="onRetweet(tweet.id)" *ngIf="!tweet.retweet"><i
+            class="bi bi-arrow-repeat ">&nbsp;</i>Retweet</button>
 </div>
 
 <app-users-list-modal [uniqueId]="'a'+tweet.id" [users]="whoLiked" title="Tweet liked by"></app-users-list-modal>
