@@ -31,9 +31,9 @@ export class LoginComponent implements OnInit {
 
   }
   onSubmit() {
-    this.loginInProgress = true
-    this.reCaptchaV3Service.execute(`${environment.site_key}`, 'login', (token) => {
-      if (this.loginForm.valid) {
+    if (this.loginForm.valid) {
+      this.loginInProgress = true
+      this.reCaptchaV3Service.execute(`${environment.site_key}`, 'login', (token) => {
         let loginCredentials = this.loginForm.value as User
         this.authService.login(loginCredentials, token).subscribe({
           next: res => {
@@ -48,9 +48,12 @@ export class LoginComponent implements OnInit {
           complete: () => this.loginInProgress = false
         })
       }
-    }, {
-      useGlobalDomain: false
-    });
+        , {
+          useGlobalDomain: false
+        })
+    } else {
+      this.toastr.error('Wrong username or password.', 'Error')
+    }
   }
 
   get username() { return this.loginForm.get('username') }

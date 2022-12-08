@@ -23,7 +23,10 @@ export class HomeComponent implements OnInit {
   }
   getTweets() {
     this.tweetService.getAllFeedTweets().subscribe({
-      next: tweets => this.tweets = tweets,
+      next: tweets => {
+        this.loading = true
+        this.tweets = tweets
+      },
       error: err => this.toastrService.error(err.error, 'Error'),
       complete: () => this.loading = false
     })
@@ -33,11 +36,15 @@ export class HomeComponent implements OnInit {
     if (lastId) {
       this.tweetService.getFeedTweetsFromLastId(lastId).subscribe({
         next: (tweets) => {
-          if (tweets) this.tweets = [...this.tweets, ...tweets]
+          if (tweets) {
+            this.loading = true
+            this.tweets = [...this.tweets, ...tweets]
+          }
         },
         error: (err) => {
           this.toastrService.error(err.error, 'Error')
-        }
+        },
+        complete: () => this.loading = false
       }
       )
     }

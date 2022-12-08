@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -47,11 +48,9 @@ export class ProfileComponent implements OnInit {
     this.tweets = this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
   checkIfOwnProfile() {
-    const tUsername: string | null = this.jwtUtilsService.getUsername()
+    const tUsername: string = this.jwtUtilsService.getUsername() as string
     const pUsername: string = this.user.username
-    if (tUsername) {
-      this.ownProfile = tUsername.toLowerCase() === pUsername.toLowerCase()
-    }
+    this.ownProfile = tUsername.toLowerCase() === pUsername.toLowerCase()
   }
   loadProfile() {
     this.getFollowersCount()
@@ -60,6 +59,9 @@ export class ProfileComponent implements OnInit {
     this.checkIfOwnProfile()
     this.checkFollowExists()
     this.checkFollowRequestExists()
+  }
+  ngOnChanges(changes: SimpleChange){
+    console.log(changes)
   }
   getTweets() {
     this.tweetService.getTweetsByUsername(this.username).subscribe({
