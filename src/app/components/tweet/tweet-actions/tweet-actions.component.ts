@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class TweetActionsComponent implements OnInit {
   whoLiked: User[] = []
   constructor(
     private tweetService: TweetService,
-    private errorHandlerService: ErrorHandlerService
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -26,8 +26,9 @@ export class TweetActionsComponent implements OnInit {
       next: () => {
         this.tweet.likedByMe = true
         this.tweet.likesCount += 1
+        this.toastrService.success('Tweet liked.', 'Success')
       },
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   onDislikeTweet() {
@@ -35,13 +36,15 @@ export class TweetActionsComponent implements OnInit {
       next: () => {
         this.tweet.likedByMe = false
         this.tweet.likesCount -= 1
-      }
+        this.toastrService.success('Tweet disliked.', 'Success')
+      },
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   getWhoLiked() {
     this.tweetService.getWhoLiked(this.tweet.id).subscribe({
       next: users => users != null ? this.whoLiked = users as User[] : this.whoLiked = [],
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
     this.whoLiked = []
   }
@@ -50,8 +53,9 @@ export class TweetActionsComponent implements OnInit {
       next: tweet => {
         tweet.likesCount = 0
         this.retweetEventEmitter.emit(tweet as Tweet);
+        this.toastrService.success('Retweeted successfully.', 'Success')
       },
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
 }

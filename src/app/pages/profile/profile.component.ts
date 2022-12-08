@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { TweetService } from 'src/app/services/tweet.service';
@@ -28,7 +29,7 @@ export class ProfileComponent implements OnInit {
     private tweetService: TweetService,
     private route: ActivatedRoute,
     private jwtUtilsService: JwtUtilsService,
-    private errorHandlerService: ErrorHandlerService) { }
+    private toastrService: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -47,11 +48,9 @@ export class ProfileComponent implements OnInit {
     this.tweets = this.tweetService.addTweetToTweets(this.tweets, tweet)
   }
   checkIfOwnProfile() {
-    const tUsername: string | null = this.jwtUtilsService.getUsername()
+    const tUsername: string = this.jwtUtilsService.getUsername() as string
     const pUsername: string = this.user.username
-    if (tUsername) {
-      this.ownProfile = tUsername.toLowerCase() === pUsername.toLowerCase()
-    }
+    this.ownProfile = tUsername.toLowerCase() === pUsername.toLowerCase()
   }
   loadProfile() {
     this.getFollowersCount()
@@ -61,6 +60,9 @@ export class ProfileComponent implements OnInit {
     this.checkFollowExists()
     this.checkFollowRequestExists()
   }
+  ngOnChanges(changes: SimpleChange){
+    console.log(changes)
+  }
   getTweets() {
     this.tweetService.getTweetsByUsername(this.username).subscribe({
       next: tweets => this.tweets = tweets,
@@ -68,7 +70,7 @@ export class ProfileComponent implements OnInit {
         if (err.status == '403') {
           this.viewProfileTweets = false
         } else {
-          this.errorHandlerService.alert(err)
+          this.toastrService.error(err.error, 'Error')
         }
       }
     })
@@ -78,7 +80,7 @@ export class ProfileComponent implements OnInit {
     if (lastId) {
       this.tweetService.getProfileTweetsFromLastId(this.username, lastId).subscribe({
         next: tweets => tweets ? this.tweets = [...this.tweets, ...tweets] : '',
-        error: err => this.errorHandlerService.alert(err)
+        error: err => this.toastrService.error(err.error, 'Error')
       })
     }
   }
@@ -88,31 +90,31 @@ export class ProfileComponent implements OnInit {
   getFollowers() {
     this.profileService.getFollowers(this.username).subscribe({
       next: followers => this.followers = followers as User[],
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   getFollowing() {
     this.profileService.getFollowing(this.username).subscribe({
       next: following => this.following = following as User[],
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   getFollowersCount() {
     this.profileService.getFollowersCount(this.username).subscribe({
       next: count => this.followersCount = count as number,
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   getFollowingCount() {
     this.profileService.getFollowingCount(this.username).subscribe({
       next: count => this.followingCount = count as number,
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   doFollow() {
     this.profileService.doFollow(this.username).subscribe({
       next: () => {
-        alert('Follow sent.')
+        this.toastrService.success('Follow has been sent.', 'Success')
         if (!this.user.private) {
           this.followersCount += 1
           this.followExists = true
@@ -120,19 +122,19 @@ export class ProfileComponent implements OnInit {
           this.followRequestExists = true
         }
       },
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   doUnfollow() {
     this.profileService.doUnfollow(this.username).subscribe({
       next: () => {
-        alert('User has been unfollowed.')
+        this.toastrService.success('User has been unfollowed.', 'Success')
         if (!this.user.private) {
           this.followersCount -= 1
         }
         this.followExists = false
       },
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   onRetweet(retweet: Tweet) {
@@ -141,13 +143,13 @@ export class ProfileComponent implements OnInit {
   checkFollowRequestExists() {
     this.profileService.checkIfFollowRequestExists(this.username).subscribe({
       next: followRequest => this.followRequestExists = followRequest as boolean,
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   checkFollowExists() {
     this.profileService.checkIfFollowExists(this.username).subscribe({
       next: following => this.followExists = following as boolean,
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
 }

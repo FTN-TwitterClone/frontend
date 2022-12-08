@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/User.model';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class FollowRecommendationsComponent implements OnInit {
   recommendations!: User[]
   constructor(
     private profileService: ProfileService,
-    private errorHandlerService: ErrorHandlerService
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -21,16 +21,16 @@ export class FollowRecommendationsComponent implements OnInit {
   getRecommendations() {
     this.profileService.getRecomendations().subscribe({
       next: response => this.recommendations = response,
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   onFollow(user: User) {
     this.profileService.doFollow(user.username).subscribe({
       next: () => {
         this.recommendations.splice(this.recommendations.indexOf(user), 1)
-        alert('Follow request has been sent')
+        this.toastrService.success('Follow request has been sent.', 'Success')
       },
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Tweet, UploadTweet } from 'src/app/model/Tweet.model';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -13,9 +13,9 @@ export class TweetCreateComponent implements OnInit {
   @Output() createTweetEvent: EventEmitter<Tweet> = new EventEmitter<Tweet>()
   selectedImage!: File | null
   saveInProgress: boolean = false
-  constructor(private fb: FormBuilder, private tweetService: TweetService, private errorHandlerService: ErrorHandlerService) { }
+  constructor(private tweetService: TweetService, private toastrService: ToastrService) { }
 
-  createTweetForm = this.fb.group({
+  createTweetForm = new FormBuilder().group({
     text: [''],
     image: ['']
   })
@@ -31,7 +31,7 @@ export class TweetCreateComponent implements OnInit {
           tweet.imageId = imageId
           this.saveTweet(tweet)
         },
-        error: err => this.errorHandlerService.alert(err),
+        error: err => this.toastrService.error(err.error, 'Error'),
         complete: () => this.saveInProgress = false
       })
     } else {
@@ -45,11 +45,12 @@ export class TweetCreateComponent implements OnInit {
         tweet.likesCount = 0
         this.createTweetEvent.emit(tweet as Tweet); this.createTweetForm.reset()
       },
-      error: err => this.errorHandlerService.alert(err),
+      error: err => this.toastrService.error(err.error, 'Error'),
       complete: () => {
         this.saveInProgress = false
         this.selectedImage = null
         this.createTweetForm.reset()
+        this.toastrService.success('Tweet posted successfully.', 'Success')
       }
     })
   }

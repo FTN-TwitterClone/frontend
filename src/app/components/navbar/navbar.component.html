@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Twitter</a>
+
+    <a class="navbar-brand" href="#">
+      <i class="bi bi-twitter fs-4">&nbsp;</i>
+      Twitter</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,24 +11,24 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/home" *ngIf="isLoggedIn()">Home</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/home" *ngIf="isLoggedIn()"><i class="bi bi-house fs-5">&nbsp;</i>Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/profile/{{getUsername()}}"
-            *ngIf="isLoggedIn()">Profile</a>
+            *ngIf="isLoggedIn()"><i class="bi bi-person fs-5">&nbsp;</i>Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/profile/follow-requests"
-            *ngIf="isLoggedIn()">Follow Requests</a>
+            *ngIf="isLoggedIn()"><i class="bi bi-person-heart fs-5">&nbsp;</i>Follow requests</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/login" *ngIf="!isLoggedIn()"><i class="bi bi-box-arrow-in-left fs-5">&nbsp;</i>Log in</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/register" *ngIf="!isLoggedIn()">Register</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/register" *ngIf="!isLoggedIn()"><i class="bi bi-person-plus fs-5">&nbsp;</i>Create new account</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" type="button" *ngIf="isLoggedIn()" (click)="logout()">Logout</a>
+          <a class="nav-link" type="button" *ngIf="isLoggedIn()" (click)="logout()"><i class="bi bi-box-arrow-right fs-5">&nbsp;</i>Log out</a>
         </li>
       </ul>
     </div>

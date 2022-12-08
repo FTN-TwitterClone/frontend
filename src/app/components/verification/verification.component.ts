@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
+import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/security/authentication.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class VerificationComponent implements OnInit {
     private authService: AuthenticationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private errorHandlerService: ErrorHandlerService) { }
+    private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.verify()
@@ -25,12 +24,12 @@ export class VerificationComponent implements OnInit {
       next: params => this.authService.verify(params['verificationId']).subscribe({
         next: () => {
           this.verified = true
-          alert('Verification successfull')
+          this.toastrService.success('Verification successfull.', 'Success')
           this.router.navigateByUrl('/login')
         },
-        error: err => this.errorHandlerService.alert(err)
+        error: err => this.toastrService.error(err.error, 'Error')
       }),
-      error: err => this.errorHandlerService.alert(err)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
 }

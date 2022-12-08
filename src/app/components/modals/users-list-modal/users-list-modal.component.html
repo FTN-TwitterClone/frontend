@@ -10,7 +10,7 @@
                     <ng-container *ngIf="users.length > 0; else noFollowing">
                         <ul class="list-group" *ngFor="let user of users">
                             <li class="list-group-item mt-1">
-                                <a class="text-decoration-none" routerLink="/profile/{{user.username}}" data-bs-dismiss="modal">{{user.username}}</a>
+                                <i class="bi bi-person-fill fs-5">&nbsp;</i><a class="text-decoration-none" routerLink="/profile/{{user.username}}" data-bs-dismiss="modal">{{user.username}}</a>
                             </li>
                         </ul>
                     </ng-container>

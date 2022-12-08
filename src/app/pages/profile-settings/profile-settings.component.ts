@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { User } from 'src/app/model/User.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile-settings',
@@ -10,7 +10,7 @@ import { User } from 'src/app/model/User.model';
   styleUrls: ['./profile-settings.component.scss']
 })
 export class ProfileSettingsComponent implements OnInit {
-  changePasswordForm = this.fb.group({
+  changePasswordForm = new FormBuilder().group({
     'currentPassword': ['', Validators.required],
     'newPassword': ['', Validators.required],
     'repeatPassword': ['', Validators.required]
@@ -18,16 +18,15 @@ export class ProfileSettingsComponent implements OnInit {
   private: boolean = false
   constructor(
     private profileService: ProfileService,
-    private fb: FormBuilder,
-    private errorHandlerService: ErrorHandlerService) { }
+    private toastrService: ToastrService) { }
   ngOnInit(): void {
     this.loadPrivacy()
   }
   onSubmit() {
     this.private = !this.private
     this.profileService.updateProfile(this.private).subscribe({
-      complete: () => alert('Account privacy has been changed successfully'),
-      error: err => this.errorHandlerService.alert(err)
+      complete: () => this.toastrService.success('Account privacy has been changed successfully', 'Success'),
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   loadPrivacy() {
@@ -36,7 +35,7 @@ export class ProfileSettingsComponent implements OnInit {
         let regUser = user as User
         this.private = regUser.private
       },
-      error: error => this.errorHandlerService.alert(error)
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   onChangePassword() {
@@ -44,12 +43,10 @@ export class ProfileSettingsComponent implements OnInit {
     if (formValid) {
       this.profileService.changePassword(this.currentPassword!, this.newPassword!).subscribe({
         complete: () => {
-          alert('Password has been changed successfully.')
+          this.toastrService.success('Password has been changed successfully.','Success')
           this.changePasswordForm.reset()
         },
-        error: err => {
-          this.errorHandlerService.alert(err)
-        }
+        error: err => this.toastrService.error(err.error, 'Error')
       })
     }
   }

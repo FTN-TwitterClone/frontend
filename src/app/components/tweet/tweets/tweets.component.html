@@ -1,9 +1,16 @@
-<span *ngIf="tweets;else noTweets">
+<span *ngIf="!loading || tweets;else isLoading">
     <app-tweet-item *ngFor="let tweet of tweets" [tweet]="tweet" (retweetEventEmitter)="onRetweet($event)">
     </app-tweet-item>
+    <ng-template #noTweets>
+        <div class="card">
+            <div class="card-body">
+                <div class="alert alert-primary mt-2" role="alert">
+                    There are no tweets yet.
+                </div>
+            </div>
+        </div>
+    </ng-template>
 </span>
-<ng-template #noTweets>
-    <div class="card">
-        <div class="card-body">No tweets.</div>
-    </div>
+<ng-template #isLoading>
+    <app-loading></app-loading>
 </ng-template>

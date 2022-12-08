@@ -6,16 +6,18 @@
     <div class="col">
       <span class="text-wrap">
         <a class="text-decoration-none" [routerLink]="['/profile/',tweet.postedBy]">{{tweet.postedBy}}</a>
-        <span class="ms-2 text-muted fw-lighter fst-italic" style="font-size: 0.8rem;">
-          {{tweet.timestamp | date:"dd/MM/YY HH:mm"}}
+        <span class="ms-4 text-muted fw-lighter fst-italic" style="font-size: 0.8rem;">
+          <i class="bi bi-calendar3">&nbsp;</i>{{tweet.timestamp | date:"dd/MM/YY HH:mm"}}
         </span>
         <span class="ms-2" *ngIf="tweet.retweet">
           <br />
-          <span class="badge text-bg-primary">retweeted from</span><a class="ms-2 text-decoration-none"
-            routerLink="/profile/{{tweet.originalPostedBy}}">{{tweet.originalPostedBy}}</a>
+          <span class="badge bg-primary">
+            <a class="ms-2 text-decoration-none text-light" routerLink="/profile/{{tweet.originalPostedBy}}">
+              <i class="bi bi-arrow-right-short">&nbsp;</i>retweeted from {{tweet.originalPostedBy}}</a>
+          </span>
         </span>
       </span>
-      <p class="pt-2">{{tweet.text}}</p>
+      <p class="pt-2 fs-5">{{tweet.text}}</p>
       <img src="{{'data:image/jpg;base64,' + tweet.image}}" style="width:100%" *ngIf="tweet.image" />
     </div>
   </div>

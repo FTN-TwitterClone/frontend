@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
+import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -9,13 +9,12 @@ import { ProfileService } from 'src/app/services/profile.service';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
-  resetPasswordForm = this.fb.group({
+  resetPasswordForm = new FormBuilder().group({
     username: ['', Validators.required]
   })
   constructor(
-    private fb: FormBuilder,
     private profileService: ProfileService,
-    private errorHandlerService: ErrorHandlerService
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -24,8 +23,8 @@ export class ForgotPasswordComponent implements OnInit {
   onSubmit() {
     if (this.username != null) {
       this.profileService.forgotPassword(this.username).subscribe({
-        complete: () => alert("An email has been sent to your email address."),
-        error: err => this.errorHandlerService.alert(err)
+        complete: () => this.toastrService.success('An email has been sent to your email address.', 'Success'),
+        error: err => this.toastrService.error(err.error, 'Error')
       }
       )
     }

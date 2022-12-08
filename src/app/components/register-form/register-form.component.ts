@@ -5,8 +5,8 @@ import { AuthenticationService } from 'src/app/services/security/authentication.
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { environment } from 'src/environments/environment.prod';
 import { Router } from '@angular/router';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { BusinessUserRegister, RegularUserRegister } from 'src/app/model/User.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-form',
@@ -17,14 +17,14 @@ export class RegisterFormComponent implements OnInit {
   @Output() registerationInProgressEventEmitter: EventEmitter<boolean> = new EventEmitter<boolean>()
   @Input() regularRegistration: boolean = false
   enumGender: typeof EGender = EGender;
-  businessUserRegisterForm = this.fb.group({
+  businessUserRegisterForm = new FormBuilder().group({
     email: ['', [Validators.required, Validators.email]],
     username: ['', Validators.required],
     password: ['', Validators.required],
     website: ['', Validators.required],
     companyName: ['', Validators.required]
   })
-  regularUserRegisterForm = this.fb.group({
+  regularUserRegisterForm = new FormBuilder().group({
     username: ['', Validators.required],
     password: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -33,8 +33,7 @@ export class RegisterFormComponent implements OnInit {
     town: ['', Validators.required],
     gender: [EGender.MALE]
   })
-  constructor(private authService: AuthenticationService,
-    private fb: FormBuilder, private reCaptchaV3Service: ReCaptchaV3Service, private router: Router, private errorHandlerService: ErrorHandlerService) { }
+  constructor(private authService: AuthenticationService, private reCaptchaV3Service: ReCaptchaV3Service, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -53,10 +52,10 @@ export class RegisterFormComponent implements OnInit {
       let userToRegister = this.businessUserRegisterForm.value as BusinessUserRegister
       this.authService.registerBusinessUser(userToRegister, token).subscribe({
         next: () => {
-          alert("Please check your email, and confirm registration!")
+          this.toastrService.info("Please check your email, and confirm registration!")
           this.router.navigateByUrl("/login")
         },
-        error: err => this.errorHandlerService.alert(err),
+        error: err => this.toastrService.error(err.error, 'Error'),
         complete: () => this.registerationInProgressEventEmitter.emit(false)
       })
     })
@@ -66,10 +65,10 @@ export class RegisterFormComponent implements OnInit {
       let userToRegister = this.regularUserRegisterForm.value as RegularUserRegister;
       this.authService.registerRegularUser(userToRegister, token).subscribe({
         next: () => {
-          alert("Please check your email, and confirm registration!");
+          this.toastrService.info("Please check your email, and confirm registration!");
           this.router.navigateByUrl("/login")
         },
-        error: err => this.errorHandlerService.alert(err),
+        error: err => this.toastrService.error(err.error, 'Error'),
         complete: () => this.registerationInProgressEventEmitter.emit(false)
       })
     })

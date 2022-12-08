@@ -1,4 +1,4 @@
-<div *ngIf="user;else loading">
+<div *ngIf="user">
     <div class="position-relative" id="profile-media">
         <img src="./assets/images/bg-image.jpg" class="img-fluid" alt="Cover image"
             style="object-fit:cover; max-height:200px; width: 100%;">
@@ -6,47 +6,45 @@
             class="rounded-circle position-absolute top-50 start-0">
     </div>
     <div class="d-flex flex-row-reverse">
-        <button class="btn btn-primary border mt-2 me-2" routerLink="/profile/settings" *ngIf="ownProfile">Edit
+        <button class="btn btn-primary border mt-2 me-2" routerLink="/profile/settings" *ngIf="ownProfile"><i
+                class="bi bi-gear-fill">&nbsp;</i>Edit
             profile</button>
-        <button class="btn btn-primary border mt-2 me-2" *ngIf="!ownProfile && !followExists && !followRequestExists" (click)="doFollow()">+ Follow</button>
-        <button class="btn btn-primary border mt-2 me-2" *ngIf="followRequestExists" disabled>Follow request has been sent</button>
-        <button class="btn btn-danger border mt-2 me-2" *ngIf="!ownProfile && followExists && !followRequestExists" (click)="doUnfollow()">- Unfollow</button>
+        <button class="btn btn-primary border mt-2 me-2" *ngIf="!ownProfile && !followExists && !followRequestExists"
+            (click)="doFollow()"><i class="bi bi-person-plus-fill fs-5">&nbsp;</i>Follow</button>
+        <button class="btn btn-primary border mt-2 me-2" *ngIf="followRequestExists" disabled>Follow request has been
+            sent</button>
+        <button class="btn btn-danger border mt-2 me-2" *ngIf="!ownProfile && followExists && !followRequestExists"
+            (click)="doUnfollow()"><i class="bi bi-person-dash-fill fs-5">&nbsp;</i>Unfollow</button>
     </div>
     <div class="d-flex flex-column mt-3 p-2">
         <div class="mt-4">
-            <b class="me-2">{{username}}</b><span class="text-muted">@{{username}}</span>
+            <b class="me-2 fs-5">{{username}}</b>
         </div>
         <div class="mt-2">
             <button class="btn btn-primary btn-sm fw-bold text-wrap me-2" data-bs-toggle="modal"
                 data-bs-target="#followers" (click)="getFollowers()">
-                {{followersCount}}
+                <i class="bi bi-person-fill">&nbsp;</i>{{followersCount}}
                 Followers
             </button>
             <button class="btn btn-primary btn-sm fw-bold text-wrap" data-bs-toggle="modal" data-bs-target="#following"
                 (click)="getFollowing()">
-                {{followingCount}}
+                <i class="bi bi-person-fill">&nbsp;</i>{{followingCount}}
                 Following
             </button>
         </div>
     </div>
-    <div class="mt-5">
-        <app-tweet-create *ngIf="ownProfile" (createTweetEvent)="addTweet($event)"></app-tweet-create>
-    </div>
-    <ng-container *ngIf="viewProfileTweets; else restrictProfileTweets">
-        <ng-container *ngIf="tweets; else noTweets">
-            <app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-                (scrolled)="onScroll()" [tweets]="tweets" (retweetEventEmitter)="onRetweet($event)"></app-tweets>
-        </ng-container>
-        <ng-template #noTweets>
-            <p class="mt-2">There are no tweets.</p>
-        </ng-template>
-    </ng-container>
-    <ng-template #restrictProfileTweets>
-        <p class="mt-2">This profile is private.</p>
-    </ng-template>
-    <app-users-list-modal [users]="following" title="Users you are following" uniqueId="following"></app-users-list-modal>
-    <app-users-list-modal [users]="followers" title="Users following you" uniqueId="followers"></app-users-list-modal>
 </div>
-<ng-template #loading>
-    <app-loading></app-loading>
+<div class="mt-5">
+    <app-tweet-create *ngIf="ownProfile" (createTweetEvent)="addTweet($event)"></app-tweet-create>
+</div>
+<ng-container *ngIf="viewProfileTweets; else restrictProfileTweets">
+    <app-tweets class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()" [tweets]="tweets" (retweetEventEmitter)="onRetweet($event)"></app-tweets>
+</ng-container>
+<ng-template #restrictProfileTweets>
+    <div class="alert alert-danger mt-2" role="alert">
+        This profile is private.
+    </div>
 </ng-template>
+<app-users-list-modal [users]="following" title="Users you are following" uniqueId="following"></app-users-list-modal>
+<app-users-list-modal [users]="followers" title="Users following you" uniqueId="followers"></app-users-list-modal>
