@@ -17,22 +17,23 @@ export class TweetItemComponent implements OnInit {
   ngOnInit(): void {
   }
   ngAfterViewInit() {
-    this.observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting === true) {
-        console.log('Ad id:' + this.tweet.id)
-      } else {
-        console.log('not in vp')
-      }
-    }, {
-      threshold: 0.75
-    });
-    const el = document.querySelector('#ad')
-    el ? this.observer.observe(el) : ''
+    if (this.tweet.ad) {
+      this.observer = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting === true) {
+          console.log('Ad id:' + this.tweet.id)
+        } else {
+          console.log('not in vp')
+        }
+      }, {
+        threshold: 0.75
+      });
+      const el = document.querySelector('#ad')
+      el ? this.observer.observe(el) : ''
+    }
   }
 
   ngOnDestroy() {
-    console.log('not on screen ng on destroy')
-    this.observer.disconnect();
+    this.tweet.ad ? this.observer.disconnect() : ''
   }
   onRetweet(retweet: Tweet) {
     this.retweetEventEmitter.emit(retweet)
