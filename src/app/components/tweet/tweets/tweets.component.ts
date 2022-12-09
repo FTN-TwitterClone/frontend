@@ -9,13 +9,13 @@ import { Tweet } from 'src/app/model/Tweet.model';
 export class TweetsComponent implements OnInit {
   @Output() retweetEventEmitter: EventEmitter<Tweet> = new EventEmitter<Tweet>()
   @Input() tweets!: Tweet[]
-  loading:boolean = true
+  loading: boolean = true
   constructor() { }
 
   ngOnInit(): void {
-    setTimeout( ()=>{
-      this.loading=false
-    },500)
+    setTimeout(() => {
+      this.loading = false
+    }, 500)
   }
   onRetweet(retweet: Tweet) {
     this.retweetEventEmitter.emit(retweet)

@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit {
     this.checkFollowExists()
     this.checkFollowRequestExists()
   }
-  ngOnChanges(changes: SimpleChange){
+  ngOnChanges(changes: SimpleChange) {
     console.log(changes)
   }
   getTweets() {

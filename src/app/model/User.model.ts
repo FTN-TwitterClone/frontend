@@ -57,18 +57,18 @@ export class UserDetails {
     }
 }
 export class User extends UserRoot {
-    firstname: string
-    lastname: string
+    firstName: string
+    lastName: string
     gender: EGender
     age: number
     town: string
     private: boolean
     companyName: string
     site: string
-    constructor(username: string, password: string, email: string, role: ERole, enabled: boolean, firstname: string, lastname: string, gender: EGender, age: number, town: string, privateAcc: boolean, companyName: string, site: string) {
+    constructor(username: string, password: string, email: string, role: ERole, enabled: boolean, firstName: string, lastName: string, gender: EGender, age: number, town: string, privateAcc: boolean, companyName: string, site: string) {
         super(username, password, email, role, enabled)
-        this.firstname = firstname
-        this.lastname = lastname
+        this.firstName = firstName
+        this.lastName = lastName
         this.gender = gender
         this.age = age
         this.town = town

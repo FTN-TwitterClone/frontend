@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private tweetService: TweetService,
     private toastrService: ToastrService) { }
-
   ngOnInit(): void {
     this.getTweets()
   }
@@ -26,6 +25,8 @@ export class HomeComponent implements OnInit {
       next: tweets => {
         this.loading = true
         this.tweets = tweets
+        const ad = new Tweet('1', 'Ad user', '', false, true, 'Ad', '9/12/2022', '', false, 0)
+        this.tweets.push(ad)
       },
       error: err => this.toastrService.error(err.error, 'Error'),
       complete: () => this.loading = false
