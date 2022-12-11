@@ -6,20 +6,22 @@
     <div class="col">
       <span class="text-wrap">
         <a class="text-decoration-none" [routerLink]="['/profile/',tweet.postedBy]">{{tweet.postedBy}}</a>
-        <span class="ms-4 text-muted fw-lighter fst-italic" style="font-size: 0.8rem;">
-          <i class="bi bi-calendar3">&nbsp;</i>{{tweet.timestamp | date:"dd/MM/YY HH:mm"}}
+        <span class="ms-4 text-muted fw-lighter fst-italic float-lg-end" style="font-size: 0.8rem;">
+          <span class="d-block">
+            <i class="bi bi-calendar3">&nbsp;</i>
+            {{tweet.timestamp | date:"dd/MM/YYHH:mm"}}
+          </span>
           <span *ngIf="tweet.ad" id="ad"></span>
         </span>
-        <span class="ms-2" *ngIf="tweet.retweet">
-          <br />
+        <span class="badge rounded-pill text-bg-secondary float-lg-end d-lg-block" *ngIf="tweet.ad">advertisement</span>
+        <span class="ms-2 d-block" *ngIf="tweet.retweet">
           <span class="badge bg-primary">
             <a class="ms-2 text-decoration-none text-light" routerLink="/profile/{{tweet.originalPostedBy}}">
               <i class="bi bi-arrow-right-short">&nbsp;</i>retweeted from {{tweet.originalPostedBy}}</a>
           </span>
         </span>
-        <span class="badge rounded-pill text-bg-primary" *ngIf="tweet.ad">Ads</span>
       </span>
-      <p class="pt-2 fs-5">{{tweet.text}}</p>
+      <p class="mt-2 fs-5">{{tweet.text}}</p>
       <img src="{{'data:image/jpg;base64,' + tweet.image}}" style="width:100%; max-height:50vh" *ngIf="tweet.image" />
     </div>
   </div>
