@@ -3,7 +3,7 @@
         <div class="d-flex align-items-center">
             <img src=" ./assets/images/profile.jpeg" style="width:84px;height:84px;" class="rounded-circle me-2">
             <textarea class="form-control form-control-lg" formControlName="text"
-                placeholder="What's happening?"></textarea>
+                placeholder="{{createTweetPlaceholderMessage}}"></textarea>
         </div>
         <div class="d-flex mt-2">
             <input type="file" class="form-control w-50 me-auto" formControlName="image" title="Media"
@@ -11,6 +11,32 @@
             <div class="flex-shrink-1">
                 <button type="submit" class="btn btn-primary"><i class="bi bi-twitter">&nbsp;</i>Tweet</button>
             </div>
+        </div>
+    </div>
+</form>
+<form [formGroup]="targetGroupForm" *ngIf="isAd" class="mt-2 card">
+    <div class="card-header">Target group</div>
+    <div class="card-body">
+        <div class="mb-3">
+            <label class="form-label" for="town">Town</label>
+            <input type="text" class="form-control" id="town" name="town" placeholder="town" formControlName="town">
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="gender">Gender</label>
+            <select class="form-select" id="gender" name="gender" formControlName="gender">
+                <option *ngFor="let gender of enumGender | keyvalue" [ngValue]="gender.value">{{gender.value}}
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="minAge">Min age</label>
+            <input type="number" class="form-control" id="minAge" name="minAge" placeholder="min age"
+                formControlName="minAge">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="maxAge">Max age</label>
+            <input type="number" class="form-control" id="maxAge" name="maxAge" placeholder="max age"
+                formControlName="maxAge">
         </div>
     </div>
 </form>

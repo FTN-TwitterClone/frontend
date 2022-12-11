@@ -8,18 +8,20 @@ import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
-  constructor(private jwtUtilsService:JwtUtilsService, private authService:AuthenticationService) { }
+  constructor(private jwtUtilsService: JwtUtilsService, private authService: AuthenticationService) { }
 
   ngOnInit(): void {
   }
-  getUsername(){
+  isBusinessUser() {
+    return this.jwtUtilsService.hasRole('ROLE_BUSINESS')
+  }
+  getUsername() {
     return this.jwtUtilsService.getUsername()
   }
-  isLoggedIn(){
+  isLoggedIn() {
     return this.jwtUtilsService.isLoggedIn()
   }
-  logout(){
+  logout() {
     this.authService.logout()
   }
 }

@@ -17,6 +17,7 @@
               <i class="bi bi-arrow-right-short">&nbsp;</i>retweeted from {{tweet.originalPostedBy}}</a>
           </span>
         </span>
+        <span class="badge rounded-pill text-bg-primary" *ngIf="tweet.ad">Ads</span>
       </span>
       <p class="pt-2 fs-5">{{tweet.text}}</p>
       <img src="{{'data:image/jpg;base64,' + tweet.image}}" style="width:100%; max-height:50vh" *ngIf="tweet.image" />

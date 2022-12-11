@@ -9,26 +9,36 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100" *ngIf="isLoggedIn()">
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/home" *ngIf="isLoggedIn()"><i class="bi bi-house fs-5">&nbsp;</i>Home</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/home"><i
+              class="bi bi-house fs-5">&nbsp;</i>Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/profile/{{getUsername()}}"
-            *ngIf="isLoggedIn()"><i class="bi bi-person fs-5">&nbsp;</i>Profile</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/profile/{{getUsername()}}"><i
+              class="bi bi-person fs-5">&nbsp;</i>Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/profile/follow-requests"
-            *ngIf="isLoggedIn()"><i class="bi bi-person-heart fs-5">&nbsp;</i>Follow requests</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/profile/follow-requests"><i
+              class="bi bi-person-heart fs-5">&nbsp;</i>Follow requests</a>
+        </li>
+        <li class="nav-item" *ngIf="isBusinessUser()">
+          <a class="nav-link" routerLinkActive="active" routerLink="/ads"><i
+              class="bi bi-badge-ad fs-5">&nbsp;</i>Ads</a>
+        </li>
+        <li class="nav-item ms-lg-auto">
+          <a class="nav-link" type="button" (click)="logout()"><i class="bi bi-box-arrow-right fs-5">&nbsp;</i>Log
+            out</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100" *ngIf="!isLoggedIn()">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/login"><i
+              class="bi bi-box-arrow-in-left fs-5">&nbsp;</i>Log in</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/login" *ngIf="!isLoggedIn()"><i class="bi bi-box-arrow-in-left fs-5">&nbsp;</i>Log in</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/register" *ngIf="!isLoggedIn()"><i class="bi bi-person-plus fs-5">&nbsp;</i>Create new account</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" type="button" *ngIf="isLoggedIn()" (click)="logout()"><i class="bi bi-box-arrow-right fs-5">&nbsp;</i>Log out</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/register"><i
+              class="bi bi-person-plus fs-5">&nbsp;</i>Create new account</a>
         </li>
       </ul>
     </div>

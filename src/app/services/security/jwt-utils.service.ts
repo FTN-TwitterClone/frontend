@@ -40,7 +40,6 @@ export class JwtUtilsService {
     return sessionStorageToken ? sessionStorageToken : null;
   }
   isLoggedIn(): boolean {
-    if (this.getToken() != '' && this.getUsername() != null && this.getExp() != null && this.getRole() != null) return true;
-    return false;
+    return this.getToken() ? true : false
   }
 }
