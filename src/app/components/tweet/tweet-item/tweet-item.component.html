@@ -5,7 +5,8 @@
     </div>
     <div class="col">
       <span class="text-wrap">
-        <a class="text-decoration-none" [routerLink]="['/profile/',tweet.postedBy]">{{tweet.postedBy}}</a>
+        <a class="text-decoration-none" [routerLink]="['/profile/',tweet.postedBy]"
+          [queryParams]="tweet.ad?{fromAd:tweet.id}:{}">{{tweet.postedBy}}</a>
         <span class="ms-4 text-muted fw-lighter fst-italic float-lg-end" style="font-size: 0.8rem;">
           <span class="d-block">
             <i class="bi bi-calendar3">&nbsp;</i>
@@ -13,7 +14,13 @@
           </span>
           <span *ngIf="tweet.ad" id="ad"></span>
         </span>
-        <span class="badge rounded-pill text-bg-secondary float-lg-end d-lg-block" *ngIf="tweet.ad">advertisement</span>
+        <span class="badge rounded-pill text-bg-secondary float-lg-end d-lg-block" *ngIf="tweet.ad">
+          advertisement
+        </span>
+        <button type="button" class="button btn ms-1 badge rounded-pill text-bg-info float-lg-end d-lg-block" *ngIf="tweet.ad"
+          data-bs-toggle="modal" [attr.data-bs-target]="'#ad'+tweet.id" (click)="onGetAdInfo()">
+          info
+      </button>
         <span class="ms-2 d-block" *ngIf="tweet.retweet">
           <span class="badge bg-primary">
             <a class="ms-2 text-decoration-none text-light" routerLink="/profile/{{tweet.originalPostedBy}}">
@@ -27,3 +34,4 @@
   </div>
   <app-tweet-actions [tweet]="tweet" (retweetEventEmitter)="onRetweet($event)"></app-tweet-actions>
 </div>
+<app-ad-info [uniqueId]="'ad'+tweet.id" [adInfo]="adInfo"></app-ad-info>

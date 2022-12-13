@@ -23,6 +23,7 @@ export class Tweet {
         this.likesCount = likesCount
     }
 }
+
 export class UploadTweet {
     imageId: string
     text: string

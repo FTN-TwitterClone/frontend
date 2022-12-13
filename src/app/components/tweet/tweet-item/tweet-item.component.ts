@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { AdInfo, TweetViewTime } from 'src/app/model/Ad.model';
 import { Tweet } from 'src/app/model/Tweet.model';
+import { AdService } from 'src/app/services/ad.service';
+import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 
 @Component({
   selector: 'app-tweet-item',
@@ -9,20 +13,28 @@ import { Tweet } from 'src/app/model/Tweet.model';
 export class TweetItemComponent implements OnInit {
   @Output() retweetEventEmitter: EventEmitter<Tweet> = new EventEmitter<Tweet>()
   @Input() tweet!: Tweet
-  private observer!: IntersectionObserver;
-  time: number = 0
+  private observer!: IntersectionObserver
+  @Input() adInfo!: AdInfo
+  originalPostedBy: boolean = false
+  constructor(
+    private adService: AdService,
+    private toastrService: ToastrService
+  ) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
   ngAfterViewInit() {
     if (this.tweet.ad) {
+      let intersectingTime: number = 0
+      let interval
       this.observer = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting === true) {
-          console.log('Ad id:' + this.tweet.id)
+          interval = setInterval(() => {
+              intersectingTime++
+          }, 100)
         } else {
-          console.log('not in vp')
+          console.log('viewing ' + intersectingTime + ' sec.')
+          this.adService.adViewed(this.tweet.id, new TweetViewTime(intersectingTime))
+          intersectingTime = 0
         }
       }, {
         threshold: 0.75
@@ -37,5 +49,13 @@ export class TweetItemComponent implements OnInit {
   }
   onRetweet(retweet: Tweet) {
     this.retweetEventEmitter.emit(retweet)
+  }
+  onGetAdInfo() {
+    this.adService.getInfo(this.tweet.id).subscribe({
+      next: adInfo => {
+        this.adInfo = adInfo as AdInfo
+      },
+      error: err => this.toastrService.error(err.error, 'Error')
+    })
   }
 }
