@@ -49,9 +49,10 @@ export class ProfileComponent implements OnInit {
     })
     this.route.queryParams.subscribe({
       next: param => {
-        param['fromAd'] ? this.adService.adProfileVisited(param['fromAd']) : ''
+        param['fromAd'] ? this.adService.adProfileVisited(param['fromAd']).subscribe() : ''
       },
-      error: err => this.toastrService.error(err.error, 'Error')
+      error: err => this.toastrService.error(err.error, 'Error'),
+      complete:()=>{console.log('adProfileVisited = complete')}
     })
   }
   addTweet(tweet: Tweet) {

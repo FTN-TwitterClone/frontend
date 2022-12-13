@@ -25,6 +25,7 @@ export class AdService {
     return this.http.get<AdInfo>(`${environment.api}/ads/${adId}/info/`)
   }
   adProfileVisited(adId: string) {
+    console.log('saving visit from: ' + adId)
     return this.http.post(`${environment.api}/ads/${adId}/visit/`, {})
   }
   getDailyReport(adId: string, year: number, month: number, day: number) {
