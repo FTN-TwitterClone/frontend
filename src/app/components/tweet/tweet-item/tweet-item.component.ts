@@ -46,7 +46,7 @@ export class TweetItemComponent implements OnInit {
     return new IntersectionObserver(entries => {
       entries.forEach(element => {
         if (element.isIntersecting) {
-          timer(0, 1000).subscribe(timer => {
+          this.timerSub = timer(0, 1000).subscribe(timer => {
             this.secondsViewingTime = timer
           })
         } else {

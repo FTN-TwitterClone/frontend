@@ -64,8 +64,8 @@ export class User extends UserRoot {
     town: string
     private: boolean
     companyName: string
-    site: string
-    constructor(username: string, password: string, email: string, role: ERole, enabled: boolean, firstName: string, lastName: string, gender: EGender, yearOfBirth: number, town: string, privateAcc: boolean, companyName: string, site: string) {
+    website: string
+    constructor(username: string, password: string, email: string, role: ERole, enabled: boolean, firstName: string, lastName: string, gender: EGender, yearOfBirth: number, town: string, privateAcc: boolean, companyName: string, website: string) {
         super(username, password, email, role, enabled)
         this.firstName = firstName
         this.lastName = lastName
@@ -74,6 +74,6 @@ export class User extends UserRoot {
         this.town = town
         this.private = privateAcc
         this.companyName = companyName
-        this.site = site
+        this.website = website
     }
 }

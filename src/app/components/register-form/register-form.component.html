@@ -110,12 +110,16 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="age">Age</label>
-                <input type="number" class="form-control" id="age" name="age" placeholder="age" formControlName="yearOfBirth">
+                <label class="form-label" for="age">Year of birth</label>
+                <input type="number" class="form-control" id="age" name="age" placeholder="age"
+                    formControlName="yearOfBirth">
                 <div *ngIf="ageRegular?.invalid && (ageRegular?.dirty || ageRegular?.touched)"
                     class="alert alert-danger p-2 mt-1">
                     <div *ngIf="ageRegular?.errors?.['required']">
-                        Age is required.
+                        Year of birth is required.
+                    </div>
+                    <div *ngIf="ageRegular?.errors?.['minLength']">
+                        Year of birth must be 4 digits long.
                     </div>
                 </div>
             </div>

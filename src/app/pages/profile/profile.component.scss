@@ -1,10 +1,8 @@
 @media (max-width: 450px) {
-    #profile-image{
-        position: static !important;
-    }
-    .position-absolute {
-        position:static;
-        display:block
+    .position-absolute{
+        position: absolute !important;
+        top:0;
+        left:0
     }
 }
 

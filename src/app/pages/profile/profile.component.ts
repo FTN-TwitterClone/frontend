@@ -1,7 +1,7 @@
 import { Component, OnInit, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { ERole } from 'src/app/model/ERole.model';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
 import { AdService } from 'src/app/services/ad.service';
@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   tweets: Tweet[] = []
   viewProfileTweets: boolean = true;
   ownProfile: boolean = false
+  businessUser: boolean = false
   constructor(
     private profileService: ProfileService,
     private tweetService: TweetService,
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.businessUser = this.jwtUtilsService.getRole() == ERole.BUSINESS_USER
     this.route.params.subscribe({
       next: param => {
         if (param['username']) {

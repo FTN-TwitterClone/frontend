@@ -32,7 +32,7 @@ export class RegisterFormComponent implements OnInit {
     lastname: ['', Validators.required],
     town: ['', Validators.required],
     gender: [EGender.MALE, Validators.required],
-    yearOfBirth: [0, Validators.required]
+    yearOfBirth: [1990, [Validators.required,Validators.minLength(4)]]
   })
   constructor(private authService: AuthenticationService, private reCaptchaV3Service: ReCaptchaV3Service, private router: Router, private toastrService: ToastrService) { }
 
