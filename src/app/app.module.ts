@@ -14,7 +14,6 @@ import { TweetActionsComponent } from './components/tweet/tweet-actions/tweet-ac
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TweetCreateComponent } from './components/tweet/tweet-create/tweet-create.component';
-import { AdsStatisticsComponent } from './pages/ads-statistics/ads-statistics.component';
 import { ProfileSettingsComponent } from './pages/profile-settings/profile-settings.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -41,6 +40,9 @@ import { FollowRecommendationsComponent } from './components/follow-recommendati
 import { LoadingComponent } from './components/loading/loading.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { FirstnameValidatorComponent } from './components/validators/firstname-validator/firstname-validator.component';
+import { AdsComponent } from './pages/ads/ads.component';
+import { AdInfoComponent } from './components/modals/ad-info/ad-info.component';
+import { AdReportComponent } from './components/modals/ad-report/ad-report.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,6 @@ import { FirstnameValidatorComponent } from './components/validators/firstname-v
     NavbarComponent,
     ProfileComponent,
     TweetCreateComponent,
-    AdsStatisticsComponent,
     ProfileSettingsComponent,
     RegisterComponent,
     LoginComponent,
@@ -71,7 +72,10 @@ import { FirstnameValidatorComponent } from './components/validators/firstname-v
     FollowRecommendationsComponent,
     LoadingComponent,
     RegisterFormComponent,
-    FirstnameValidatorComponent
+    FirstnameValidatorComponent,
+    AdsComponent,
+    AdInfoComponent,
+    AdReportComponent
   ],
   imports: [
     BrowserModule,

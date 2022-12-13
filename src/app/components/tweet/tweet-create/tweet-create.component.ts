@@ -1,7 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { EGender } from 'src/app/model/EGender.model';
+import { TargetGroup } from 'src/app/model/TargetGroup.model';
 import { Tweet, UploadTweet } from 'src/app/model/Tweet.model';
+import { AdService } from 'src/app/services/ad.service';
 import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
@@ -11,20 +14,38 @@ import { TweetService } from 'src/app/services/tweet.service';
 })
 export class TweetCreateComponent implements OnInit {
   @Output() createTweetEvent: EventEmitter<Tweet> = new EventEmitter<Tweet>()
+  @Input() createTweetPlaceholderMessage: string = 'What\'s happening?'
+  @Input() isAd: boolean = false
   selectedImage!: File | null
   saveInProgress: boolean = false
-  constructor(private tweetService: TweetService, private toastrService: ToastrService) { }
+  enumGender: typeof EGender = EGender;
+  constructor(
+    private tweetService: TweetService,
+    private toastrService: ToastrService,
+    private adService: AdService
+  ) { }
 
   createTweetForm = new FormBuilder().group({
     text: [''],
     image: ['']
   })
-
+  targetGroupForm = new FormBuilder().group({
+    town: [''],
+    gender: [''],
+    minAge: [0],
+    maxAge: [0]
+  })
   ngOnInit(): void {
   }
   onSubmit() {
     this.saveInProgress = true
     let tweet: UploadTweet = new UploadTweet('', this.text as string)
+    if (this.isAd) {
+      let targetGroup: TargetGroup = new TargetGroup('', '', 0, 0)
+      targetGroup = this.targetGroupForm.value as TargetGroup
+      this.saveAd(tweet, targetGroup)
+      return
+    }
     if (this.selectedImage) {
       this.tweetService.uploadImage(this.selectedImage).subscribe({
         next: imageId => {
@@ -34,10 +55,20 @@ export class TweetCreateComponent implements OnInit {
         error: err => this.toastrService.error(err.error, 'Error'),
         complete: () => this.saveInProgress = false
       })
-    } else {
-      this.saveTweet(tweet)
+      return
     }
-
+    this.saveTweet(tweet)
+  }
+  saveAd(tweet: UploadTweet, targetGroup: TargetGroup) {
+    this.adService.createAd(tweet, targetGroup).subscribe({
+      next: ad => {
+        ad.likesCount = 0
+        this.createTweetEvent.emit(ad as Tweet);
+        this.createTweetForm.reset()
+      },
+      error: err => this.toastrService.error(err.error, 'Error'),
+      complete: () => this.saveInProgress = false
+    })
   }
   saveTweet(tweet: UploadTweet) {
     this.tweetService.createTweet(tweet).subscribe({

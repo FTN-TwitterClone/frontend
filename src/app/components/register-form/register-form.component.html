@@ -109,7 +109,16 @@
                     </option>
                 </select>
             </div>
-
+            <div class="mb-3">
+                <label class="form-label" for="age">Age</label>
+                <input type="number" class="form-control" id="age" name="age" placeholder="age" formControlName="yearOfBirth">
+                <div *ngIf="ageRegular?.invalid && (ageRegular?.dirty || ageRegular?.touched)"
+                    class="alert alert-danger p-2 mt-1">
+                    <div *ngIf="ageRegular?.errors?.['required']">
+                        Age is required.
+                    </div>
+                </div>
+            </div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-light btn-block text-dark">Register</button>
             </div>

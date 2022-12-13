@@ -31,7 +31,8 @@ export class RegisterFormComponent implements OnInit {
     firstname: ['', Validators.required],
     lastname: ['', Validators.required],
     town: ['', Validators.required],
-    gender: [EGender.MALE]
+    gender: [EGender.MALE, Validators.required],
+    yearOfBirth: [0, Validators.required]
   })
   constructor(private authService: AuthenticationService, private reCaptchaV3Service: ReCaptchaV3Service, private router: Router, private toastrService: ToastrService) { }
 
@@ -85,4 +86,5 @@ export class RegisterFormComponent implements OnInit {
   get lastnameRegular() { return this.regularUserRegisterForm.get('lastname') }
   get townRegular() { return this.regularUserRegisterForm.get('town') }
   get passwordRegular() { return this.regularUserRegisterForm.get('password') }
+  get ageRegular() { return this.regularUserRegisterForm.get('age') }
 }

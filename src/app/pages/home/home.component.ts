@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private tweetService: TweetService,
     private toastrService: ToastrService) { }
-
   ngOnInit(): void {
     this.getTweets()
   }

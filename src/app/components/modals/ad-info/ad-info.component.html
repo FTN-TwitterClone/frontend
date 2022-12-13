@@ -1,0 +1,21 @@
+<div class="modal fade" id="{{uniqueId}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{title}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" *ngIf="adInfo">
+                <p><b>Id:</b> {{adInfo.tweetId}}</p>
+                <p><b>Posted by:</b> {{adInfo.postedBy}}</p>
+                <p><b>Town:</b> {{adInfo.town}}</p>
+                <p><b>Gender:</b> {{adInfo.gender}}</p>
+                <p><b>Min age:</b> {{adInfo.minAge}}</p>
+                <p><b>Max age:</b> {{adInfo.maxAge}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
