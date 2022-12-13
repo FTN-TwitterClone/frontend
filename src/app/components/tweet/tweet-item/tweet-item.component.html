@@ -13,18 +13,17 @@
             {{tweet.timestamp | date:"dd/MM/YYHH:mm"}}
           </span>
         </span>
-        <span class="badge rounded-pill text-bg-secondary float-lg-end d-lg-block" *ngIf="tweet.ad">
+        <span class="ms-1 badge rounded-pill text-bg-secondary float-lg-end d-lg-block" *ngIf="tweet.ad">
           advertisement
         </span>
-        <!--  add if logged in user == originaly posted by user -->
-        <button type="button" class="button btn ms-1 badge rounded-pill text-bg-info float-lg-end d-lg-block"
-          *ngIf="tweet.ad" data-bs-toggle="modal" [attr.data-bs-target]="'#ad'+tweet.id" (click)="onGetAdInfo()">
-          info
-        </button>
-        <button type="button" class="button btn ms-1 badge rounded-pill text-bg-info float-lg-end d-lg-block"
-          *ngIf="tweet.ad" data-bs-toggle="modal" [attr.data-bs-target]="'#report-'+tweet.id">
-          report
-        </button>
+        <span *ngIf="canViewBusinessButtons && tweet.ad">
+          <button type="button" class="button btn ms-1 badge rounded-pill text-bg-info float-lg-end d-lg-block" data-bs-toggle="modal" [attr.data-bs-target]="'#ad'+tweet.id" (click)="onGetAdInfo()">
+            info
+          </button>
+          <button type="button" class="button btn ms-1 badge rounded-pill text-bg-info float-lg-end d-lg-block" data-bs-toggle="modal" [attr.data-bs-target]="'#report-'+tweet.id">
+            report
+          </button>
+        </span>
         <span class="ms-2 d-block" *ngIf="tweet.retweet">
           <span class="badge bg-primary">
             <a class="ms-2 text-decoration-none text-light" routerLink="/profile/{{tweet.originalPostedBy}}">

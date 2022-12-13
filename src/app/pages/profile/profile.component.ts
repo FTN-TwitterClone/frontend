@@ -1,7 +1,7 @@
-import { Component, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { takeUntil } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
 import { AdService } from 'src/app/services/ad.service';
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
       next: param => {
         param['fromAd'] ? this.adService.adProfileVisited(param['fromAd']).subscribe() : ''
       },
-      error: err => this.toastrService.error(err.error, 'Error'),
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   addTweet(tweet: Tweet) {

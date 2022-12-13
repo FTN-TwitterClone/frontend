@@ -1,4 +1,4 @@
 export enum ERole {
-    REGULAR_USER = 'Regular user',
-    BUSINESS_USER = 'Business user'
+    REGULAR_USER = 'ROLE_USER',
+    BUSINESS_USER = 'ROLE_BUSINESS'
 }
