@@ -17,10 +17,15 @@
         <span class="badge rounded-pill text-bg-secondary float-lg-end d-lg-block" *ngIf="tweet.ad">
           advertisement
         </span>
-        <button type="button" class="button btn ms-1 badge rounded-pill text-bg-info float-lg-end d-lg-block" *ngIf="tweet.ad"
-          data-bs-toggle="modal" [attr.data-bs-target]="'#ad'+tweet.id" (click)="onGetAdInfo()">
+        <!--  add if logged in user == originaly posted by user -->
+        <button type="button" class="button btn ms-1 badge rounded-pill text-bg-info float-lg-end d-lg-block"
+          *ngIf="tweet.ad" data-bs-toggle="modal" [attr.data-bs-target]="'#ad'+tweet.id" (click)="onGetAdInfo()">
           info
-      </button>
+        </button>
+        <button type="button" class="button btn ms-1 badge rounded-pill text-bg-info float-lg-end d-lg-block"
+          *ngIf="tweet.ad" data-bs-toggle="modal" [attr.data-bs-target]="'#report-'+tweet.id">
+          report
+        </button>
         <span class="ms-2 d-block" *ngIf="tweet.retweet">
           <span class="badge bg-primary">
             <a class="ms-2 text-decoration-none text-light" routerLink="/profile/{{tweet.originalPostedBy}}">
@@ -35,3 +40,4 @@
   <app-tweet-actions [tweet]="tweet" (retweetEventEmitter)="onRetweet($event)"></app-tweet-actions>
 </div>
 <app-ad-info [uniqueId]="'ad'+tweet.id" [adInfo]="adInfo"></app-ad-info>
+<app-ad-report [uniqueId]="'report-'+tweet.id" [tweetId]="tweet.id"></app-ad-report>

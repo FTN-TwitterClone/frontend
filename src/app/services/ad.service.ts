@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
-import { TweetViewTime } from '../model/Ad.model';
+import { Report, TweetViewTime } from '../model/Ad.model';
 import { TargetGroup } from '../model/TargetGroup.model';
 import { Tweet, UploadTweet } from '../model/Tweet.model';
 import { AdInfo } from '../model/Ad.model';
@@ -23,5 +23,14 @@ export class AdService {
   }
   getInfo(adId: string) {
     return this.http.get<AdInfo>(`${environment.api}/ads/${adId}/info/`)
+  }
+  adProfileVisited(adId: string) {
+    return this.http.post(`${environment.api}/ads/${adId}/visit/`, {})
+  }
+  getDailyReport(adId: string, year: number, month: number, day: number) {
+    return this.http.get<Report>(`${environment.api}/ads/${adId}/reports/${year}/${month}/${day}/`)
+  }
+  getMonthlyReport(adId: string, year: number, month: number) {
+    return this.http.get<Report>(`${environment.api}/ads/${adId}/reports/${year}/${month}/`)
   }
 }

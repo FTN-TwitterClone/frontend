@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { User } from 'src/app/model/User.model';
+import { AdService } from 'src/app/services/ad.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
 import { TweetService } from 'src/app/services/tweet.service';
@@ -29,19 +30,28 @@ export class ProfileComponent implements OnInit {
     private tweetService: TweetService,
     private route: ActivatedRoute,
     private jwtUtilsService: JwtUtilsService,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService,
+    private adService: AdService) { }
 
 
   ngOnInit(): void {
     this.route.params.subscribe({
       next: param => {
-        this.profileService.getUser(param['username']).subscribe({
-          next: user => {
-            this.user = user as User
-            this.loadProfile()
-          }
-        })
+        if (param['username']) {
+          this.profileService.getUser(param['username']).subscribe({
+            next: user => {
+              this.user = user as User
+              this.loadProfile()
+            }
+          })
+        }
       }
+    })
+    this.route.queryParams.subscribe({
+      next: param => {
+        param['fromAd'] ? this.adService.adProfileVisited(param['fromAd']) : ''
+      },
+      error: err => this.toastrService.error(err.error, 'Error')
     })
   }
   addTweet(tweet: Tweet) {

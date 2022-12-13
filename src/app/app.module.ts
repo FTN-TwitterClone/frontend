@@ -42,6 +42,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { FirstnameValidatorComponent } from './components/validators/firstname-validator/firstname-validator.component';
 import { AdsComponent } from './pages/ads/ads.component';
 import { AdInfoComponent } from './components/modals/ad-info/ad-info.component';
+import { AdReportComponent } from './components/modals/ad-report/ad-report.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { AdInfoComponent } from './components/modals/ad-info/ad-info.component';
     RegisterFormComponent,
     FirstnameValidatorComponent,
     AdsComponent,
-    AdInfoComponent
+    AdInfoComponent,
+    AdReportComponent
   ],
   imports: [
     BrowserModule,

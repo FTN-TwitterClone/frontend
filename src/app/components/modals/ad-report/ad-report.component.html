@@ -1,0 +1,54 @@
+<div class="modal fade" id="{{uniqueId}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Report</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" *ngIf="tweetId">
+                <form [formGroup]="reportForm">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Year</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" formControlName="year"
+                            name="year" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Month</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" formControlName="month"
+                            name="month" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Day</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" formControlName="day"
+                            name="day" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">Leave 0 if u want monthly report.</div>
+                    </div>
+
+                </form>
+                <div class="mb-2">
+                    <button class="btn btn-primary btn-sm me-1" (click)="onGetDailyReport()">Daily</button>
+                    <button class="btn btn-primary btn-sm" (click)="onGetMonthlyReport()">Monthly</button>
+                </div>
+                <div class="card" *ngIf="report">
+                    <div class="card-header">
+                        Report info [{{report.day}} - {{report.month}} - {{report.year}}]
+                    </div>
+                    <div class="card-body" *ngIf="report.day > 0 || report.month > 0;else noReports">
+                        <p><b>Unlikes: </b>{{report.unlikesCount}}</p>
+                        <p><b>Likes: </b>{{report.likesCount}}</p>
+                        <p><b>Average view time: </b>{{report.averageViewTime}}</p>
+                        <p><b>Profile visits: </b>{{report.profileVisits}}</p>
+                    </div>
+                    <ng-template #noReports>
+                        <div class="card-body">
+                            No reports.
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

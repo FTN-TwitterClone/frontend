@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AdInfo, TweetViewTime } from 'src/app/model/Ad.model';
+import { AdInfo, Report, TweetViewTime } from 'src/app/model/Ad.model';
 import { Tweet } from 'src/app/model/Tweet.model';
 import { AdService } from 'src/app/services/ad.service';
 import { JwtUtilsService } from 'src/app/services/security/jwt-utils.service';
@@ -16,6 +16,7 @@ export class TweetItemComponent implements OnInit {
   private observer!: IntersectionObserver
   @Input() adInfo!: AdInfo
   originalPostedBy: boolean = false
+  report!: Report
   constructor(
     private adService: AdService,
     private toastrService: ToastrService
@@ -29,10 +30,9 @@ export class TweetItemComponent implements OnInit {
       this.observer = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting === true) {
           interval = setInterval(() => {
-              intersectingTime++
+            intersectingTime++
           }, 100)
         } else {
-          console.log('viewing ' + intersectingTime + ' sec.')
           this.adService.adViewed(this.tweet.id, new TweetViewTime(intersectingTime))
           intersectingTime = 0
         }
