@@ -47,12 +47,9 @@ export class TweetItemComponent implements OnInit {
         } else {
           this.timerSub?.unsubscribe()
           this.adService.adViewed(this.tweet.id, new TweetViewTime(this.secondsViewingTime)).subscribe({
-            error: err => this.toastrService.error(err.error, 'Error'),
-            complete: () => {
-              '[**TESTING**] adView time saved with total time: ' + this.secondsViewingTime + 's'
-              this.secondsViewingTime = 0
-            }
+            error: err => this.toastrService.error(err.error, 'Error')
           })
+          this.secondsViewingTime = 0
         }
       }, {
         threshold: 1
