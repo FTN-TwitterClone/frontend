@@ -40,26 +40,30 @@ export class TweetCreateComponent implements OnInit {
   onSubmit() {
     this.saveInProgress = true
     let tweet: UploadTweet = new UploadTweet('', this.text as string)
-    if (this.isAd) {
-      let targetGroup: TargetGroup = new TargetGroup('', '', 0, 0)
-      targetGroup = this.targetGroupForm.value as TargetGroup
-      this.saveAd(tweet, targetGroup)
-      return
-    }
     if (this.selectedImage) {
       this.tweetService.uploadImage(this.selectedImage).subscribe({
         next: imageId => {
           tweet.imageId = imageId
-          this.saveTweet(tweet)
+          if (this.isAd) {
+            this.saveAd(tweet)
+          } else {
+            this.saveTweet(tweet)
+          }
         },
-        error: err => this.toastrService.error(err.error, 'Error'),
+        error: err => this.toastrService.error(err.error, "Error"),
         complete: () => this.saveInProgress = false
       })
       return
     }
-    this.saveTweet(tweet)
+    if (this.isAd) {
+      this.saveAd(tweet)
+    } else {
+      this.saveTweet(tweet)
+    }
   }
-  saveAd(tweet: UploadTweet, targetGroup: TargetGroup) {
+  saveAd(tweet: UploadTweet) {
+    let targetGroup: TargetGroup = new TargetGroup('', '', 0, 0)
+    targetGroup = this.targetGroupForm.value as TargetGroup
     this.adService.createAd(tweet, targetGroup).subscribe({
       next: ad => {
         ad.likesCount = 0
@@ -67,7 +71,10 @@ export class TweetCreateComponent implements OnInit {
         this.createTweetForm.reset()
       },
       error: err => this.toastrService.error(err.error, 'Error'),
-      complete: () => this.saveInProgress = false
+      complete: () => {
+        this.saveInProgress = false
+        this.toastrService.success('Ad posted successfully.', 'Success')
+      }
     })
   }
   saveTweet(tweet: UploadTweet) {
