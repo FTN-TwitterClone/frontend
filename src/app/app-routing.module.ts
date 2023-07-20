@@ -13,8 +13,10 @@ import { RecoverAccountComponent } from './pages/recover-account/recover-account
 import { RegisterComponent } from './pages/register/register.component';
 import { BusinessUserCanActivateGuard } from './services/security/business-user-can-activate.guard';
 import { CanActivateAuthGuard } from './services/security/can-activate-auth.guard';
+import { ShareTweetComponent } from './pages/share-tweet/share-tweet.component';
 
 const routes: Routes = [
+  { path: 'share_reddit_redirect', component: ShareTweetComponent, title: 'Twitter Clone | Share on Reddit' },
   { path: 'recover/:recoveryId', component: RecoverAccountComponent, title: 'Twitter Clone | Recover Account' },
   { path: 'forgot-password', component: ForgotPasswordComponent, title: 'Twitter Clone | Forgot Password' },
   { path: 'ads', component: AdsComponent, canActivate: [CanActivateAuthGuard, BusinessUserCanActivateGuard] },

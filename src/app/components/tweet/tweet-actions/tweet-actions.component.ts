@@ -58,4 +58,11 @@ export class TweetActionsComponent implements OnInit {
       error: err => this.toastrService.error(err.error, 'Error')
     })
   }
+  onShareReddit(id: string) {
+    let state = Math.random().toString(36).slice(2, 15);
+
+    localStorage.setItem(state, this.tweet.text);
+
+    window.location.href='https://localhost:9090/authorize?redirect_uri=localhost%3A4200%2Fshare_reddit_redirect&response_type=code&client_id=81935b0a-f4ad-466b-802a-9abde6a02fb5&scope=create_post&state=' + state
+  }
 }

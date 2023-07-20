@@ -43,6 +43,7 @@ import { FirstnameValidatorComponent } from './components/validators/firstname-v
 import { AdsComponent } from './pages/ads/ads.component';
 import { AdInfoComponent } from './components/modals/ad-info/ad-info.component';
 import { AdReportComponent } from './components/modals/ad-report/ad-report.component';
+import { ShareTweetComponent } from './pages/share-tweet/share-tweet.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { AdReportComponent } from './components/modals/ad-report/ad-report.compo
     FirstnameValidatorComponent,
     AdsComponent,
     AdInfoComponent,
-    AdReportComponent
+    AdReportComponent,
+    ShareTweetComponent
   ],
   imports: [
     BrowserModule,

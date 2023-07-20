@@ -20,6 +20,8 @@
             </span>
         </ng-template>
     </button>
+    <button class="btn btn-primary ms-auto" title="Retweet" (click)="onShareReddit(tweet.id)"><i
+            class="bi bi-arrow-repeat">&nbsp;</i>Share on Reddit</button>
     <button class="btn btn-primary ms-auto" title="Retweet" (click)="onRetweet(tweet.id)" *ngIf="!tweet.retweet"><i
             class="bi bi-arrow-repeat">&nbsp;</i>Retweet</button>
 </div>
