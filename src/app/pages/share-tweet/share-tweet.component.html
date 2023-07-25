@@ -1,1 +1,12 @@
-<p>share-tweet works!</p>
+<p>community</p>
+
+<select (input)="onSetCommunity($event)">
+    <option *ngFor="let community of communities"
+            [value]="community.id">
+        {{ community.name }}
+    </option>
+</select>
+
+<p>{{ text }}</p>
+
+<button (click)="onShare()">share on reddit</button>

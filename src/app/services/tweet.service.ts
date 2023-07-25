@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Tweet, UploadTweet } from '../model/Tweet.model';
+import { Code } from '../model/Code.model';
+import { ShareTweet } from '../model/ShareTweet.model';
+import { RedditCommunity } from '../model/RedditCommunity.model';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +69,14 @@ export class TweetService {
     console.log('Form data => ' + formData)
     return this.http.post<string>(`${environment.api}/tweet/tweets/image`, formData);
 
+  }
+  postRedditCode(code: Code) {
+    return this.http.post(`${environment.api}/tweet/tweets/reddit/code`, JSON.stringify(code))
+  }
+  getRedditCommunities() {
+    return this.http.get<RedditCommunity[]>(`${environment.api}/tweet/tweets/reddit/communities`)
+  }
+  shareTweetReddit(shareTweet: ShareTweet) {
+    return this.http.post(`${environment.api}/tweet/tweets/reddit/share`, JSON.stringify(shareTweet))
   }
 }
