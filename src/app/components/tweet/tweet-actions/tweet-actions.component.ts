@@ -63,6 +63,6 @@ export class TweetActionsComponent implements OnInit {
 
     localStorage.setItem(state, this.tweet.text);
 
-    window.location.href='https://localhost:9090/authorize?redirect_uri=localhost%3A4200%2Fshare_reddit_redirect&response_type=code&client_id=81935b0a-f4ad-466b-802a-9abde6a02fb5&scope=create_post&state=' + state
+    window.location.href='http://localhost:9090/authorize?redirect_uri=https%3A%2F%2Flocalhost%3A4200%2Fshare_reddit_redirect&response_type=code&client_id=81935b0a-f4ad-466b-802a-9abde6a02fb5&scope=create_post&state=' + state
   }
 }
